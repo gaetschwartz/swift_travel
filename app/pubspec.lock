@@ -230,10 +230,10 @@ packages:
     dependency: "direct main"
     description:
       name: cross_file
-      sha256: f71079978789bc2fe78d79227f1f8cfe195b31bbd8db2399b0d15a4b96fb843b
+      sha256: "0b0036e8cccbfbe0555fd83c1d31a6f30b77a96b598b35a5d36dd41f718695e9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3+2"
+    version: "0.3.3+4"
   crypto:
     dependency: transitive
     description:
@@ -453,7 +453,7 @@ packages:
     description:
       path: "packages/logging"
       ref: HEAD
-      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      resolved-ref: db0930c7db6f9170659cd399ab00f346bf3a0ffb
       url: "https://github.com/gaetschwartz/gaet_utils.git"
     source: git
     version: "0.0.1"
@@ -525,10 +525,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: "8f099045e2f2a30e4d4d0a35f40c6bc941a8f2ca0e10ad9d214ee9edd3f37483"
+      sha256: "927573f2e8a8d65c17931e21918ad0ab0666b1b636537de7c4932bdb487b190f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "4.0.3"
   graphs:
     dependency: transitive
     description:
@@ -605,10 +605,10 @@ packages:
     dependency: "direct main"
     description:
       name: in_app_purchase_android
-      sha256: af89a844c3f2dfddcfc895334464ab27b07938910d6288de2daf0f8f2fefdad5
+      sha256: "8b99a337dfcd7987bc096fc365dd8554e020c798d237b9b9346f89baea300b00"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3+9"
+    version: "0.2.4+1"
   in_app_purchase_platform_interface:
     dependency: transitive
     description:
@@ -621,10 +621,10 @@ packages:
     dependency: "direct main"
     description:
       name: in_app_purchase_storekit
-      sha256: e8ddf8649fab5a6c02f2d16f25f5713d1a482e4faffcabfa0189e1aa75d7548c
+      sha256: "34ae209cb68b91ad0e67aa3413a97ed4df4bd4117c687c91f4cfeda616a76188"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.4+1"
+    version: "0.3.5+2"
   integration_test:
     dependency: "direct dev"
     description: flutter
@@ -690,10 +690,10 @@ packages:
     dependency: "direct dev"
     description:
       name: json_serializable
-      sha256: "040088d9eb2337f3a51ddabe35261e2fea1c351e3dd29d755ed1290b6b700a75"
+      sha256: dadc08bd61f72559f938dd08ec20dbfec6c709bba83515085ea943d2078d187a
       url: "https://pub.dev"
     source: hosted
-    version: "6.6.0"
+    version: "6.6.1"
   lint:
     dependency: "direct dev"
     description:
@@ -1082,10 +1082,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: "1ffa239043ab8baf881ec3094a3c767af9d10399b2839020b9e4d44c0bb23951"
+      sha256: "2b55c18636a4edc529fa5cd44c03d3f3100c00513f518c5127c951978efcccd0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -1151,10 +1151,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "2d79738b6bbf38a43920e2b8d189e9a3ce6cc201f4b8fc76be5e4fe377b1c38d"
+      sha256: c2bea18c95cfa0276a366270afaa2850b09b4a76db95d546f3d003dcc7011298
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.6"
+    version: "1.2.7"
   source_helper:
     dependency: transitive
     description:
@@ -1248,7 +1248,7 @@ packages:
     description:
       path: "packages/theming"
       ref: HEAD
-      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      resolved-ref: db0930c7db6f9170659cd399ab00f346bf3a0ffb
       url: "https://github.com/gaetschwartz/gaet_utils.git"
     source: git
     version: "0.0.1"
@@ -1369,7 +1369,7 @@ packages:
     description:
       path: "packages/vibration"
       ref: HEAD
-      resolved-ref: e9f68361bff21c5791b7537b89d68e3dbb1accda
+      resolved-ref: db0930c7db6f9170659cd399ab00f346bf3a0ffb
       url: "https://github.com/gaetschwartz/gaet_utils.git"
     source: git
     version: "0.0.1"
