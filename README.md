@@ -1,8 +1,7 @@
 
-[![codecov](https://codecov.io/gh/gaetschwartz/swift_travel/branch/master/graph/badge.svg?token=BS53B3CBIN)](https://codecov.io/gh/gaetschwartz/swift_travel) 
-[![test](https://github.com/gaetschwartz/swift_travel/actions/workflows/test.yml/badge.svg)](https://github.com/gaetschwartz/swift_travel/actions/workflows/test.yml)
-
 <img src="/docs/assets/pictures/header-bg-custom-128.0.png"> 
+
+[![test](https://github.com/gaetschwartz/swift_travel/actions/workflows/test.yml/badge.svg)](https://github.com/gaetschwartz/swift_travel/actions/workflows/test.yml)
 
 This is an open-source public transport app packed with cool features 😎
 
