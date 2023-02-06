@@ -32,7 +32,7 @@ else
   # if envman is available, set the env vars for the next step
   if [ -n "$(which envman)" ]; then
     echo "Setting env vars for the next step"
-    envman add --key FLUTTER_ARCHIVE_URL --value $archive_url
+    envman add --key FLUTTER_ARCHIVE_URL --value "$base_url/$archive_url"
   else
     echo "envman not available, setting regular env vars"
     export FLUTTER_ARCHIVE_URL="$base_url/$archive_url"
