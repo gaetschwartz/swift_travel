@@ -244,7 +244,7 @@ class BuildDetailsWidget extends ConsumerWidget {
     return ListTile(
       isThreeLine: true,
       dense: true,
-      title: const Text(commitMessage),
+      title: Text(commitMessage),
       subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
       onTap: () async => onTap(context, ref),
       onLongPress: () async {

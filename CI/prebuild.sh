@@ -7,25 +7,19 @@ if [ -z "$GIT_SHORT_SHA" ] || [ -z "$COMMIT_MSG" ] || [ -z "$COMMIT_NUMBER" ] ||
   exit 0
 fi
 
-now=$(date +"%A %d %B %Y - %H:%M:%S")
+now_str=$(date +"%A %d %B %Y - %H:%M:%S")
+now=$(date +%s000)
 
-# function that escapes all :
-#   * quotes (" and ')
-#   * newlines
-#   * backslashes
-#
-# using python's json.dumps
-function escape_quotes {
-  python -c "import sys, json; print(json.dumps(sys.argv[1])[1:-1])" "$1"
-}
-
-ESCAPED_COMMIT_MSG=$(escape_quotes "$COMMIT_MSG")
+BASE64_COMMIT_MSG=$(base64 <<<"$COMMIT_MSG")
 
 cat >lib/constants/build.dart <<-EOM
-const String commitBuildDate = '${now}';
-const String commitHash = '${GIT_SHORT_SHA}';
-const String commitMessage = '${ESCAPED_COMMIT_MSG}';
-const String buildNumber = '${COMMIT_NUMBER}';
+import 'dart:convert';
+
+const commitBuildDate = '${now_str}';
+const commitHash = '${GIT_SHORT_SHA}';
+const commitMessageBase64 = '${BASE64_COMMIT_MSG}';
+final commitMessage = utf8.decode(base64.decode(commitMessageBase64));
+const buildNumber = '${COMMIT_NUMBER}';
 EOM
 
 echo "=== build.dart ==="
@@ -35,10 +29,6 @@ echo "=================="
 cat >assets/config.json <<-EOM
 {"sncfKey": "$SNCF_KEY", "triasKey": "$TRIAS_KEY"}
 EOM
-
-echo "=== config.json ==="
-cat assets/config.json
-echo "=================="
 
 # write key properties
 echo "$KEY_PROPERTIES" >android/key.properties
