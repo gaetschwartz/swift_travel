@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
@@ -24,6 +23,7 @@ import 'package:swift_travel/widgets/if_wrapper.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:swift_travel/widgets/route.dart';
 import 'package:theming/responsive.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -220,28 +220,39 @@ class BuildDetailsWidget extends ConsumerWidget {
   });
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
-    final controller = ref.read(_tapCountProvider.notifier);
+    final notifier = ref.read(_tapCountProvider.notifier);
 
-    if (controller.state == 6) {
+    if (isDeveloper(notifier)) {
       unawaited(ref.read(preferencesProvider).isDeveloper.setValue(true));
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('You are now a developer 😎')));
     } else {
-      controller.state++;
+      notifier.state++;
     }
   }
 
+  bool isDeveloper(StateController<int> notifier) => notifier.state >= 7;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListTile(
-        isThreeLine: true,
-        dense: true,
-        title: const Text(commitMessage),
-        subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
-        onTap: () async => onTap(context, ref),
-        onLongPress: () async {
-          await Clipboard.setData(const ClipboardData(text: commitHash));
-        });
+    return AnimatedBuilder(
+      animation: ref.read(preferencesProvider).isDeveloper,
+      builder: (context, child) {
+        return ListTile(
+          isThreeLine: true,
+          dense: true,
+          title: const Text(commitMessage),
+          subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
+          onTap: () async => onTap(context, ref),
+          onLongPress: () async {
+            if (isDeveloper(ref.read(_tapCountProvider.notifier))) {
+              await launchUrlString(
+                  'https://github.com/gaetschwartz/swift_travel/commit/$commitHash');
+            }
+          },
+        );
+      },
+    );
   }
 }
 
