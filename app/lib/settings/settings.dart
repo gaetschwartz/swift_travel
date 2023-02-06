@@ -222,35 +222,36 @@ class BuildDetailsWidget extends ConsumerWidget {
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final notifier = ref.read(_tapCountProvider.notifier);
 
-    if (isDeveloper(notifier)) {
-      unawaited(ref.read(preferencesProvider).isDeveloper.setValue(true));
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('You are now a developer 😎')));
+    if (notifier.state >= minimumTapCount) {
+      await ref.read(preferencesProvider).isDeveloper.setValue(true);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('You are now a developer 😎')));
+      }
     } else {
       notifier.state++;
     }
   }
 
-  bool isDeveloper(StateController<int> notifier) => notifier.state >= 7;
+  static const minimumTapCount = 7;
+
+  bool isDeveloper(WidgetRef ref) =>
+      ref.read(_tapCountProvider.notifier).state >= minimumTapCount ||
+      ref.read(preferencesProvider).isDeveloper.value;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AnimatedBuilder(
-      animation: ref.read(preferencesProvider).isDeveloper,
-      builder: (context, child) {
-        return ListTile(
-          isThreeLine: true,
-          dense: true,
-          title: const Text(commitMessage),
-          subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
-          onTap: () async => onTap(context, ref),
-          onLongPress: () async {
-            if (isDeveloper(ref.read(_tapCountProvider.notifier))) {
-              await launchUrlString(
-                  'https://github.com/gaetschwartz/swift_travel/commit/$commitHash');
-            }
-          },
-        );
+    return ListTile(
+      isThreeLine: true,
+      dense: true,
+      title: const Text(commitMessage),
+      subtitle: const Text('$buildNumber • $commitBuildDate\n$commitHash'),
+      onTap: () async => onTap(context, ref),
+      onLongPress: () async {
+        if (isDeveloper(ref)) {
+          await launchUrlString(
+              'https://github.com/gaetschwartz/swift_travel/commit/$commitHash');
+        }
       },
     );
   }
