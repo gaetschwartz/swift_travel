@@ -52,7 +52,7 @@ jobs:
 
   build-android:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     name: build android
     steps:
       - name: Checkout
@@ -117,7 +117,7 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     name: build windows
     steps:
       - name: Checkout
