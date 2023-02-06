@@ -30,7 +30,6 @@ import 'package:swift_travel/utils/definitions.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/contacts.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:swift_travel/widgets/listener.dart';
 import 'package:swift_travel/widgets/vehicle_icon.dart';
 import 'package:vibration/vibration.dart';
 
@@ -332,18 +331,17 @@ class _ClearButton extends StatelessWidget {
   final LocationTextBoxManager binder;
 
   @override
-  Widget build(BuildContext context) =>
-      ListenableBuilder<TextEditingController>(
-        builder: (context, listenable, child) => AnimatedOpacity(
-          opacity: listenable.text.isEmpty ? 0 : 1,
+  Widget build(BuildContext context) => AnimatedBuilder(
+        builder: (context, child) => AnimatedOpacity(
+          opacity: binder.controller.text.isEmpty ? 0 : 1,
           duration: const Duration(milliseconds: 500),
           child: IconButton(
             color: CupertinoTheme.of(context).primaryColor,
-            onPressed: listenable.text.isEmpty ? null : binder.clear,
+            onPressed: binder.controller.text.isEmpty ? null : binder.clear,
             icon: const Icon(CupertinoIcons.clear),
           ),
         ),
-        listenable: binder.controller,
+        animation: binder.controller,
       );
 }
 
@@ -458,9 +456,9 @@ class _Results extends StatelessWidget {
             bottom: 0,
             right: 0,
             left: 0,
-            child: ListenableBuilder(
-              listenable: focusNode,
-              builder: (context, _, __) {
+            child: AnimatedBuilder(
+              animation: focusNode,
+              builder: (context, _) {
                 return SafeArea(
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 500),

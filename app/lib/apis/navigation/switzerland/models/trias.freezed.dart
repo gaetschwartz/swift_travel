@@ -16,11 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TriasLocation {
-  String get stopPointName => throw _privateConstructorUsedError;
-  String get stopPointRef => throw _privateConstructorUsedError;
+  String? get stopPointName => throw _privateConstructorUsedError;
+  String? get stopPointRef => throw _privateConstructorUsedError;
   TriasGeoPosition get geoPosition => throw _privateConstructorUsedError;
   bool get complete => throw _privateConstructorUsedError;
-  double get probability => throw _privateConstructorUsedError;
+  double? get probability => throw _privateConstructorUsedError;
   List<TriasPtMode> get modes => throw _privateConstructorUsedError;
   double? get dist => throw _privateConstructorUsedError;
 
@@ -36,11 +36,11 @@ abstract class $TriasLocationCopyWith<$Res> {
       _$TriasLocationCopyWithImpl<$Res, TriasLocation>;
   @useResult
   $Res call(
-      {String stopPointName,
-      String stopPointRef,
+      {String? stopPointName,
+      String? stopPointRef,
       TriasGeoPosition geoPosition,
       bool complete,
-      double probability,
+      double? probability,
       List<TriasPtMode> modes,
       double? dist});
 
@@ -60,23 +60,23 @@ class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointName = null,
-    Object? stopPointRef = null,
+    Object? stopPointName = freezed,
+    Object? stopPointRef = freezed,
     Object? geoPosition = null,
     Object? complete = null,
-    Object? probability = null,
+    Object? probability = freezed,
     Object? modes = null,
     Object? dist = freezed,
   }) {
     return _then(_value.copyWith(
-      stopPointName: null == stopPointName
+      stopPointName: freezed == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
-              as String,
-      stopPointRef: null == stopPointRef
+              as String?,
+      stopPointRef: freezed == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       geoPosition: null == geoPosition
           ? _value.geoPosition
           : geoPosition // ignore: cast_nullable_to_non_nullable
@@ -85,10 +85,10 @@ class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
           ? _value.complete
           : complete // ignore: cast_nullable_to_non_nullable
               as bool,
-      probability: null == probability
+      probability: freezed == probability
           ? _value.probability
           : probability // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       modes: null == modes
           ? _value.modes
           : modes // ignore: cast_nullable_to_non_nullable
@@ -118,11 +118,11 @@ abstract class _$$_TriasLocationCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String stopPointName,
-      String stopPointRef,
+      {String? stopPointName,
+      String? stopPointRef,
       TriasGeoPosition geoPosition,
       bool complete,
-      double probability,
+      double? probability,
       List<TriasPtMode> modes,
       double? dist});
 
@@ -141,23 +141,23 @@ class __$$_TriasLocationCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopPointName = null,
-    Object? stopPointRef = null,
+    Object? stopPointName = freezed,
+    Object? stopPointRef = freezed,
     Object? geoPosition = null,
     Object? complete = null,
-    Object? probability = null,
+    Object? probability = freezed,
     Object? modes = null,
     Object? dist = freezed,
   }) {
     return _then(_$_TriasLocation(
-      stopPointName: null == stopPointName
+      stopPointName: freezed == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
-              as String,
-      stopPointRef: null == stopPointRef
+              as String?,
+      stopPointRef: freezed == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       geoPosition: null == geoPosition
           ? _value.geoPosition
           : geoPosition // ignore: cast_nullable_to_non_nullable
@@ -166,10 +166,10 @@ class __$$_TriasLocationCopyWithImpl<$Res>
           ? _value.complete
           : complete // ignore: cast_nullable_to_non_nullable
               as bool,
-      probability: null == probability
+      probability: freezed == probability
           ? _value.probability
           : probability // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       modes: null == modes
           ? _value._modes
           : modes // ignore: cast_nullable_to_non_nullable
@@ -190,23 +190,22 @@ class _$_TriasLocation extends _TriasLocation {
       required this.stopPointRef,
       required this.geoPosition,
       required this.complete,
-      this.probability = 1.0,
+      this.probability,
       final List<TriasPtMode> modes = const <TriasPtMode>[],
       this.dist})
       : _modes = modes,
         super._();
 
   @override
-  final String stopPointName;
+  final String? stopPointName;
   @override
-  final String stopPointRef;
+  final String? stopPointRef;
   @override
   final TriasGeoPosition geoPosition;
   @override
   final bool complete;
   @override
-  @JsonKey()
-  final double probability;
+  final double? probability;
   final List<TriasPtMode> _modes;
   @override
   @JsonKey()
@@ -263,25 +262,25 @@ class _$_TriasLocation extends _TriasLocation {
 
 abstract class _TriasLocation extends TriasLocation {
   const factory _TriasLocation(
-      {required final String stopPointName,
-      required final String stopPointRef,
+      {required final String? stopPointName,
+      required final String? stopPointRef,
       required final TriasGeoPosition geoPosition,
       required final bool complete,
-      final double probability,
+      final double? probability,
       final List<TriasPtMode> modes,
       final double? dist}) = _$_TriasLocation;
   const _TriasLocation._() : super._();
 
   @override
-  String get stopPointName;
+  String? get stopPointName;
   @override
-  String get stopPointRef;
+  String? get stopPointRef;
   @override
   TriasGeoPosition get geoPosition;
   @override
   bool get complete;
   @override
-  double get probability;
+  double? get probability;
   @override
   List<TriasPtMode> get modes;
   @override

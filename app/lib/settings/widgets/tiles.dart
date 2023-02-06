@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
-import 'package:swift_travel/widgets/listener.dart';
 import 'package:swift_travel/widgets/property_page.dart';
 import 'package:theming/responsive.dart';
 
@@ -165,9 +164,10 @@ class _SwiftSettingsPropertyTileState<T>
     return SwiftSettingsTile(
       leading: widget.leading,
       title: widget.title,
-      subtitle: ListenableBuilder<Property<T>>(
-        builder: (context, p, _) => widget.valueBuilder(context, p.value),
-        listenable: widget.property,
+      subtitle: AnimatedBuilder(
+        builder: (context, _) =>
+            widget.valueBuilder(context, widget.property.value),
+        animation: widget.property,
       ),
       onTap: () async {
         if (widget.isAllowedToChangeValue == null ||

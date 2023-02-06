@@ -4,7 +4,6 @@ import 'package:swift_travel/settings/properties/property.dart';
 import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/widgets/tiles.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:swift_travel/widgets/listener.dart';
 import 'package:swift_travel/widgets/route.dart';
 
 @immutable
@@ -83,9 +82,9 @@ class _PropertyPage<T> extends StatelessWidget {
       ),
       child: Padding(
           padding: const EdgeInsets.all(8),
-          child: ListenableBuilder<Property<T>>(
-              listenable: property,
-              builder: (context, prop, _) {
+          child: AnimatedBuilder(
+              animation: property,
+              builder: (context, _) {
                 return ListView.separated(
                   separatorBuilder: (_, __) =>
                       const Divider(indent: 56, thickness: 0.5, height: 0),
@@ -107,7 +106,7 @@ class _PropertyPage<T> extends StatelessWidget {
                         )),
                         leading: Icon(
                           Icons.check,
-                          color: prop.value == c.value
+                          color: property.value == c.value
                               ? IconTheme.of(context).color
                               : Colors.transparent,
                         ),

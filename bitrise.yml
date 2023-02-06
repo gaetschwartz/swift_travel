@@ -10,15 +10,15 @@ workflows:
       - certificate-and-profile-installer@1: {}
       - script@1:
           inputs:
-            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
+            - content: bash $BITRISE_SOURCE_DIR/ci/latest.sh beta
           title: Get latest version
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/bitrise_git_data.sh
           title: Get git data
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/prebuild.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - is_debug: true
           title: Prebuild
@@ -29,7 +29,7 @@ workflows:
             - version: stable
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/bitrise_sksl.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
           title: compute sksl shaders
       - flutter-build@0:
@@ -47,15 +47,15 @@ workflows:
       - certificate-and-profile-installer@1: {}
       - script@1:
           inputs:
-            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
+            - content: bash $BITRISE_SOURCE_DIR/ci/latest.sh beta
           title: Get latest version
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/bitrise_git_data.sh
           title: Get git data
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/prebuild.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - is_debug: true
           title: Prebuild
@@ -86,16 +86,16 @@ workflows:
       - certificate-and-profile-installer@1: {}
       - script@1:
           inputs:
-            - content: bash $BITRISE_SOURCE_DIR/CI/latest.sh beta
+            - content: bash ci/latest.sh $(cat .fvm/fvm_config.json | jq .flutterSdkVersion -r)
           title: Get latest version
       - cache-pull@2: {}
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_git_data.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/bitrise_git_data.sh
           title: Get git data
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/prebuild.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/prebuild.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
             - is_debug: true
           title: Prebuild
@@ -104,7 +104,7 @@ workflows:
             - installation_bundle_url: $FLUTTER_ARCHIVE_URL
       - script-runner@0:
           inputs:
-            - file_path: $BITRISE_SOURCE_DIR/CI/bitrise_sksl.sh
+            - file_path: $BITRISE_SOURCE_DIR/ci/bitrise_sksl.sh
             - working_dir: $BITRISE_FLUTTER_PROJECT_LOCATION
           title: compute sksl shaders
       - script@1:

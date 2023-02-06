@@ -28,6 +28,9 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
   }) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
     final search = const Trias2020RequestBuilder().search(_LocationName(query));
+    if (kDebugMode) {
+      log.i('Querying $url with $search');
+    }
     final res = await client.post(
       url,
       headers: {
@@ -37,11 +40,11 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
       body: search,
     );
     final body = utf8.decode(res.bodyBytes);
-    final parseLocations2 = parseLocations(body);
-    return parseLocations2;
+    final locations = parseLocations(body);
+    return locations.whereUniqueNullableProperty((e) => e.id).toList();
   }
 
-  static List<TriasLocation> parseLocations(String xml) {
+  static Iterable<TriasLocation> parseLocations(String xml) {
     final xmlDocument = XmlDocument.parse(xml);
     final locations = xmlDocument['trias:Trias']?['trias:ServiceDelivery']
                 ?['trias:DeliveryPayload']?['trias:LocationInformationResponse']
@@ -62,7 +65,7 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
       }
 
       throw Exception('Unknown location type');
-    }).toList();
+    });
 
     return completions;
   }
@@ -89,8 +92,8 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
     }).toList();
 
     return TriasLocation(
-      stopPointName: name!,
-      stopPointRef: id!,
+      stopPointName: name,
+      stopPointRef: id,
       geoPosition: TriasGeoPosition.fromXML(geo),
       complete: complete,
       probability: probability,
@@ -119,126 +122,14 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
     }).toList();
 
     return TriasLocation(
-      stopPointName: name ?? 'name',
-      stopPointRef: id ?? 'id',
+      stopPointName: name,
+      stopPointRef: id,
       geoPosition: TriasGeoPosition.fromXML(geo),
       complete: complete,
       probability: probability,
       modes: modes,
     );
   }
-
-/*Parse this xml 
-<?xml version="1.0" encoding="UTF-8"?>
-<trias:Trias xmlns:siri="http://www.siri.org.uk/siri" xmlns:trias="http://www.vdv.de/trias" xmlns:acsb="http://www.ifopt.org.uk/acsb" xmlns:ifopt="http://www.ifopt.org.uk/ifopt" xmlns:datex2="http://datex2.eu/schema/1_0/1_0" version="1.1">
-    <trias:ServiceDelivery>
-        <siri:ResponseTimestamp>2022-02-05T12:53:52Z</siri:ResponseTimestamp>
-        <siri:ProducerRef>EFAController10.4.21.6-OJP-EFA02-P</siri:ProducerRef>
-        <siri:Status>true</siri:Status>
-        <trias:Language>de</trias:Language>
-        <trias:CalcTime>30</trias:CalcTime>
-        <trias:DeliveryPayload>
-            <trias:StopEventResponse>
-                <trias:StopEventResponseContext>
-                    <trias:Situations></trias:Situations>
-                </trias:StopEventResponseContext>
-                <trias:StopEventResult>
-                    <trias:ResultId>ID-86B98FBA-25C1-4DCA-B257-B883CD723B5F</trias:ResultId>
-                    <trias:StopEvent>
-                        <trias:ThisCall>
-                            <trias:CallAtStop>
-                                <trias:StopPointRef>8592813</trias:StopPointRef>
-                                <trias:StopPointName>
-                                    <trias:Text>Genève, Crêts-de-Champel</trias:Text>
-                                    <trias:Language>de</trias:Language>
-                                </trias:StopPointName>
-                                <trias:ServiceDeparture>
-                                    <trias:TimetabledTime>2022-02-05T12:46:00Z</trias:TimetabledTime>
-                                    <trias:EstimatedTime>2022-02-05T12:51:00Z</trias:EstimatedTime>
-                                </trias:ServiceDeparture>
-                                <trias:StopSeqNumber>25</trias:StopSeqNumber>
-                            </trias:CallAtStop>
-                        </trias:ThisCall>
-                        <trias:OnwardCall>
-                            <trias:CallAtStop>
-                                <trias:StopPointRef>8592778</trias:StopPointRef>
-                                <trias:StopPointName>
-                                    <trias:Text>Genève, Amandolier</trias:Text>
-                                    <trias:Language>de</trias:Language>
-                                </trias:StopPointName>
-                                <trias:ServiceArrival>
-                                    <trias:TimetabledTime>2022-02-05T12:51:00Z</trias:TimetabledTime>
-                                    <trias:EstimatedTime>2022-02-05T12:55:00Z</trias:EstimatedTime>
-                                </trias:ServiceArrival>
-                                <trias:ServiceDeparture>
-                                    <trias:TimetabledTime>2022-02-05T12:51:00Z</trias:TimetabledTime>
-                                    <trias:EstimatedTime>2022-02-05T12:55:00Z</trias:EstimatedTime>
-                                </trias:ServiceDeparture>
-                                <trias:StopSeqNumber>5</trias:StopSeqNumber>
-                            </trias:CallAtStop>
-                        </trias:OnwardCall>
-                        <trias:Service>
-                            <trias:OperatingDayRef>2022-02-05</trias:OperatingDayRef>
-                            <trias:JourneyRef>ojp:92011::H:j22:322:9759</trias:JourneyRef>
-                            <trias:LineRef>ojp:92011::H</trias:LineRef>
-                            <trias:DirectionRef>outward</trias:DirectionRef>
-                            <trias:Mode>
-                                <trias:PtMode>bus</trias:PtMode>
-                                <trias:BusSubmode>localBus</trias:BusSubmode>
-                                <trias:Name>
-                                    <trias:Text>Bus</trias:Text>
-                                    <trias:Language>de</trias:Language>
-                                </trias:Name>
-                            </trias:Mode>
-                            <trias:PublishedLineName>
-                                <trias:Text>11</trias:Text>
-                                <trias:Language>de</trias:Language>
-                            </trias:PublishedLineName>
-                            <trias:OperatorRef>ojp:881</trias:OperatorRef>
-                            <trias:OriginStopPointRef>8592843</trias:OriginStopPointRef>
-                            <trias:OriginText>
-                                <trias:Text>Genève, Jardin Botanique</trias:Text>
-                                <trias:Language>de</trias:Language>
-                            </trias:OriginText>
-                            <trias:DestinationStopPointRef>8592829</trias:DestinationStopPointRef>
-                            <trias:DestinationText>
-                                <trias:Text>Genève-Eaux-Vives, gare</trias:Text>
-                                <trias:Language>de</trias:Language>
-                            </trias:DestinationText>
-                        </trias:Service><
-                    </trias:StopEvent>
-                </trias:StopEventResult>
-            </trias:StopEventResponse>
-        </trias:DeliveryPayload>
-    </trias:ServiceDelivery>
-</trias:Trias>
-*/
-  // static TriasStationBoard parseStationboard(String xml) {
-  //   final xmlDocument = XmlDocument.parse(xml);
-  //   final triasElement = xmlDocument.getElement("Trias")!;
-  //   final serviceDeliveryElement = triasElement.getElement("ServiceDelivery")!;
-  //   final deliveryPayloadElement =
-  //       serviceDeliveryElement.getElement("DeliveryPayload")!;
-  //   final stopEventResponseElement =
-  //       deliveryPayloadElement.getElement("StopEventResponse")!;
-  //   final stopEventResultElement =
-  //       stopEventResponseElement.getElement("StopEventResult")!;
-  //   final stopEventElement = stopEventResultElement.getElement("StopEvent")!;
-  //   final service =
-  //       TriasService.fromXML(stopEventElement.getElement("trias:Service")!);
-  //   final thisCall =
-  //       TriasThisCall.fromXML(stopEventElement.getElement("trias:ThisCall")!);
-  //   final onwardCalls = stopEventElement
-  //       .findElements("trias:OnwardCall")
-  //       .map(TriasOnwardCall.fromXML)
-  //       .toList();
-  //   final previousCalls = stopEventElement
-  //       .findElements("trias:PreviousCall")
-  //       .map(TriasPreviousCall.fromXML)
-  //       .toList();
-
-  //   throw UnimplementedError();
-  // }
 
   @override
   void dispose() {
@@ -248,16 +139,20 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
   Future<List<NavigationCompletion>> find(double lat, double lon) async {
     final url = Uri.https('api.opentransportdata.swiss', 'trias2020');
     final coord = TriasGeoPosition(longitude: lon, latitude: lat);
+    final search = const Trias2020RequestBuilder().search(_GeoPosition(
+      lon: lon,
+      lat: lat,
+    ));
+    if (kDebugMode) {
+      log.i('Querying $url with $search');
+    }
     final res = await client.post(
       url,
       headers: {
         'Authorization': apiKey,
         'Content-Type': 'text/xml',
       },
-      body: const Trias2020RequestBuilder().search(_GeoPosition(
-        lon: lon,
-        lat: lat,
-      )),
+      body: search,
     );
     if (kDebugMode) {
       log.log(XmlDocument.parse(utf8.decode(res.bodyBytes))
@@ -271,14 +166,13 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
                 : null,
           ),
         )
+        .whereUniqueNullableProperty((e) => e.id)
         .toList();
   }
 }
 
-double _parseDouble(String? value) {
-  if (value == null) throw ArgumentError('value parsed to double is null');
-  return double.parse(value);
-}
+double? _parseDouble(String? value) =>
+    value == null ? null : double.parse(value);
 
 /// Hacky way to build xml request, because everyone hates xml and we don't want to use a library
 /// for this. Also, f*ck you xml. This is the only way to do it. I'm sorry.
@@ -340,4 +234,27 @@ extension XmlNodeExt on XmlNode {
   XmlElement? operator [](String name) => getElement(name);
 
   XmlElement? getTriasText() => getElement('trias:Text');
+}
+
+extension IterX<T> on Iterable<T> {
+  Iterable<T> whereUniqueProperty<R>(R Function(T) property) sync* {
+    final seen = <R>{};
+    for (final e in this) {
+      final p = property(e);
+      if (seen.add(p)) {
+        yield e;
+      }
+    }
+  }
+
+  Iterable<T> whereUniqueNullableProperty<R>(R? Function(T) property) sync* {
+    final seen = <R>{};
+    for (final e in this) {
+      final p = property(e);
+      // if it is null, we don't care about it and just yield it
+      if (p == null || seen.add(p)) {
+        yield e;
+      }
+    }
+  }
 }

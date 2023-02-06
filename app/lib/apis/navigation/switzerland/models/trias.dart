@@ -13,11 +13,11 @@ part 'trias.freezed.dart';
 @freezed
 class TriasLocation with _$TriasLocation implements NavigationCompletion {
   const factory TriasLocation({
-    required final String stopPointName,
-    required final String stopPointRef,
+    required final String? stopPointName,
+    required final String? stopPointRef,
     required final TriasGeoPosition geoPosition,
     required final bool complete,
-    @Default(1.0) final double probability,
+    final double? probability,
     @Default(<TriasPtMode>[]) final List<TriasPtMode> modes,
     double? dist,
   }) = _TriasLocation;
@@ -27,7 +27,7 @@ class TriasLocation with _$TriasLocation implements NavigationCompletion {
   String? get id => stopPointRef;
 
   @override
-  String get label => stopPointName;
+  String get label => stopPointName ?? '';
 
   @override
   LocationType get type => LocationType.station;

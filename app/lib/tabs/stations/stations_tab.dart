@@ -21,7 +21,6 @@ import 'package:swift_travel/tabs/routes/route_tab.dart';
 import 'package:swift_travel/tabs/stations/completion_tile.dart';
 import 'package:swift_travel/utils/errors.dart';
 import 'package:swift_travel/widgets/if_wrapper.dart';
-import 'package:swift_travel/widgets/listener.dart';
 import 'package:vibration/vibration.dart';
 
 final _stateProvider =
@@ -151,10 +150,10 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
                           ),
                           onChanged: debounce,
                         ),
-                        ListenableBuilder<TextEditingController>(
-                          listenable: searchController,
-                          builder: (context, controller, child) =>
-                              controller.text.isEmpty
+                        AnimatedBuilder(
+                          animation: searchController,
+                          builder: (context, child) =>
+                              searchController.text.isEmpty
                                   ? const SizedBox()
                                   : child!,
                           child: Positioned(
