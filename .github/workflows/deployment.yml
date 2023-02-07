@@ -6,7 +6,7 @@ on:
       - deploy
 
 env:
-  flutter_channel: beta
+  flutter_channel: stable
   java_version: 8.x
   TZ: Europe/Zurich
 
