@@ -78,6 +78,7 @@ dependencies:
 dev_dependencies:
   all_lint_rules_community: ^0.0.15
   build_runner: ^2.0.1
+  custom_lint: ^0.2.5
   dart_code_metrics: ^5.2.1
   flutter_driver:
     sdk: flutter
@@ -93,6 +94,7 @@ dev_dependencies:
   lint: ^2.0.1
   mockito: ^5.0.0
   riverpod_generator: ^1.0.6
+  riverpod_lint: ^1.0.1
 
 flutter:
   uses-material-design: true

@@ -71,7 +71,8 @@ dart_code_metrics:
 
 analyzer:
   plugins:
-  # - dart_code_metrics
+    - custom_lint
+    # - dart_code_metrics
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"

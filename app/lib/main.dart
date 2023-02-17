@@ -45,7 +45,8 @@ final platform =
 void main() {
   preLaunchRoutine();
 
-  runZonedGuarded(() => runApp(const FullApp()), reportDartError);
+  runZonedGuarded(
+      () => runApp(const ProviderScope(child: FullApp())), reportDartError);
 }
 
 void preLaunchRoutine() {
@@ -105,9 +106,7 @@ void overridePlatform() {
 }
 
 class FullApp extends StatefulWidget {
-  const FullApp({
-    super.key,
-  });
+  const FullApp({super.key});
 
   @override
   _FullAppState createState() => _FullAppState();
@@ -130,11 +129,9 @@ class _FullAppState extends State<FullApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: DynamicTheme(
-        theme: dynamicThemeData,
-        child: const SwiftTravelApp(),
-      ),
+    return DynamicTheme(
+      theme: dynamicThemeData,
+      child: const SwiftTravelApp(),
     );
   }
 }
