@@ -25,9 +25,9 @@
 #
 include: package:all_lint_rules_community/all.yaml
 
-dart_code_metrics:
-  extends:
-    - package:dart_code_metrics_presets/all.yaml
+# dart_code_metrics:
+#   extends:
+#     - package:dart_code_metrics_presets/all.yaml
 
 analyzer:
   plugins:

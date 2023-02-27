@@ -233,11 +233,12 @@ class ConnectionTile extends StatelessWidget {
       ))),
       title: Row(
         children: [
-          if (c.bgcolor != null) ...[
-            LineIcon.raw(
-                line: c.line, foreground: c.fgcolor, background: c.bgcolor),
-            const Gap(8),
-          ],
+          LineIcon.raw(
+            line: c.line,
+            foreground: c.fgcolor,
+            background: c.bgcolor,
+          ),
+          const Gap(8),
           Text(
             c.terminal.name,
             style: const TextStyle(fontWeight: FontWeight.bold),

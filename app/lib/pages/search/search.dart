@@ -138,7 +138,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     if (mounted) {
       final LocationType locationType;
 
-      switch (ref.read(_searchTypeProvider)) {
+      final searchType = ref.read(_searchTypeProvider);
+      switch (searchType) {
         case SearchType.station:
           locationType = LocationType.station;
           break;
@@ -154,7 +155,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             date: ref.read(dateProvider),
             locationType: locationType,
             doUseCurrentLocation: widget.completeCurrentLocation,
-            doUseContacts: widget.completeContacts,
+            doUseContacts:
+                searchType == SearchType.address && widget.completeContacts,
             doUseHistory: widget.completeHistory,
             doUseFavorites: widget.completeFavorites,
           )
@@ -347,7 +349,7 @@ class _ClearButton extends StatelessWidget {
 
 enum SearchType { station, address }
 
-final _searchTypeProvider = StateProvider((ref) => SearchType.station);
+final _searchTypeProvider = StateProvider((ref) => SearchType.address);
 
 class _SearchTypeSelector extends ConsumerWidget {
   const _SearchTypeSelector({this.onTap});
@@ -364,8 +366,8 @@ class _SearchTypeSelector extends ConsumerWidget {
         onTap?.call(value);
       },
       children: const {
-        SearchType.station: Text('Station'),
         SearchType.address: Text('Address'),
+        SearchType.station: Text('Station'),
       },
     );
   }

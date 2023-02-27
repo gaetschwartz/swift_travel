@@ -76,7 +76,7 @@ class SearchChApi extends BaseNavigationApi {
         showIds: showIds,
       );
     }
-    if (kUseGeoAdmin && locationType == null) {
+    if (kUseGeoAdmin && locationType == LocationType.address) {
       return _geoAdmin.complete(
         string,
         showCoordinates: showCoordinates,
