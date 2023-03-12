@@ -25,53 +25,14 @@
 #
 include: package:all_lint_rules_community/all.yaml
 
-dart_code_metrics:
-  anti-patterns:
-    - long-method
-    - long-parameter-list
-  metrics:
-    cyclomatic-complexity: 20
-    maximum-nesting-level: 5
-    source-lines-of-code: 80
-  metrics-exclude:
-    - test/**
-  rules:
-    - no-boolean-literal-compare
-    - avoid-returning-widgets:
-        ignored-annotations:
-          - allowReturningWidgets
-    - avoid-nested-conditional-expressions:
-        acceptable-level: 2
-    - no-equal-then-else
-    - avoid-unnecessary-setstate
-    - prefer-const-border-radius
-    - avoid-missing-enum-constant-in-map
-    - avoid-unnecessary-type-casts
-    - avoid-unnecessary-type-assertions
-    - avoid-unrelated-type-assertions
-    - no-equal-then-else
-    - avoid-unused-parameters
-    - avoid-global-state
-    - avoid-throw-in-catch-block
-    - prefer-iterable-of
-    - avoid-shrink-wrap-in-lists
-    - avoid-expanded-as-spacer
-    - prefer-correct-edge-insets-constructor
-    - avoid-cascade-after-if-null
-    - avoid-collection-methods-with-unrelated-types
-    - avoid-missing-enum-constant-in-map
-    - avoid-nested-conditional-expressions:
-        acceptable-level: 2
-    - avoid-unnecessary-conditionals
-    - avoid-unnecessary-type-assertions
-    - avoid-unnecessary-type-casts
-    - avoid-unrelated-type-assertions
-    - avoid-unused-parameters
-    - no-boolean-literal-compare
+# dart_code_metrics:
+#   extends:
+#     - package:dart_code_metrics_presets/all.yaml
 
 analyzer:
   plugins:
-  # - dart_code_metrics
+    - custom_lint
+    # - dart_code_metrics
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:collection/collection.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -17,7 +18,7 @@ import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/prediction/predict.dart';
 import 'package:swift_travel/utils/strings/strings.dart';
 
-const _kConfidenceThreshold = .5;
+const _kConfidenceThreshold = .2;
 const _kMaxSuggestedCount = 3;
 
 final completionEngineProvider = Provider<CompletionEngine>((ref) {
@@ -80,7 +81,7 @@ class CompletionEngine {
       ref
           .read(navigationAPIProvider)
           .complete(query, locationType: locationType),
-      if (doUseContacts)
+      if (doUseContacts && query.isNotEmpty)
         ContactsRepository.instance.getAll()
       else
         Future.value(<Contact>[]),
@@ -108,6 +109,9 @@ class CompletionEngine {
       final dist = jaroDistance(query, contactName);
       if (dist < _kConfidenceThreshold ||
           contactName.toLowerCase().startsWith(queryLower)) {
+        if (kDebugMode) {
+          log('Adding contact $contactName with distance $dist');
+        }
         distances.add(MapEntry(ContactCompletion(c), dist));
       }
     }

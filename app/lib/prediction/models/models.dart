@@ -239,7 +239,10 @@ class ContactCompletion extends Completion {
   ContactCompletion(this.contact)
       : super(
           id: null,
-          label: contact.postalAddresses.firstOrNull?.toString() ?? 'null',
+          label: contact.postalAddresses.firstOrNull
+                  ?.toString()
+                  .replaceAll('\n', '') ??
+              'null',
           type: LocationType.address,
           origin: DataOrigin.contacts,
           dist: null,
