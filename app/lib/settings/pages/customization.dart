@@ -263,6 +263,29 @@ class _ThememodeWidget extends StatelessWidget {
         t = theme.dark;
         break;
     }
+    final center = Center(
+      child: mode == ThemeMode.system
+          ? ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                child: ColoredBox(
+                  color: Colors.white30,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 8, right: 8, bottom: 8, top: 4),
+                    child: Text(
+                      label,
+                      style: t.textTheme.titleMedium!
+                          .copyWith(color: Colors.black),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          : Text(label, style: t.textTheme.titleMedium),
+    );
+    const borderRadius = BorderRadius.all(Radius.circular(16));
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(
@@ -270,51 +293,41 @@ class _ThememodeWidget extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 1,
           child: DecoratedBox(
-            key: Key('mode-${describeEnum(mode).toLowerCase()}'),
             decoration: BoxDecoration(
-                boxShadow: shadowListOf(context),
-                color: mode == ThemeMode.system ? null : t.cardColor,
-                border: theme.themeMode == mode
-                    ? Border.all(
-                        width: 2,
-                        color: platformPrimaryColor(context),
-                      )
-                    : null,
-                gradient: mode == ThemeMode.system
-                    ? LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                            theme.light.colorScheme.background,
-                            theme.dark.colorScheme.background,
-                          ],
-                        stops: const [
-                            0.5,
-                            0.5,
-                          ])
-                    : null,
-                borderRadius: const BorderRadius.all(Radius.circular(16))),
-            child: Center(
-              child: mode == ThemeMode.system
-                  ? ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                        child: ColoredBox(
-                          color: Colors.white30,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, bottom: 8, top: 4),
-                            child: Text(
-                              label,
-                              style: t.textTheme.titleMedium!
-                                  .copyWith(color: Colors.black),
-                            ),
-                          ),
+              boxShadow: shadowListOf(context),
+              borderRadius: borderRadius,
+            ),
+            child: Stack(
+              children: [
+                if (mode == ThemeMode.system)
+                  Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: borderRadius,
+                      child: CustomPaint(
+                        painter: DiagonalPainter(
+                          color1: t.colorScheme.surface,
+                          color2: t.colorScheme.onSurface,
+                          start: Alignment.topRight,
+                          end: Alignment.bottomLeft,
                         ),
                       ),
-                    )
-                  : Text(label, style: t.textTheme.titleMedium),
+                    ),
+                  ),
+                Positioned.fill(
+                    child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: mode == ThemeMode.system ? null : t.cardColor,
+                    border: theme.themeMode == mode
+                        ? Border.all(
+                            width: 2,
+                            color: platformPrimaryColor(context),
+                          )
+                        : null,
+                    borderRadius: borderRadius,
+                  ),
+                )),
+                center,
+              ],
             ),
           ),
         ),
@@ -323,6 +336,61 @@ class _ThememodeWidget extends StatelessWidget {
   }
 }
 
+class DiagonalPainter extends CustomPainter {
+  const DiagonalPainter({
+    required this.color1,
+    required this.color2,
+    this.start = Alignment.topLeft,
+    this.end = Alignment.bottomRight,
+  });
+
+  final Color color1;
+  final Color color2;
+  final Alignment start;
+  final Alignment end;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint1 = Paint()..color = color1;
+    final paint2 = Paint()..color = color2;
+
+    final startOffset = start.alongSize(size);
+    final endOffset = end.alongSize(size);
+
+    final line = endOffset - startOffset;
+    final perpendicular = Offset(-line.dy, line.dx);
+
+    final path1 = Path()
+      ..moveTo(startOffset.dx, startOffset.dy)
+      // point on one end of the perpendicular line
+      ..lineTo(startOffset.dx + line.dx / 2 - perpendicular.dx,
+          startOffset.dy + line.dy / 2 - perpendicular.dy)
+
+      // point on the other end of the perpendicular line
+      ..lineTo(startOffset.dx + line.dx / 2 + perpendicular.dx,
+          startOffset.dy + line.dy / 2 + perpendicular.dy)
+      ..close();
+
+    final path2 = Path()
+      ..moveTo(endOffset.dx, endOffset.dy)
+      ..lineTo(endOffset.dx - line.dx / 2 - perpendicular.dx,
+          endOffset.dy - line.dy / 2 - perpendicular.dy)
+      ..lineTo(endOffset.dx - line.dx / 2 + perpendicular.dx,
+          endOffset.dy - line.dy / 2 + perpendicular.dy)
+      ..close();
+
+    canvas.drawPath(path1, paint1);
+    canvas.drawPath(path2, paint2);
+  }
+
+  @override
+  bool shouldRepaint(covariant DiagonalPainter oldDelegate) {
+    return oldDelegate.color1 != color1 ||
+        oldDelegate.color2 != color2 ||
+        oldDelegate.start != start ||
+        oldDelegate.end != end;
+  }
+}
 /* class _FontWeightTile extends StatelessWidget {
   const _FontWeightTile({
     Key? key,

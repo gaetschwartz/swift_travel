@@ -80,16 +80,16 @@ SPEC CHECKSUMS:
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
-  in_app_purchase_storekit: 6b297e2b5eab9fa3251a492d57301722e4132a71
+  in_app_purchase_storekit: 4fb7ee9e824b1f09107fbfbbce8c4b276366dc43
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   isar_flutter_libs: b69f437aeab9c521821c3f376198c4371fa21073
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
-  quick_actions_ios: d211ffc5d7619ace7e9fb1800540b14a1aafe940
+  quick_actions_ios: bb09d1c35b4a89f9dbb15487039fa1b983ca375e
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
-  shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
-  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
+  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
+  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   vibration: 08bf1a7e0b797d662a5027a161404fdcbe3ba168
 
 PODFILE CHECKSUM: c2f5eab10adc40802bef95ae8af627252e1ac283
