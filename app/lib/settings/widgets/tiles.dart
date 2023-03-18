@@ -73,7 +73,14 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
                 child: title,
               ),
               leading: leading,
-              subtitle: isDarwin ? null : subtitle,
+              subtitle: isDarwin && subtitle != null
+                  ? DefaultTextStyle(
+                      style: TextStyle(
+                          color: CupertinoColors.secondaryLabel
+                              .resolveFrom(context)),
+                      child: subtitle!,
+                    )
+                  : subtitle,
               onTap: onTap,
               tileColor: isDarwin
                   ? SettingsColor.tile.resolveFrom(context)
@@ -81,36 +88,9 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
               shape: RoundedRectangleBorder(
                   borderRadius: tileBorders.toBorderRadius(borderRadius)),
               trailing: isDarwin
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Row(
-                            mainAxisSize: MainAxisSize.min,
-                            verticalDirection: VerticalDirection.down,
-                            children: [
-                              if (subtitle != null)
-                                ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 100),
-                                  child: DefaultTextStyle(
-                                    style: theme.textTheme.bodyMedium!
-                                        .copyWith(color: subtitleColor),
-                                    softWrap: false,
-                                    textAlign: TextAlign.right,
-                                    overflow: TextOverflow.fade,
-                                    child: subtitle!,
-                                  ),
-                                ),
-                              if (showChevron)
-                                Icon(
-                                  CupertinoIcons.chevron_forward,
-                                  color: subtitleColor,
-                                )
-                            ]),
-                      ],
-                    )
+                  ? showChevron
+                      ? const CupertinoListTileChevron()
+                      : null
                   : null,
             ),
           ),
