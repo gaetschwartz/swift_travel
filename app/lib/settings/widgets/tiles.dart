@@ -55,7 +55,6 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarwin = theme.platform.isDarwin;
-    final subtitleColor = theme.textTheme.bodySmall?.color;
     return Column(
       children: [
         if (showDividers && !tileBorders.top)

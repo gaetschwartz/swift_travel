@@ -78,7 +78,7 @@ dependencies:
 dev_dependencies:
   all_lint_rules_community: ^0.0.15
   build_runner: ^2.0.1
-  custom_lint: ^0.2.5
+  custom_lint: ^0.3.2
   dart_code_metrics: ^5.2.1
   flutter_driver:
     sdk: flutter
