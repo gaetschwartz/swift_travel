@@ -1,21 +1,19 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'config.freezed.dart';
 part 'config.g.dart';
 
-final configProvider = FutureProvider<Config>((ref) async {
-  const key = 'assets/config.json';
-  final content = await rootBundle.loadString(key);
-  if (content.isEmpty) {
-    throw Exception('Config file provided at $key is empty.');
-  }
+@riverpod
+Future<Config> config(ConfigRef ref) async {
+  final content = await rootBundle.loadString('assets/config.json');
   final json = jsonDecode(content) as Map<String, dynamic>;
-  return Config.fromJson(json);
-});
+  final config = Config.fromJson(json);
+  return config;
+}
 
 @freezed
 class Config with _$Config {

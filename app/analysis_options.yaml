@@ -32,7 +32,6 @@ include: package:all_lint_rules_community/all.yaml
 analyzer:
   plugins:
     - custom_lint
-    # - dart_code_metrics
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"

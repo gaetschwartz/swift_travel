@@ -134,10 +134,10 @@ packages:
     dependency: transitive
     description:
       name: flex_color_scheme
-      sha256: d72aac83f525bf7a0fae66a90837817c73adcd52af4b4a8f310fb40a1b57055b
+      sha256: ba6b2e19aa6bcfebed8f74486b4359e1399e5f285a9b697107e14e27f2963415
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.1"
   flex_seed_scheme:
     dependency: transitive
     description:
@@ -176,10 +176,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_riverpod
-      sha256: b3c3a8a9714b7f88dd2a41e1efbc47f76d620b06ab427c62ae7bc82298cd7dbb
+      sha256: "812dfbb87af51e73e68ea038bcfd1c732078d6838d3388d03283db7dec0d1e5f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.4"
   flutter_slidable:
     dependency: transitive
     description:
@@ -192,10 +192,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "12006889e2987c549c4c1ec1a5ba4ec4b24d34d2469ee5f9476c926dcecff266"
+      sha256: f991fdb1533c3caeee0cdc14b04f50f0c3916f0dbcbc05237ccbe4e3c6b93f3f
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -227,7 +227,7 @@ packages:
     description:
       path: "packages/logging"
       ref: HEAD
-      resolved-ref: db0930c7db6f9170659cd399ab00f346bf3a0ffb
+      resolved-ref: "4eb7154bf2540b2a79440c118c7e9b51a44d3bf9"
       url: "https://github.com/gaetschwartz/gaet_utils.git"
     source: git
     version: "0.0.1"
@@ -618,10 +618,10 @@ packages:
     dependency: transitive
     description:
       name: process_run
-      sha256: "1142d7f4f0c3f36393a1319406efcf481def2b6d862b2bf600c8ae8fa74d5bd8"
+      sha256: "4539b7c0a34a4a4979e7345d9f5c6358961d9f53901baf2930807159d08ee59b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.5+2"
+    version: "0.12.5+3"
   pub_semver:
     dependency: transitive
     description:
@@ -674,18 +674,18 @@ packages:
     dependency: transitive
     description:
       name: riverpod
-      sha256: b0fbf7927333c5c318f7e2c22c8b4fd2542ba294de0373e80ecdb34e0dcd8dc4
+      sha256: "77ab3bcd084bb19fa8717a526217787c725d7f5be938404c7839cd760fdf6ae5"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.4"
   riverpod_annotation:
     dependency: transitive
     description:
       name: riverpod_annotation
-      sha256: c0f51b3fc5a0cefcbcddb35a10ad542d6c38919c081a25279045158ac7955cfb
+      sha256: afc01d5ba57e7993342c8d5120925826949455607ae29c8d98608ee840ee1cd6
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.4"
   scrollable_positioned_list:
     dependency: transitive
     description:
@@ -855,7 +855,7 @@ packages:
     description:
       path: "packages/theming"
       ref: HEAD
-      resolved-ref: db0930c7db6f9170659cd399ab00f346bf3a0ffb
+      resolved-ref: "4eb7154bf2540b2a79440c118c7e9b51a44d3bf9"
       url: "https://github.com/gaetschwartz/gaet_utils.git"
     source: git
     version: "0.0.1"
@@ -887,10 +887,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: "3dedc66ca3c0bef9e6a93c0999aee102556a450afcc1b7bcfeace7a424927d92"
+      sha256: "9af7ea73259886b92199f9e42c116072f05ff9bea2dcb339ab935dfc957392c2"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.3"
+    version: "6.1.4"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -984,7 +984,7 @@ packages:
     description:
       path: "packages/vibration"
       ref: HEAD
-      resolved-ref: db0930c7db6f9170659cd399ab00f346bf3a0ffb
+      resolved-ref: "4eb7154bf2540b2a79440c118c7e9b51a44d3bf9"
       url: "https://github.com/gaetschwartz/gaet_utils.git"
     source: git
     version: "0.0.1"
@@ -992,10 +992,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: c9ebe7ee4ab0c2194e65d3a07d8c54c5d00bb001b76081c4a04cdb8448b59e46
+      sha256: a6f0236dbda0f63aa9a25ad1ff9a9d8a4eaaa5012da0dc59d21afdb1dc361ca4
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "3.1.4"
   xdg_directories:
     dependency: transitive
     description:
