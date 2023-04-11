@@ -68,6 +68,7 @@ android {
         checkReleaseBuilds false
         disable 'InvalidPackage'
     }
+    namespace 'com.gaetanschwartz.swift_travel'
 }
 
 flutter {
