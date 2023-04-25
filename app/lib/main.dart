@@ -18,7 +18,6 @@ import 'package:swift_travel/pages/live_route/live_route.dart';
 import 'package:swift_travel/pages/loading.dart';
 import 'package:swift_travel/pages/page_not_found.dart';
 import 'package:swift_travel/pages/welcome.dart';
-import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/settings/settings.dart';
 import 'package:swift_travel/settings/team_page.dart';
 import 'package:swift_travel/tabs/routes/details/route_details.dart';
@@ -63,6 +62,7 @@ void preLaunchRoutine() {
   }
   if (kDebugMode) {
     log.log(Env.env);
+    log.log('Platform env: ${Platform.environment}');
   }
 
   // if (Env.overridePlatform) {
@@ -85,17 +85,13 @@ void overridePlatform() {
   switch (defaultTargetPlatform) {
     case TargetPlatform.windows:
       p = TargetPlatform.macOS;
-      break;
     case TargetPlatform.android:
       p = TargetPlatform.iOS;
-      break;
 
     case TargetPlatform.iOS:
       p = TargetPlatform.android;
-      break;
     case TargetPlatform.macOS:
       p = TargetPlatform.windows;
-      break;
     case TargetPlatform.fuchsia:
     case TargetPlatform.linux:
       return;
@@ -213,7 +209,6 @@ class _SwiftTravelAppState extends ConsumerState<SwiftTravelApp> {
           settings: const RouteSettings(name: '/'),
           builder: (_) => LoadingPage(uri: uri),
         ));
-        break;
 
       default:
         routes.add(PlatformPageRoute<void>(
@@ -289,18 +284,17 @@ Route<void>? onGenerateRoute(RouteSettings settings) {
       );
 
     case '/routeDetails':
-      if (settings.arguments is Pair<NavRoute, int>) {
-        final pair = settings.arguments! as Pair<NavRoute, int>;
+      if (settings.arguments is (NavRoute, int)) {
+        final pair = settings.arguments! as (NavRoute, int);
         return PlatformPageRoute(
           settings: settings,
           builder: (_) => RouteDetails(
-            route: pair.first,
-            i: pair.second,
+            route: pair.$1,
+            i: pair.$2,
             doShowCloseButton: true,
           ),
         );
       }
-      break;
 
     case '/welcome':
       return PlatformPageRoute(

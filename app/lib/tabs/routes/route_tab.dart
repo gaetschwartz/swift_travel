@@ -404,10 +404,8 @@ class _TimeAndDateButton extends ConsumerWidget {
     switch (time) {
       case SearchChMode.arrival:
         abbr = AppLocalizations.of(context).arrival_abbr;
-        break;
       case SearchChMode.departure:
         abbr = AppLocalizations.of(context).departure_abbr;
-        break;
     }
 
     return Tooltip(

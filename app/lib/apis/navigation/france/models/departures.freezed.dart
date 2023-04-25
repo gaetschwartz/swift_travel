@@ -23,7 +23,7 @@ mixin _$SncfStationboard {
   SncfContext get context => throw _privateConstructorUsedError;
   List<SncfDeparture> get departures => throw _privateConstructorUsedError;
   SncfError? get error => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   Stop get stop => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $SncfStationboardCopyWith<$Res> {
       {SncfContext context,
       List<SncfDeparture> departures,
       SncfError? error,
-      @JsonKey(ignore: true) Stop stop});
+      @JsonKey(includeFromJson: false, includeToJson: false) Stop stop});
 
   $SncfContextCopyWith<$Res> get context;
   $SncfErrorCopyWith<$Res>? get error;
@@ -119,7 +119,7 @@ abstract class _$$_SncfStationboardCopyWith<$Res>
       {SncfContext context,
       List<SncfDeparture> departures,
       SncfError? error,
-      @JsonKey(ignore: true) Stop stop});
+      @JsonKey(includeFromJson: false, includeToJson: false) Stop stop});
 
   @override
   $SncfContextCopyWith<$Res> get context;
@@ -172,7 +172,8 @@ class _$_SncfStationboard extends _SncfStationboard {
       {required this.context,
       required final List<SncfDeparture> departures,
       this.error,
-      @JsonKey(ignore: true) this.stop = const MockStop()})
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          this.stop = const MockStop()})
       : _departures = departures,
         super._();
 
@@ -192,7 +193,7 @@ class _$_SncfStationboard extends _SncfStationboard {
   @override
   final SncfError? error;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final Stop stop;
 
   @override
@@ -236,7 +237,8 @@ abstract class _SncfStationboard extends SncfStationboard {
       {required final SncfContext context,
       required final List<SncfDeparture> departures,
       final SncfError? error,
-      @JsonKey(ignore: true) final Stop stop}) = _$_SncfStationboard;
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          final Stop stop}) = _$_SncfStationboard;
   const _SncfStationboard._() : super._();
 
   factory _SncfStationboard.fromJson(Map<String, dynamic> json) =
@@ -249,7 +251,7 @@ abstract class _SncfStationboard extends SncfStationboard {
   @override
   SncfError? get error;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   Stop get stop;
   @override
   @JsonKey(ignore: true)

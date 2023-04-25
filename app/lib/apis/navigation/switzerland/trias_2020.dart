@@ -72,14 +72,14 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
 
   static TriasLocation _parseStopPlace(
       XmlElement stopPlace, XmlElement loc, XmlElement geo) {
-    final name = stopPlace['trias:StopPlaceName']?.getTriasText()?.text;
-    final id = stopPlace['trias:StopPlaceRef']?.text;
+    final name = stopPlace['trias:StopPlaceName']?.getTriasText()?.innerText;
+    final id = stopPlace['trias:StopPlaceRef']?.innerText;
 
-    final probability = _parseDouble(loc['trias:Probability']?.text);
-    final complete = loc['trias:Complete']?.text == 'true';
+    final probability = _parseDouble(loc['trias:Probability']?.innerText);
+    final complete = loc['trias:Complete']?.innerText == 'true';
 
     final modes = loc.findElements('trias:Mode').map((e) {
-      final mode = e['trias:PtMode']!.text;
+      final mode = e['trias:PtMode']!.innerText;
       final submode = e.childElements
           .where(
             (e) =>
@@ -87,7 +87,7 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
                 e.name.local.contains('Submode'),
           )
           .firstOrNull
-          ?.text;
+          ?.innerText;
       return TriasPtMode(mode, submode);
     }).toList();
 
@@ -103,13 +103,13 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
 
   static TriasLocation _parseStopPoint(
       XmlElement stopPoint, XmlElement loc, XmlElement geo) {
-    final name = stopPoint['trias:StopPointName']?.getTriasText()?.text;
-    final id = stopPoint['trias:StopPointRef']?.text;
+    final name = stopPoint['trias:StopPointName']?.getTriasText()?.innerText;
+    final id = stopPoint['trias:StopPointRef']?.innerText;
 
-    final probability = _parseDouble(loc['trias:Probability']?.text);
-    final complete = loc['trias:Complete']?.text == 'true';
+    final probability = _parseDouble(loc['trias:Probability']?.innerText);
+    final complete = loc['trias:Complete']?.innerText == 'true';
     final modes = loc.findElements('trias:Mode').map((e) {
-      final mode = e['trias:PtMode']!.text;
+      final mode = e['trias:PtMode']!.innerText;
       final submode = e.childElements
           .where(
             (e) =>
@@ -117,7 +117,7 @@ class Trias2020Api implements NavigationCompletionDelegateApi {
                 e.name.local.contains('Submode'),
           )
           .firstOrNull
-          ?.text;
+          ?.innerText;
       return TriasPtMode(mode, submode);
     }).toList();
 

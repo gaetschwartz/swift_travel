@@ -18,7 +18,12 @@ class SncfStationboard with _$SncfStationboard, StationBoard {
     required SncfContext context,
     required List<SncfDeparture> departures,
     SncfError? error,
-    @Default(MockStop()) @JsonKey(ignore: true) Stop stop,
+    @Default(MockStop())
+    @JsonKey(
+      includeFromJson: false,
+      includeToJson: false,
+    )
+        Stop stop,
   }) = _SncfStationboard;
   const SncfStationboard._();
 
@@ -55,8 +60,10 @@ class SncfDeparture with _$SncfDeparture implements StationboardConnection {
   const factory SncfDeparture({
     @JsonKey(name: 'display_informations')
         required SncfDispInfo displayInformations,
-    @JsonKey(name: 'stop_date_time') required SncfStopDateTime stopDateTime,
-    @JsonKey(name: 'stop_point') required SncfStopPoint stopPoint,
+    @JsonKey(name: 'stop_date_time')
+        required SncfStopDateTime stopDateTime,
+    @JsonKey(name: 'stop_point')
+        required SncfStopPoint stopPoint,
   }) = _SncfDeparture;
 
   const SncfDeparture._();
@@ -155,13 +162,16 @@ class SncfStopDateTime with _$SncfStopDateTime {
   const factory SncfStopDateTime({
     @JsonKey(name: 'additional_informations')
         required List<Object> additionalInformations,
-    @JsonKey(name: 'arrival_date_time') required DateTime arrivalDateTime,
+    @JsonKey(name: 'arrival_date_time')
+        required DateTime arrivalDateTime,
     @JsonKey(name: 'base_arrival_date_time')
         required DateTime baseArrivalDateTime,
     @JsonKey(name: 'base_departure_date_time')
         required DateTime baseDepartureDateTime,
-    @JsonKey(name: 'departure_date_time') required DateTime departureDateTime,
-    @JsonKey(name: 'data_freshness') required String dataFreshness,
+    @JsonKey(name: 'departure_date_time')
+        required DateTime departureDateTime,
+    @JsonKey(name: 'data_freshness')
+        required String dataFreshness,
     required List<Object> links,
   }) = _SncfStopDateTime;
 

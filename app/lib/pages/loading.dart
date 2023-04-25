@@ -83,8 +83,8 @@ class _LoadingPageState extends ConsumerState<LoadingPage> {
             onNewRoute: (p) => navigatorKey.currentState?.push(
               PlatformPageRoute(
                 builder: (_) => RouteDetails(
-                  route: p.first,
-                  i: p.second,
+                  route: p.$1,
+                  i: p.$2,
                   doShowCloseButton: true,
                 ),
               ),

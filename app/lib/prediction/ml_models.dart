@@ -50,7 +50,7 @@ RoutePrediction predictRouteSync(
     return cachedPrediction;
   }
 
-  final distances = <Triple<LocalRoute, ValueVector, double>>[];
+  final distances = <(LocalRoute, ValueVector, double)>[];
 
   final newRoutes = arguments
       .maybeMap(
@@ -81,10 +81,10 @@ RoutePrediction predictRouteSync(
       position: pos,
     ).toVector();
 
-    distances.add(Triple(route, routeVect, routeVect.distanceTo(argVect)));
+    distances.add((route, routeVect, routeVect.distanceTo(argVect)));
   }
 
-  distances.sort((a, b) => a.third.compareTo(b.third));
+  distances.sort((a, b) => a.$3.compareTo(b.$3));
 
   final top = distances.take(_k * newRoutes.length ~/ routes.length);
 
@@ -100,26 +100,26 @@ RoutePrediction predictRouteSync(
 }
 
 RoutePrediction _computeWinner(
-  Iterable<Triple<LocalRoute, ValueVector, double>> top,
+  Iterable<(LocalRoute, ValueVector, double)> top,
   PredictionArguments arguments,
 ) {
   final map = <LocalRoute, int>{};
 
   var max = 0;
-  var majRoute = top.first.first;
+  var majRoute = top.first.$1;
   var sum = .0;
 
   for (final r in top) {
-    final route = r.first.copyClean();
+    final route = r.$1.copyClean();
     map[route] = (map[route] ?? 0) + 1;
     if (map[route]! > max) {
       max = map[route]!;
       majRoute = route;
     }
 
-    if (r.first.fromAsString == majRoute.fromAsString &&
-        r.first.toAsString == majRoute.toAsString) {
-      sum += r.third;
+    if (r.$1.fromAsString == majRoute.fromAsString &&
+        r.$1.toAsString == majRoute.toAsString) {
+      sum += r.$3;
     }
   }
 
@@ -131,15 +131,14 @@ RoutePrediction _computeWinner(
 }
 
 void _report(
-  Iterable<Triple<LocalRoute, ValueVector, double>> top,
+  Iterable<(LocalRoute, ValueVector, double)> top,
   ValueVector arg,
 ) {
   Logger.root.log('arg: $arg');
   var i = 0;
   for (final p in top) {
     i++;
-    Logger.root.log(
-        '[$i] ${p.first.fromAsString} -> ${p.first.toAsString}\n${p.third}');
+    Logger.root.log('[$i] ${p.$1.fromAsString} -> ${p.$1.toAsString}\n${p.$3}');
   }
 }
 
@@ -244,22 +243,22 @@ extension ListXy<T> on List<T> {
   }
 }
 
-extension ListPairX<T, U> on List<Pair<T, U>> {
+extension ListPairX<T, U> on List<(T, U)> {
   Map<T, U> toMap() => {
-        for (final p in this) p.first: p.second,
+        for (final p in this) p.$1: p.$2,
       };
 }
 
-extension ListTripleX<T, U, V> on List<Triple<T, U, V>> {
-  Map<T, Pair<U, V>> toMap() => {
-        for (final p in this) p.first: Pair(p.second, p.third),
+extension ListTripleX<T, U, V> on List<(T, U, V)> {
+  Map<T, (U, V)> toMap() => {
+        for (final p in this) p.$1: (p.$2, p.$3),
       };
 
-  Map<U, Pair<T, V>> toMap2() => {
-        for (final p in this) p.second: Pair(p.first, p.third),
+  Map<U, (T, V)> toMap2() => {
+        for (final p in this) p.$2: (p.$1, p.$3),
       };
 
-  Map<V, Pair<T, U>> toMap3() => {
-        for (final p in this) p.third: Pair(p.first, p.second),
+  Map<V, (T, U)> toMap3() => {
+        for (final p in this) p.$3: (p.$1, p.$2),
       };
 }

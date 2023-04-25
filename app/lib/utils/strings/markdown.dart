@@ -16,14 +16,12 @@ TextSpan parseDecoratedText(String text, {TextStyle? style}) {
         }
         bold = !bold;
         lastWasMod = true;
-        break;
       case '_':
         if (!lastWasMod) {
           _addSpan(spans, buffer, bold, italic);
         }
         italic = !italic;
         lastWasMod = true;
-        break;
       default:
         buffer.write(c);
         lastWasMod = false;

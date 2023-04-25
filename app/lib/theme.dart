@@ -108,12 +108,13 @@ extension ColorX on Color {
 }
 
 extension CupertinoThemeDataX on CupertinoThemeData {
-  CupertinoThemeData rawCopy() => CupertinoThemeData.raw(
-        brightness,
-        primaryColor,
-        primaryContrastingColor,
-        textTheme,
-        barBackgroundColor,
-        scaffoldBackgroundColor,
+  CupertinoThemeData rawCopy() => CupertinoThemeData(
+        brightness: brightness,
+        primaryColor: primaryColor,
+        primaryContrastingColor: primaryContrastingColor,
+        textTheme: textTheme,
+        barBackgroundColor: barBackgroundColor,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        applyThemeToAll: applyThemeToAll,
       );
 }

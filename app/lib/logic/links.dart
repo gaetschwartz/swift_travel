@@ -7,7 +7,6 @@ import 'package:gaets_logging/logging.dart';
 import 'package:swift_travel/apis/navigation/models/route.dart';
 import 'package:swift_travel/apis/navigation/navigation.dart';
 import 'package:swift_travel/apis/navigation/switzerland/switzerland.dart';
-import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/utils/route_uri.dart';
 
 import 'navigation.dart';
@@ -34,14 +33,14 @@ class DeepLinkManager {
       MethodChannel('com.gaetanschwartz.swift_travel.deeplink/channel');
 
   late StreamSubscription<String> _sub;
-  void Function(Pair<NavRoute, int> pair)? onNewRoute;
+  void Function((NavRoute, int) pair)? onNewRoute;
   final Ref ref;
   final log = Logger.of('DeepLinkManager');
 
   DeepLinkManager(this.ref);
 
   Future<void> init({
-    required void Function(Pair<NavRoute, int> pair) onNewRoute,
+    required void Function((NavRoute, int) pair) onNewRoute,
   }) async {
     log.log('Initialize', channel: 'LinksBloc');
     this.onNewRoute = onNewRoute;
@@ -70,7 +69,7 @@ class DeepLinkManager {
     }
   }
 
-  static Future<Pair<NavRoute, int>> parseRouteArguments(
+  static Future<(NavRoute, int)> parseRouteArguments(
       Uri uri, BaseNavigationApi navApi) async {
     final log = Logger.of('DeepLinkManager', 'parseRouteArguments');
     final params = decodeRouteUri(uri);
@@ -83,7 +82,7 @@ class DeepLinkManager {
     final route = await navApi.rawRoute(qUri);
 
     final i = int.parse(uri.queryParameters['i']!);
-    return Pair(route, i);
+    return (route, i);
   }
 
   void dispose() {

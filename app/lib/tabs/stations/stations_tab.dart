@@ -77,7 +77,6 @@ class _StationsTabWidgetState extends ConsumerState<_StationsTabWidget> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           unawaited(_getLocation());
         });
-        break;
       case null:
         break;
     }
@@ -381,10 +380,8 @@ class _AnimatedLocationState extends State<AnimatedLocation>
       switch (controller.status) {
         case AnimationStatus.forward:
           controller.forward();
-          break;
         case AnimationStatus.reverse:
           controller.reverse();
-          break;
 
         case AnimationStatus.dismissed:
         case AnimationStatus.completed:

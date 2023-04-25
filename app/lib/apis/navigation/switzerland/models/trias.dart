@@ -91,20 +91,20 @@ class TriasService with _$TriasService {
 
   factory TriasService.fromXML(XmlElement e) {
     return TriasService(
-      operatingDayRef: e.getElement('trias:OperatingDayRef')!.text,
-      journeyRef: e.getElement('trias:JourneyRef')!.text,
-      lineRef: e.getElement('trias:LineRef')!.text,
-      directionRef: e.getElement('trias:DirectionRef')!.text,
+      operatingDayRef: e.getElement('trias:OperatingDayRef')!.innerText,
+      journeyRef: e.getElement('trias:JourneyRef')!.innerText,
+      lineRef: e.getElement('trias:LineRef')!.innerText,
+      directionRef: e.getElement('trias:DirectionRef')!.innerText,
       modes: e.findElements('trias:Mode').map(TriasMode.fromXML).toList(),
       publishedLineName:
-          e.getElement('trias:PublishedLineName')!.getTriasText()!.text,
-      operatorRef: e.getElement('trias:OperatorRef')!.text,
-      originStopPointRef: e.getElement('trias:OriginStopPointRef')!.text,
-      originText: e.getElement('trias:OriginText')!.getTriasText()!.text,
+          e.getElement('trias:PublishedLineName')!.getTriasText()!.innerText,
+      operatorRef: e.getElement('trias:OperatorRef')!.innerText,
+      originStopPointRef: e.getElement('trias:OriginStopPointRef')!.innerText,
+      originText: e.getElement('trias:OriginText')!.getTriasText()!.innerText,
       destinationStopPointRef:
-          e.getElement('trias:DestinationStopPointRef')!.text,
+          e.getElement('trias:DestinationStopPointRef')!.innerText,
       destinationText:
-          e.getElement('trias:DestinationText')!.getTriasText()!.text,
+          e.getElement('trias:DestinationText')!.getTriasText()!.innerText,
       attributes: e
           .findElements('trias:Attribute')
           .map(TriasAttribute.fromXML)
@@ -124,10 +124,11 @@ class TriasMode with _$TriasMode {
 
   factory TriasMode.fromXML(XmlElement e) {
     return TriasMode(
-      e.getElement('trias:PtMode')!.text,
-      submode: e.getElement('trias:BusSubmode')?.text,
-      name: e.getElement('trias:Name')?.getElement('trias:Text')?.text,
-      language: e.getElement('trias:Name')?.getElement('trias:Language')?.text,
+      e.getElement('trias:PtMode')!.innerText,
+      submode: e.getElement('trias:BusSubmode')?.innerText,
+      name: e.getElement('trias:Name')?.getElement('trias:Text')?.innerText,
+      language:
+          e.getElement('trias:Name')?.getElement('trias:Language')?.innerText,
     );
   }
 }
@@ -149,8 +150,8 @@ class TriasAttribute with _$TriasAttribute {
 
   factory TriasAttribute.fromXML(XmlElement e) {
     return TriasAttribute(
-      code: e.getElement('trias:Code')!.text,
-      text: e.getElement('trias:Text')!.getTriasText()!.text,
+      code: e.getElement('trias:Code')!.innerText,
+      text: e.getElement('trias:Text')!.getTriasText()!.innerText,
     );
   }
 }
@@ -188,13 +189,14 @@ class TriasOnwardCall with _$TriasOnwardCall implements StationboardConnection {
   factory TriasOnwardCall.fromXML(XmlElement xml) {
     final call = xml.getElement('trias:CallAtStop')!;
     return TriasOnwardCall(
-      stopPointRef: call.getElement('trias:StopPointRef')!.text,
+      stopPointRef: call.getElement('trias:StopPointRef')!.innerText,
       stopPointName:
-          call.getElement('trias:StopPointName')!.getTriasText()!.text,
-      plannedBay: call.getElement('trias:PlannedBay')!.getTriasText()!.text,
+          call.getElement('trias:StopPointName')!.getTriasText()!.innerText,
+      plannedBay:
+          call.getElement('trias:PlannedBay')!.getTriasText()!.innerText,
       serviceArrival:
           TriasServiceTime.fromXML(call.getElement('trias:ServiceArrival')!),
-      stopSeqNumber: call.getElement('trias:StopSeqNumber')!.text,
+      stopSeqNumber: call.getElement('trias:StopSeqNumber')!.innerText,
     );
   }
 
@@ -266,8 +268,9 @@ class TriasServiceTime with _$TriasServiceTime {
   factory TriasServiceTime.fromXML(XmlElement e) {
     return TriasServiceTime(
       timetabledTime:
-          DateTime.parse(e.getElement('trias:TimetabledTime')!.text),
-      estimatedTime: DateTime.parse(e.getElement('trias:EstimatedTime')!.text),
+          DateTime.parse(e.getElement('trias:TimetabledTime')!.innerText),
+      estimatedTime:
+          DateTime.parse(e.getElement('trias:EstimatedTime')!.innerText),
     );
   }
   const TriasServiceTime._();
@@ -291,15 +294,16 @@ class TriasPreviousCall
   factory TriasPreviousCall.fromXML(XmlElement xml) {
     final call = xml.getElement('trias:CallAtStop')!;
     return TriasPreviousCall(
-      stopPointRef: call.getElement('trias:StopPointRef')!.text,
+      stopPointRef: call.getElement('trias:StopPointRef')!.innerText,
       stopPointName:
-          call.getElement('trias:StopPointName')!.getTriasText()!.text,
-      plannedBay: call.getElement('trias:PlannedBay')!.getTriasText()!.text,
+          call.getElement('trias:StopPointName')!.getTriasText()!.innerText,
+      plannedBay:
+          call.getElement('trias:PlannedBay')!.getTriasText()!.innerText,
       serviceArrival:
           TriasServiceTime.fromXML(call.getElement('trias:ServiceArrival')!),
       serviceDeparture:
           TriasServiceTime.fromXML(call.getElement('trias:ServiceDeparture')!),
-      stopSeqNumber: call.getElement('trias:StopSeqNumber')!.text,
+      stopSeqNumber: call.getElement('trias:StopSeqNumber')!.innerText,
     );
   }
   const TriasPreviousCall._();
@@ -375,14 +379,16 @@ class TriasThisCall with _$TriasThisCall implements StationboardConnection {
   factory TriasThisCall.fromXML(XmlElement xml) {
     final call = xml.getElement('trias:CallAtStop')!;
     return TriasThisCall(
-      stopPointRef: call.getElement('trias:StopPointRef')!.text,
+      stopPointRef: call.getElement('trias:StopPointRef')!.innerText,
       stopPointName:
-          call.getElement('trias:StopPointName')!.getTriasText()!.text,
-      plannedBay: call.getElement('trias:PlannedBay')!.getTriasText()!.text,
-      estimatedBay: call.getElement('trias:EstimatedBay')!.getTriasText()!.text,
+          call.getElement('trias:StopPointName')!.getTriasText()!.innerText,
+      plannedBay:
+          call.getElement('trias:PlannedBay')!.getTriasText()!.innerText,
+      estimatedBay:
+          call.getElement('trias:EstimatedBay')!.getTriasText()!.innerText,
       serviceDeparture:
           TriasServiceTime.fromXML(call.getElement('trias:ServiceDeparture')!),
-      stopSeqNumber: call.getElement('trias:StopSeqNumber')!.text,
+      stopSeqNumber: call.getElement('trias:StopSeqNumber')!.innerText,
     );
   }
   const TriasThisCall._();
@@ -451,8 +457,8 @@ class TriasGeoPosition with _$TriasGeoPosition, GeoCoordinates {
 
   factory TriasGeoPosition.fromXML(XmlElement xml) {
     return TriasGeoPosition(
-      latitude: double.parse(xml.getElement('trias:Latitude')!.text),
-      longitude: double.parse(xml.getElement('trias:Longitude')!.text),
+      latitude: double.parse(xml.getElement('trias:Latitude')!.innerText),
+      longitude: double.parse(xml.getElement('trias:Longitude')!.innerText),
     );
   }
 }

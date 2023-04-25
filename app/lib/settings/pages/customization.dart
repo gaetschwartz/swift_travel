@@ -258,10 +258,8 @@ class _ThememodeWidget extends StatelessWidget {
     switch (b) {
       case Brightness.light:
         t = theme.light;
-        break;
       case Brightness.dark:
         t = theme.dark;
-        break;
     }
     final center = Center(
       child: mode == ThemeMode.system

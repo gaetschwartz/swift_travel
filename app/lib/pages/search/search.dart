@@ -142,10 +142,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       switch (searchType) {
         case SearchType.station:
           locationType = LocationType.station;
-          break;
         case SearchType.address:
           locationType = LocationType.address;
-          break;
       }
       _sub = ref
           .read(completionEngineProvider)

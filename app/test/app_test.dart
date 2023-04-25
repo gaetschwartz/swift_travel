@@ -20,7 +20,6 @@ import 'package:swift_travel/logic/navigation.dart';
 import 'package:swift_travel/main.dart';
 import 'package:swift_travel/mocking/mocking.dart';
 import 'package:swift_travel/pages/search/search.dart';
-import 'package:swift_travel/prediction/models/models.dart';
 import 'package:swift_travel/states/route_states.dart';
 import 'package:swift_travel/tabs/routes/fetcher.dart';
 import 'package:swift_travel/tabs/routes/location_text_box_manager.dart';
@@ -62,19 +61,22 @@ void main() {
       '&dtm=1g3ashk'
       '&i=0',
     );
-    DeepLinkManager.channel
-        .setMockMethodCallHandler((methodCall) async => uri.toString());
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      DeepLinkManager.channel,
+      (methodCall) async => uri.toString(),
+    );
 
     final c = ProviderContainer(overrides: [
       navigationAPIProvider.overrideWithValue(MockNavigationApi())
     ]);
 
-    late Pair<NavRoute, int> p;
+    late (NavRoute, int) p;
     await c.read(linksProvider).init(onNewRoute: (map) => p = map);
 
     expect(p, isNotNull);
-    expect(p.first, isNotNull);
-    expect(p.second, 0);
+    expect(p.$1, isNotNull);
+    expect(p.$2, 0);
     expect(
       (c.read(navigationAPIProvider) as MockNavigationApi).rawQueries,
       contains(
