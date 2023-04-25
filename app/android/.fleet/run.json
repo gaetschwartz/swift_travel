@@ -1,0 +1,13 @@
+{
+    "configurations": [
+       {
+           "type": "gradle",
+           "name": "Assemble Release",
+           "tasks": [
+               "app:assembleRelease"
+           ],
+       },
+        
+        
+    ]
+}

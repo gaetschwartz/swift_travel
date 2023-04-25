@@ -112,19 +112,6 @@ class UnchangedRouteTransformer implements IterableTransformer<LocalRoute> {
   Iterable<LocalRoute> apply(Iterable<LocalRoute> routes) => routes;
 }
 
-@freezed
-class Pair<R, S> with _$Pair<R, S> {
-  const factory Pair(R first, S second) = _Pair;
-  const Pair._();
-
-  Pair<S, R> get flipped => Pair<S, R>(second, first);
-}
-
-@freezed
-class Triple<R, S, T> with _$Triple<R, S, T> {
-  const factory Triple(R first, S second, T third) = _Triple;
-}
-
 class Completion implements NavigationCompletion {
   @override
   final String? id;

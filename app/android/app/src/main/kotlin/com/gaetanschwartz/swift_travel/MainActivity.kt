@@ -18,7 +18,7 @@ class MainActivity : FlutterActivity() {
   private var linksReceiver: BroadcastReceiver? = null
 
 
-  override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+  override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
     super.configureFlutterEngine(flutterEngine)
 
     MethodChannel(flutterEngine.dartExecutor, methodChannelId).setMethodCallHandler { call, result ->
