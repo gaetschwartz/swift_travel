@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swift_travel/apis/navigation/models/vehicle_iconclass.dart';
 import 'package:swift_travel/apis/navigation/switzerland/models/exit.dart';
@@ -795,89 +794,3 @@ final sbbRoute = SchRoute(
     )
   ],
 );
-// ignore: unreachable_from_main
-Matcher buildMatcher(
-  SchRoute actual,
-  SchRoute expected,
-) {
-  if (actual == expected) {
-    return equals(
-      expected,
-    );
-  } else {
-    if (listEquals(
-      actual.connections,
-      expected.connections,
-    )) {
-      return ChildMatcher<SchRoute>(
-        'A SchRoute with connections',
-        'connections',
-        orderedEquals(
-          expected.connections,
-        ),
-        (
-          data,
-        ) =>
-            data.connections,
-      );
-    } else {
-      if (actual.connections.length != expected.connections.length) {
-        return ChildMatcher<SchRoute>(
-          'Some connections with length',
-          'length',
-          expected.connections.length,
-          (
-            data,
-          ) =>
-              data.connections.length,
-        );
-      }
-      for (var i = 0; i < actual.connections.length; i++,) {
-        if (actual.connections[i] != expected.connections[i]) {
-          return ChildMatcher<SchRoute>(
-            'A connection ',
-            'connection',
-            equals(
-              expected.connections[i],
-            ),
-            (
-              data,
-            ) =>
-                ChildMatcher<SchRoute>(
-              'A connection ',
-              'connection',
-              data.connections[i],
-              (
-                _,
-              ) =>
-                  _.connections[i],
-            ),
-          );
-        }
-      }
-      throw StateError("This shouldn't happen");
-    }
-  }
-}
-
-// ignore: unreachable_from_main
-class ChildMatcher<T> extends CustomMatcher {
-  ChildMatcher(
-    super.featureDescription,
-    super.featureName,
-    dynamic super.matcher,
-    this.extractFeature,
-  );
-
-  final Object? Function(
-    T data,
-  ) extractFeature;
-
-  @override
-  Object? featureValueOf(
-    dynamic actual,
-  ) =>
-      extractFeature(
-        actual as T,
-      );
-}
