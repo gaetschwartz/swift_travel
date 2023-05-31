@@ -138,15 +138,6 @@ class BreatheWidget extends StatefulWidget {
   _BreatheWidgetState createState() => _BreatheWidgetState();
 }
 
-class MyCurve extends Curve {
-  const MyCurve(this.thresh);
-  final double thresh;
-
-  @override
-  double transform(double t) =>
-      t < thresh ? 0 : Curves.easeInOutCubic.transform(t / thresh - 1);
-}
-
 class CurveCanvas extends CustomPainter {
   final Curve curve;
   final double t;

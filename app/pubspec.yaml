@@ -40,7 +40,7 @@ dependencies:
   hive: ^2.0.0
   http: ^0.13.3
   in_app_purchase: ^3.0.8
-  in_app_purchase_android: ^0.2.3+7
+  in_app_purchase_android: ^0.3.0+4
   in_app_purchase_storekit: ^0.3.3
   intl: ^0.18.0
   isar: ^3.0.2
@@ -61,7 +61,7 @@ dependencies:
   scrollable_positioned_list: ^0.3.0
   share_plus: ^7.0.0
   shared_preferences: ^2.0.0
-  shimmer: ^2.0.0
+  shimmer: ^3.0.0
   theming:
     git:
       url: https://github.com/gaetschwartz/gaet_utils.git
@@ -73,12 +73,12 @@ dependencies:
       url: https://github.com/gaetschwartz/gaet_utils.git
       path: packages/vibration
   xml: ^6.1.0
-  xml2json: ^5.3.2
+  xml2json: ^6.1.0
 
 dev_dependencies:
   all_lint_rules_community: ^0.0.15
   build_runner: ^2.0.1
-  custom_lint: ^0.3.3
+  custom_lint: ^0.4.0
   dart_code_metrics: ^5.2.1
   flutter_driver:
     sdk: flutter
