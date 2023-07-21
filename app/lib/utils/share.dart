@@ -132,7 +132,9 @@ class _ScreenshotDialogState extends State<_ScreenshotDialog> {
       }
     } on Exception catch (e, s) {
       debugPrintStack(label: e.toString(), stackTrace: s);
-      Navigator.of(context).pop();
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
     }
   }
 

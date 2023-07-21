@@ -61,24 +61,16 @@ abstract class $SchStationboardConnectionCopyWith<$Res> {
       {DateTime time,
       VehicleType type,
       String color,
-      @JsonKey(name: 'terminal')
-          SchStop sbbTerminal,
+      @JsonKey(name: 'terminal') SchStop sbbTerminal,
       String? line,
-      @JsonKey(name: 'operator')
-          String? operator,
+      @JsonKey(name: 'operator') String? operator,
       String number,
-      @JsonKey(name: '*G')
-          String? g,
-      @JsonKey(name: '*L')
-          String? l,
+      @JsonKey(name: '*G') String? g,
+      @JsonKey(name: '*L') String? l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
-          List<SchSubsequentStop> sbbSubsequentStops,
-      @DelayConverter()
-      @JsonKey(name: 'dep_delay')
-          int? depDelay,
-      @DelayConverter()
-      @JsonKey(name: 'arr_delay')
-          int? arrDelay,
+      List<SchSubsequentStop> sbbSubsequentStops,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       String? track});
 
   $SchStopCopyWith<$Res> get sbbTerminal;
@@ -190,24 +182,16 @@ abstract class _$$_SchStationboardConnectionCopyWith<$Res>
       {DateTime time,
       VehicleType type,
       String color,
-      @JsonKey(name: 'terminal')
-          SchStop sbbTerminal,
+      @JsonKey(name: 'terminal') SchStop sbbTerminal,
       String? line,
-      @JsonKey(name: 'operator')
-          String? operator,
+      @JsonKey(name: 'operator') String? operator,
       String number,
-      @JsonKey(name: '*G')
-          String? g,
-      @JsonKey(name: '*L')
-          String? l,
+      @JsonKey(name: '*G') String? g,
+      @JsonKey(name: '*L') String? l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
-          List<SchSubsequentStop> sbbSubsequentStops,
-      @DelayConverter()
-      @JsonKey(name: 'dep_delay')
-          int? depDelay,
-      @DelayConverter()
-      @JsonKey(name: 'arr_delay')
-          int? arrDelay,
+      List<SchSubsequentStop> sbbSubsequentStops,
+      @DelayConverter() @JsonKey(name: 'dep_delay') int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') int? arrDelay,
       String? track});
 
   @override
@@ -306,25 +290,17 @@ class _$_SchStationboardConnection extends _SchStationboardConnection {
       {required this.time,
       required this.type,
       required this.color,
-      @JsonKey(name: 'terminal')
-          required this.sbbTerminal,
+      @JsonKey(name: 'terminal') required this.sbbTerminal,
       this.line,
-      @JsonKey(name: 'operator')
-          this.operator,
+      @JsonKey(name: 'operator') this.operator,
       this.number = '',
-      @JsonKey(name: '*G')
-          this.g,
-      @JsonKey(name: '*L')
-          this.l,
+      @JsonKey(name: '*G') this.g,
+      @JsonKey(name: '*L') this.l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
-          final List<SchSubsequentStop>
-              sbbSubsequentStops = const <SchSubsequentStop>[],
-      @DelayConverter()
-      @JsonKey(name: 'dep_delay')
-          this.depDelay,
-      @DelayConverter()
-      @JsonKey(name: 'arr_delay')
-          this.arrDelay,
+      final List<SchSubsequentStop> sbbSubsequentStops =
+          const <SchSubsequentStop>[],
+      @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') this.arrDelay,
       this.track})
       : _sbbSubsequentStops = sbbSubsequentStops,
         super._();
@@ -444,24 +420,16 @@ abstract class _SchStationboardConnection extends SchStationboardConnection {
       {required final DateTime time,
       required final VehicleType type,
       required final String color,
-      @JsonKey(name: 'terminal')
-          required final SchStop sbbTerminal,
+      @JsonKey(name: 'terminal') required final SchStop sbbTerminal,
       final String? line,
-      @JsonKey(name: 'operator')
-          final String? operator,
+      @JsonKey(name: 'operator') final String? operator,
       final String number,
-      @JsonKey(name: '*G')
-          final String? g,
-      @JsonKey(name: '*L')
-          final String? l,
+      @JsonKey(name: '*G') final String? g,
+      @JsonKey(name: '*L') final String? l,
       @JsonKey(name: 'subsequent_stops', defaultValue: <SchSubsequentStop>[])
-          final List<SchSubsequentStop> sbbSubsequentStops,
-      @DelayConverter()
-      @JsonKey(name: 'dep_delay')
-          final int? depDelay,
-      @DelayConverter()
-      @JsonKey(name: 'arr_delay')
-          final int? arrDelay,
+      final List<SchSubsequentStop> sbbSubsequentStops,
+      @DelayConverter() @JsonKey(name: 'dep_delay') final int? depDelay,
+      @DelayConverter() @JsonKey(name: 'arr_delay') final int? arrDelay,
       final String? track}) = _$_SchStationboardConnection;
   _SchStationboardConnection._() : super._();
 

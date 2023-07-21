@@ -40,10 +40,9 @@ abstract class $SchStationboardCopyWith<$Res> {
       _$SchStationboardCopyWithImpl<$Res, SchStationboard>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'stop')
-          SchStop? sbbStop,
+      {@JsonKey(name: 'stop') SchStop? sbbStop,
       @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
-          List<SchStationboardConnection> sbbConnections,
+      List<SchStationboardConnection> sbbConnections,
       List<Object> messages});
 
   $SchStopCopyWith<$Res>? get sbbStop;
@@ -104,10 +103,9 @@ abstract class _$$_SchStationboardCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'stop')
-          SchStop? sbbStop,
+      {@JsonKey(name: 'stop') SchStop? sbbStop,
       @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
-          List<SchStationboardConnection> sbbConnections,
+      List<SchStationboardConnection> sbbConnections,
       List<Object> messages});
 
   @override
@@ -151,11 +149,10 @@ class __$$_SchStationboardCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
 class _$_SchStationboard extends _SchStationboard {
   const _$_SchStationboard(
-      {@JsonKey(name: 'stop')
-          this.sbbStop = const SchStop(sbbName: ''),
+      {@JsonKey(name: 'stop') this.sbbStop = const SchStop(sbbName: ''),
       @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
-          final List<SchStationboardConnection>
-              sbbConnections = const <SchStationboardConnection>[],
+      final List<SchStationboardConnection> sbbConnections =
+          const <SchStationboardConnection>[],
       final List<Object> messages = const <Object>[]})
       : _sbbConnections = sbbConnections,
         _messages = messages,
@@ -225,10 +222,9 @@ class _$_SchStationboard extends _SchStationboard {
 
 abstract class _SchStationboard extends SchStationboard {
   const factory _SchStationboard(
-      {@JsonKey(name: 'stop')
-          final SchStop? sbbStop,
+      {@JsonKey(name: 'stop') final SchStop? sbbStop,
       @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
-          final List<SchStationboardConnection> sbbConnections,
+      final List<SchStationboardConnection> sbbConnections,
       final List<Object> messages}) = _$_SchStationboard;
   const _SchStationboard._() : super._();
 

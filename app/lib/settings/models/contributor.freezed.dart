@@ -511,36 +511,25 @@ abstract class _Contributor implements Contributor {
   const factory _Contributor(
       {required final String login,
       required final int id,
-      @JsonKey(name: 'node_id')
-          required final String nodeId,
-      @JsonKey(name: 'avatar_url')
-          required final String avatarUrl,
-      @JsonKey(name: 'gravatar_id')
-          required final String gravatarId,
+      @JsonKey(name: 'node_id') required final String nodeId,
+      @JsonKey(name: 'avatar_url') required final String avatarUrl,
+      @JsonKey(name: 'gravatar_id') required final String gravatarId,
       required final String url,
-      @JsonKey(name: 'html_url')
-          required final String htmlUrl,
-      @JsonKey(name: 'followers_url')
-          required final String followersUrl,
-      @JsonKey(name: 'following_url')
-          required final String followingUrl,
-      @JsonKey(name: 'gists_url')
-          required final String gistsUrl,
-      @JsonKey(name: 'starred_url')
-          required final String starredUrl,
+      @JsonKey(name: 'html_url') required final String htmlUrl,
+      @JsonKey(name: 'followers_url') required final String followersUrl,
+      @JsonKey(name: 'following_url') required final String followingUrl,
+      @JsonKey(name: 'gists_url') required final String gistsUrl,
+      @JsonKey(name: 'starred_url') required final String starredUrl,
       @JsonKey(name: 'subscriptions_url')
-          required final String subscriptionsUrl,
+      required final String subscriptionsUrl,
       @JsonKey(name: 'organizations_url')
-          required final String organizationsUrl,
-      @JsonKey(name: 'repos_url')
-          required final String reposUrl,
-      @JsonKey(name: 'events_url')
-          required final String eventsUrl,
+      required final String organizationsUrl,
+      @JsonKey(name: 'repos_url') required final String reposUrl,
+      @JsonKey(name: 'events_url') required final String eventsUrl,
       @JsonKey(name: 'received_events_url')
-          required final String receivedEventsUrl,
+      required final String receivedEventsUrl,
       required final String type,
-      @JsonKey(name: 'site_admin')
-          required final bool siteAdmin,
+      @JsonKey(name: 'site_admin') required final bool siteAdmin,
       required final int contributions}) = _$_Contributor;
 
   factory _Contributor.fromJson(Map<String, dynamic> json) =

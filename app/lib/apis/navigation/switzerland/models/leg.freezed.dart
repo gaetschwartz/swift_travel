@@ -436,11 +436,8 @@ class __$$_SchLegCopyWithImpl<$Res>
 class _$_SchLeg extends _SchLeg {
   _$_SchLeg(
       {required this.name,
-      @JsonKey(name: 'exit')
-          this.sbbExit,
-      @DelayConverter()
-      @JsonKey(name: 'dep_delay')
-          this.depDelay,
+      @JsonKey(name: 'exit') this.sbbExit,
+      @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
       this.type,
       this.track,
       this.terminal,
@@ -449,26 +446,20 @@ class _$_SchLeg extends _SchLeg {
       this.number,
       this.tripid,
       this.stopid,
-      @JsonKey(name: 'runningtime')
-          this.runningTime,
+      @JsonKey(name: 'runningtime') this.runningTime,
       this.line,
       @JsonKey(name: 'stops', defaultValue: <SchStop>[])
-          final List<SchStop> sbbStops = const <SchStop>[],
+      final List<SchStop> sbbStops = const <SchStop>[],
       this.sbbName,
       this.departure,
       this.arrival,
-      @JsonKey(name: 'normal_time')
-          this.normalTime,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          this.waitTime = 0,
-      @JsonKey(name: 'isaddress')
-          this.isAddress = false,
+      @JsonKey(name: 'normal_time') this.normalTime,
+      @JsonKey(name: 'waittime', defaultValue: 0) this.waitTime = 0,
+      @JsonKey(name: 'isaddress') this.isAddress = false,
       this.lat,
       this.lon,
-      @IntConverter()
-          this.x,
-      @IntConverter()
-          this.y,
+      @IntConverter() this.x,
+      @IntConverter() this.y,
       final Map<String, String> attributes = const <String, String>{}})
       : _sbbStops = sbbStops,
         _attributes = attributes,
@@ -643,11 +634,8 @@ class _$_SchLeg extends _SchLeg {
 abstract class _SchLeg extends SchLeg {
   factory _SchLeg(
       {required final String name,
-      @JsonKey(name: 'exit')
-          final SchExit? sbbExit,
-      @DelayConverter()
-      @JsonKey(name: 'dep_delay')
-          final int? depDelay,
+      @JsonKey(name: 'exit') final SchExit? sbbExit,
+      @DelayConverter() @JsonKey(name: 'dep_delay') final int? depDelay,
       final VehicleType? type,
       final String? track,
       final String? terminal,
@@ -656,26 +644,20 @@ abstract class _SchLeg extends SchLeg {
       final String? number,
       final String? tripid,
       final String? stopid,
-      @JsonKey(name: 'runningtime')
-          final double? runningTime,
+      @JsonKey(name: 'runningtime') final double? runningTime,
       final String? line,
       @JsonKey(name: 'stops', defaultValue: <SchStop>[])
-          final List<SchStop> sbbStops,
+      final List<SchStop> sbbStops,
       final String? sbbName,
       final DateTime? departure,
       final DateTime? arrival,
-      @JsonKey(name: 'normal_time')
-          final double? normalTime,
-      @JsonKey(name: 'waittime', defaultValue: 0)
-          final double waitTime,
-      @JsonKey(name: 'isaddress')
-          final bool isAddress,
+      @JsonKey(name: 'normal_time') final double? normalTime,
+      @JsonKey(name: 'waittime', defaultValue: 0) final double waitTime,
+      @JsonKey(name: 'isaddress') final bool isAddress,
       final double? lat,
       final double? lon,
-      @IntConverter()
-          final int? x,
-      @IntConverter()
-          final int? y,
+      @IntConverter() final int? x,
+      @IntConverter() final int? y,
       final Map<String, String> attributes}) = _$_SchLeg;
   _SchLeg._() : super._();
 

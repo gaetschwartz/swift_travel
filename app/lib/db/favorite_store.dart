@@ -89,7 +89,7 @@ class HiveFavoritesStore extends BaseFavoritesStore {
 
   @override
   Future<void> save(List<QuickActionsItem> list) async {
-    await favoritesDb.putAll({for (var e in list) e.id: e});
+    await favoritesDb.putAll({for (final e in list) e.id: e});
   }
 }
 

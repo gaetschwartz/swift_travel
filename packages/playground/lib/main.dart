@@ -149,7 +149,7 @@ class CurveCanvas extends CustomPainter {
     const n = 20;
     final points = [
       for (var i = 0; i < n + 1; i++)
-        Offset(size.width * i / n, (1 - curve.transform(i / n)) * size.height)
+        Offset(size.width * i / n, (1 - curve.transform(i / n)) * size.height),
     ];
     c.drawPoints(
       ui.PointMode.polygon,
@@ -219,7 +219,7 @@ class _BreatheWidgetState extends State<BreatheWidget>
                         BoxShadow(
                           color: Colors.deepPurple.withOpacity(0.2),
                           blurRadius: a.value * widget.scale,
-                        )
+                        ),
                       ],
                       borderRadius:
                           BorderRadius.all(Radius.circular(widget.scale / 2)),
@@ -248,7 +248,7 @@ class _BreatheWidgetState extends State<BreatheWidget>
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -348,7 +348,7 @@ class _EditorPageState extends State<EditorPage> {
                     child: DecoratedBox(
                       decoration: const BoxDecoration(
                         boxShadow: [
-                          BoxShadow(blurRadius: 16, color: Color(0x800700b1))
+                          BoxShadow(blurRadius: 16, color: Color(0x800700b1)),
                         ],
                       ),
                       child: SizedBox.fromSize(
@@ -395,7 +395,7 @@ class _EditorPageState extends State<EditorPage> {
         widget.name,
         if (hasBackground) 'bg',
         describeEnum(sizeType),
-        scale
+        scale,
       ].join('-')}.png';
 }
 
@@ -443,7 +443,7 @@ class WidgetsShowcase extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 32),
-                          const Text('Simple, readable information.')
+                          const Text('Simple, readable information.'),
                         ],
                       ),
                       Row(
@@ -478,7 +478,7 @@ class WidgetsShowcase extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 32),
-                          const Text('Just the information need')
+                          const Text('Just the information need'),
                         ],
                       ),
                       Row(
@@ -506,7 +506,7 @@ class WidgetsShowcase extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 32),
-                          const Text('Smart suggestions')
+                          const Text('Smart suggestions'),
                         ],
                       ),
                     ],
@@ -551,7 +551,7 @@ class HeaderWidget extends StatelessWidget {
                   BoxShadow(
                     color: Colors.deepPurple.withOpacity(0.2),
                     blurRadius: scale / 2,
-                  )
+                  ),
                 ],
                 borderRadius: BorderRadius.all(Radius.circular(scale / 2)),
                 color: Colors.white,

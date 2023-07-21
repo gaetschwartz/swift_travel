@@ -98,6 +98,7 @@ analyzer:
 linter:
   rules:
     library_private_types_in_public_api: false
+    unreachable_from_main: false
     # ALWAYS separate the control structure expression from its statement.
     #
     # https://dart-lang.github.io/linter/lints/always_put_control_body_on_new_line.html

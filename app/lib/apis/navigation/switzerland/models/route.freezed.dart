@@ -45,12 +45,10 @@ abstract class $SchRouteCopyWith<$Res> {
   @useResult
   $Res call(
       {int count,
-      @JsonKey(name: 'min_duration')
-          double? minDuration,
-      @JsonKey(name: 'max_duration')
-          double? maxDuration,
+      @JsonKey(name: 'min_duration') double? minDuration,
+      @JsonKey(name: 'max_duration') double? maxDuration,
       @JsonKey(name: 'connections', defaultValue: <SchRouteConnection>[])
-          List<SchRouteConnection> sbbConnections,
+      List<SchRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
       DateTime? dateTime});
@@ -119,12 +117,10 @@ abstract class _$$_SchRouteCopyWith<$Res> implements $SchRouteCopyWith<$Res> {
   @useResult
   $Res call(
       {int count,
-      @JsonKey(name: 'min_duration')
-          double? minDuration,
-      @JsonKey(name: 'max_duration')
-          double? maxDuration,
+      @JsonKey(name: 'min_duration') double? minDuration,
+      @JsonKey(name: 'max_duration') double? maxDuration,
       @JsonKey(name: 'connections', defaultValue: <SchRouteConnection>[])
-          List<SchRouteConnection> sbbConnections,
+      List<SchRouteConnection> sbbConnections,
       List<String> messages,
       String? requestUrl,
       DateTime? dateTime});
@@ -188,13 +184,11 @@ class __$$_SchRouteCopyWithImpl<$Res>
 class _$_SchRoute extends _SchRoute {
   const _$_SchRoute(
       {this.count = 0,
-      @JsonKey(name: 'min_duration')
-          this.minDuration,
-      @JsonKey(name: 'max_duration')
-          this.maxDuration,
+      @JsonKey(name: 'min_duration') this.minDuration,
+      @JsonKey(name: 'max_duration') this.maxDuration,
       @JsonKey(name: 'connections', defaultValue: <SchRouteConnection>[])
-          final List<SchRouteConnection>
-              sbbConnections = const <SchRouteConnection>[],
+      final List<SchRouteConnection> sbbConnections =
+          const <SchRouteConnection>[],
       final List<String> messages = const <String>[],
       this.requestUrl,
       this.dateTime})
@@ -290,12 +284,10 @@ class _$_SchRoute extends _SchRoute {
 abstract class _SchRoute extends SchRoute {
   const factory _SchRoute(
       {final int count,
-      @JsonKey(name: 'min_duration')
-          final double? minDuration,
-      @JsonKey(name: 'max_duration')
-          final double? maxDuration,
+      @JsonKey(name: 'min_duration') final double? minDuration,
+      @JsonKey(name: 'max_duration') final double? maxDuration,
       @JsonKey(name: 'connections', defaultValue: <SchRouteConnection>[])
-          final List<SchRouteConnection> sbbConnections,
+      final List<SchRouteConnection> sbbConnections,
       final List<String> messages,
       final String? requestUrl,
       final DateTime? dateTime}) = _$_SchRoute;

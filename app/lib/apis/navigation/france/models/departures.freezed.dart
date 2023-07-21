@@ -173,7 +173,7 @@ class _$_SncfStationboard extends _SncfStationboard {
       required final List<SncfDeparture> departures,
       this.error,
       @JsonKey(includeFromJson: false, includeToJson: false)
-          this.stop = const MockStop()})
+      this.stop = const MockStop()})
       : _departures = departures,
         super._();
 
@@ -238,7 +238,7 @@ abstract class _SncfStationboard extends SncfStationboard {
       required final List<SncfDeparture> departures,
       final SncfError? error,
       @JsonKey(includeFromJson: false, includeToJson: false)
-          final Stop stop}) = _$_SncfStationboard;
+      final Stop stop}) = _$_SncfStationboard;
   const _SncfStationboard._() : super._();
 
   factory _SncfStationboard.fromJson(Map<String, dynamic> json) =
@@ -619,11 +619,11 @@ class _$_SncfDeparture extends _SncfDeparture {
 abstract class _SncfDeparture extends SncfDeparture {
   const factory _SncfDeparture(
       {@JsonKey(name: 'display_informations')
-          required final SncfDispInfo displayInformations,
+      required final SncfDispInfo displayInformations,
       @JsonKey(name: 'stop_date_time')
-          required final SncfStopDateTime stopDateTime,
+      required final SncfStopDateTime stopDateTime,
       @JsonKey(name: 'stop_point')
-          required final SncfStopPoint stopPoint}) = _$_SncfDeparture;
+      required final SncfStopPoint stopPoint}) = _$_SncfDeparture;
   const _SncfDeparture._() : super._();
 
   factory _SncfDeparture.fromJson(Map<String, dynamic> json) =
@@ -783,7 +783,7 @@ class _$_SncfStopPoint implements _SncfStopPoint {
 abstract class _SncfStopPoint implements SncfStopPoint {
   const factory _SncfStopPoint(
       @JsonKey(name: 'commercial_modes')
-          final List<SncfMode> commercialModes) = _$_SncfStopPoint;
+      final List<SncfMode> commercialModes) = _$_SncfStopPoint;
 
   factory _SncfStopPoint.fromJson(Map<String, dynamic> json) =
       _$_SncfStopPoint.fromJson;
@@ -980,17 +980,12 @@ abstract class $SncfStopDateTimeCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'additional_informations')
-          List<Object> additionalInformations,
-      @JsonKey(name: 'arrival_date_time')
-          DateTime arrivalDateTime,
-      @JsonKey(name: 'base_arrival_date_time')
-          DateTime baseArrivalDateTime,
-      @JsonKey(name: 'base_departure_date_time')
-          DateTime baseDepartureDateTime,
-      @JsonKey(name: 'departure_date_time')
-          DateTime departureDateTime,
-      @JsonKey(name: 'data_freshness')
-          String dataFreshness,
+      List<Object> additionalInformations,
+      @JsonKey(name: 'arrival_date_time') DateTime arrivalDateTime,
+      @JsonKey(name: 'base_arrival_date_time') DateTime baseArrivalDateTime,
+      @JsonKey(name: 'base_departure_date_time') DateTime baseDepartureDateTime,
+      @JsonKey(name: 'departure_date_time') DateTime departureDateTime,
+      @JsonKey(name: 'data_freshness') String dataFreshness,
       List<Object> links});
 }
 
@@ -1058,17 +1053,12 @@ abstract class _$$_SncfStopDateTimeCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'additional_informations')
-          List<Object> additionalInformations,
-      @JsonKey(name: 'arrival_date_time')
-          DateTime arrivalDateTime,
-      @JsonKey(name: 'base_arrival_date_time')
-          DateTime baseArrivalDateTime,
-      @JsonKey(name: 'base_departure_date_time')
-          DateTime baseDepartureDateTime,
-      @JsonKey(name: 'departure_date_time')
-          DateTime departureDateTime,
-      @JsonKey(name: 'data_freshness')
-          String dataFreshness,
+      List<Object> additionalInformations,
+      @JsonKey(name: 'arrival_date_time') DateTime arrivalDateTime,
+      @JsonKey(name: 'base_arrival_date_time') DateTime baseArrivalDateTime,
+      @JsonKey(name: 'base_departure_date_time') DateTime baseDepartureDateTime,
+      @JsonKey(name: 'departure_date_time') DateTime departureDateTime,
+      @JsonKey(name: 'data_freshness') String dataFreshness,
       List<Object> links});
 }
 
@@ -1129,17 +1119,14 @@ class __$$_SncfStopDateTimeCopyWithImpl<$Res>
 class _$_SncfStopDateTime implements _SncfStopDateTime {
   const _$_SncfStopDateTime(
       {@JsonKey(name: 'additional_informations')
-          required final List<Object> additionalInformations,
-      @JsonKey(name: 'arrival_date_time')
-          required this.arrivalDateTime,
+      required final List<Object> additionalInformations,
+      @JsonKey(name: 'arrival_date_time') required this.arrivalDateTime,
       @JsonKey(name: 'base_arrival_date_time')
-          required this.baseArrivalDateTime,
+      required this.baseArrivalDateTime,
       @JsonKey(name: 'base_departure_date_time')
-          required this.baseDepartureDateTime,
-      @JsonKey(name: 'departure_date_time')
-          required this.departureDateTime,
-      @JsonKey(name: 'data_freshness')
-          required this.dataFreshness,
+      required this.baseDepartureDateTime,
+      @JsonKey(name: 'departure_date_time') required this.departureDateTime,
+      @JsonKey(name: 'data_freshness') required this.dataFreshness,
       required final List<Object> links})
       : _additionalInformations = additionalInformations,
         _links = links;
@@ -1234,17 +1221,16 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
 abstract class _SncfStopDateTime implements SncfStopDateTime {
   const factory _SncfStopDateTime(
       {@JsonKey(name: 'additional_informations')
-          required final List<Object> additionalInformations,
+      required final List<Object> additionalInformations,
       @JsonKey(name: 'arrival_date_time')
-          required final DateTime arrivalDateTime,
+      required final DateTime arrivalDateTime,
       @JsonKey(name: 'base_arrival_date_time')
-          required final DateTime baseArrivalDateTime,
+      required final DateTime baseArrivalDateTime,
       @JsonKey(name: 'base_departure_date_time')
-          required final DateTime baseDepartureDateTime,
+      required final DateTime baseDepartureDateTime,
       @JsonKey(name: 'departure_date_time')
-          required final DateTime departureDateTime,
-      @JsonKey(name: 'data_freshness')
-          required final String dataFreshness,
+      required final DateTime departureDateTime,
+      @JsonKey(name: 'data_freshness') required final String dataFreshness,
       required final List<Object> links}) = _$_SncfStopDateTime;
 
   factory _SncfStopDateTime.fromJson(Map<String, dynamic> json) =
@@ -1671,8 +1657,7 @@ abstract class _SncfDispInfo implements SncfDispInfo {
   const factory _SncfDispInfo(
       {required final String code,
       required final String color,
-      @JsonKey(name: 'commercial_mode')
-          required final String commercialMode,
+      @JsonKey(name: 'commercial_mode') required final String commercialMode,
       required final String description,
       required final String direction,
       required final List<Object> equipments,
@@ -1681,12 +1666,10 @@ abstract class _SncfDispInfo implements SncfDispInfo {
       required final List<Object> links,
       required final String name,
       required final String network,
-      @JsonKey(name: 'physical_mode')
-          required final String physicalMode,
-      @JsonKey(name: 'text_color')
-          required final String textColor,
+      @JsonKey(name: 'physical_mode') required final String physicalMode,
+      @JsonKey(name: 'text_color') required final String textColor,
       @JsonKey(name: 'trip_short_name')
-          required final String tripShortName}) = _$_SncfDispInfo;
+      required final String tripShortName}) = _$_SncfDispInfo;
 
   factory _SncfDispInfo.fromJson(Map<String, dynamic> json) =
       _$_SncfDispInfo.fromJson;
