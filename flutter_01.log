@@ -1,0 +1,108 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter precache
+
+## exception
+
+PathNotFoundException: PathNotFoundException: Cannot open file, path = '/Users/gaetan/.puro/envs/beta/flutter/version' (OS Error: No such file or directory, errno = 2)
+
+```
+#0      _File.throwIfError (dart:io/file_impl.dart:675:7)
+#1      _File.openSync (dart:io/file_impl.dart:490:5)
+#2      _File.readAsBytesSync (dart:io/file_impl.dart:574:18)
+#3      _File.readAsStringSync (dart:io/file_impl.dart:624:18)
+#4      ForwardingFile.readAsStringSync (package:file/src/forwarding/forwarding_file.dart:99:16)
+#5      ErrorHandlingFile.readAsStringSync.<anonymous closure> (package:flutter_tools/src/base/error_handling_io.dart:218:22)
+#6      _runSync (package:flutter_tools/src/base/error_handling_io.dart:590:14)
+#7      ErrorHandlingFile.readAsStringSync (package:flutter_tools/src/base/error_handling_io.dart:217:12)
+#8      _DefaultPub._updateVersionAndPackageConfig (package:flutter_tools/src/dart/pub.dart:705:50)
+#9      _DefaultPub.get (package:flutter_tools/src/dart/pub.dart:332:11)
+<asynchronous suspension>
+#10     PubDependencies.update (package:flutter_tools/src/flutter_cache.dart:126:5)
+<asynchronous suspension>
+#11     Cache.updateAll (package:flutter_tools/src/cache.dart:679:9)
+<asynchronous suspension>
+#12     PrecacheCommand.runCommand (package:flutter_tools/src/commands/precache.dart:171:7)
+<asynchronous suspension>
+#13     FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1297:27)
+<asynchronous suspension>
+#14     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:150:19)
+<asynchronous suspension>
+#15     CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+<asynchronous suspension>
+#16     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:339:9)
+<asynchronous suspension>
+#17     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:150:19)
+<asynchronous suspension>
+#18     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:285:5)
+<asynchronous suspension>
+#19     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:115:9)
+<asynchronous suspension>
+#20     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:150:19)
+<asynchronous suspension>
+#21     main (package:flutter_tools/executable.dart:90:3)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel beta, 3.13.0-0.4.pre, on macOS 14.0 23A5312d darwin-arm64 (Rosetta), locale en-CH)
+    [32m•[39m Flutter version 3.13.0-0.4.pre on channel beta at /Users/gaetan/.puro/envs/beta/flutter
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision 7e07cd41cb (11 days ago), 2023-08-08 21:20:03 -0700
+    [32m•[39m Engine revision 73d89ca7c5
+    [32m•[39m Dart version 3.1.0 (build 3.1.0-262.3.beta)
+    [32m•[39m DevTools version 2.25.0
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 34.0.0-rc4)
+    [32m•[39m Android SDK at /Users/gaetan/Library/Android/sdk
+    [32m•[39m Platform android-34, build-tools 34.0.0-rc4
+    [32m•[39m ANDROID_HOME = /Users/gaetan/Library/Android/sdk
+    [32m•[39m ANDROID_SDK_ROOT = /Users/gaetan/Library/Android/sdk
+    [32m•[39m Java binary at: /Users/gaetan/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 17.0.6+0-17.0.6b829.9-10027231)
+    [32m•[39m All Android licenses accepted.
+
+[32m[✓][39m Xcode - develop for iOS and macOS (Xcode 15.0)
+    [32m•[39m Xcode at /Applications/Xcode-15.0.0-Beta.6.app/Contents/Developer
+    [32m•[39m Build 15A5219j
+    [32m•[39m CocoaPods version 1.12.1
+
+[32m[✓][39m Chrome - develop for the web
+    [32m•[39m Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+[32m[✓][39m Android Studio (version 2022.3)
+    [32m•[39m Android Studio at /Users/gaetan/Applications/Android Studio.app/Contents
+    [32m•[39m Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    [32m•[39m Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    [32m•[39m Java version OpenJDK Runtime Environment (build 17.0.6+0-17.0.6b829.9-10027231)
+
+[32m[✓][39m IntelliJ IDEA Ultimate Edition (version 2023.2.1)
+    [32m•[39m IntelliJ at /Users/gaetan/Applications/IntelliJ IDEA Ultimate.app
+    [32m•[39m Flutter plugin version 75.1.4
+    [32m•[39m Dart plugin version 232.9559.10
+
+[32m[✓][39m VS Code (version 1.81.0)
+    [32m•[39m VS Code at /Applications/Visual Studio Code.app/Contents
+    [32m•[39m Flutter extension version 3.71.20230801
+
+[32m[✓][39m VS Code (version 1.82.0-insider)
+    [32m•[39m VS Code at /Applications/Visual Studio Code - Insiders.app/Contents
+    [32m•[39m Flutter extension version 3.71.20230801
+
+[32m[✓][39m Connected device (3 available)
+    [32m•[39m Gaëtan's iPhone 14 Pro Max (mobile) • 00008120-001C11911420C01E • ios            • iOS 17.0 21A5312c
+    [32m•[39m macOS (desktop)                     • macos                     • darwin-arm64   • macOS 14.0 23A5312d darwin-arm64 (Rosetta)
+    [32m•[39m Chrome (web)                        • chrome                    • web-javascript • Google Chrome 115.0.5790.170
+
+[32m[✓][39m Network resources
+    [32m•[39m All expected network resources are available.
+
+[32m•[39m No issues found!
+```
