@@ -201,7 +201,7 @@ class _AttributeTile extends StatelessWidget {
             ),
           ),
         ),
-        horizontalTitleGap: 0,
+        // horizontalTitleGap: 0,
         title: Text(att.message!),
         dense: true,
         trailing: Env.isDebugMode && att.icon == null

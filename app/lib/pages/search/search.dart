@@ -528,7 +528,7 @@ class SuggestedTile extends StatelessWidget {
       child: ListTile(
         onTap: isLoading ? null : () => onTap?.call(suggestion),
         leading: _SuggestedTileIcon(suggestion: suggestion),
-        horizontalTitleGap: 0,
+        // horizontalTitleGap: 0,
         title: isLoading
             ? Text(
                 label,

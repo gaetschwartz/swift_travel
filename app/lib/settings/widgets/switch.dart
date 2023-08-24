@@ -15,7 +15,7 @@ class SwiftSettingsSwitchTile extends StatefulWidget with WithLeading {
     this.onChanged,
     this.tileBorders = TileBorders.none,
     this.isSubtitleOutside = false,
-  })  : listenable = null;
+  }) : listenable = null;
 
   final Widget title;
   @override
@@ -78,7 +78,7 @@ class _SwiftSettingsSwitchTileState extends State<SwiftSettingsSwitchTile> {
       color: Colors.transparent,
       child: ListTile(
         dense: true,
-        horizontalTitleGap: 0,
+        // horizontalTitleGap: 0,
         minVerticalPadding: 0,
         title: DefaultTextStyle(
           style: Theme.of(context)

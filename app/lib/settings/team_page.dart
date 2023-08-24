@@ -114,7 +114,7 @@ class _MainState extends State<_Main> {
         ),
         const SliverToBoxAdapter(
           child: ListTile(
-            horizontalTitleGap: 0,
+            // horizontalTitleGap: 0,
             leading: FaIcon(FontAwesomeIcons.github),
             title: Text('Github Contributors'),
           ),

@@ -147,7 +147,7 @@ class RouteCompletionTile extends StatelessWidget {
             height: 16,
             child: DecoratedBox(decoration: BoxDecoration(color: Colors.red)),
           ),
-          horizontalTitleGap: 0,
+          // horizontalTitleGap: 0,
           dense: true,
         )
       : ListTile(
@@ -158,7 +158,7 @@ class RouteCompletionTile extends StatelessWidget {
           trailing: completion!.origin == DataOrigin.favorites
               ? const Text('⭐')
               : null,
-          horizontalTitleGap: 0,
+          // horizontalTitleGap: 0,
           dense: true,
           tileColor: Colors.transparent,
           onTap: onTap,

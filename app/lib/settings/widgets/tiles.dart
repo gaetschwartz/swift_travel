@@ -65,7 +65,7 @@ class SwiftSettingsTile extends StatelessWidget with WithLeading {
             data: Theme.of(context)
                 .copyWith(splashFactory: NoSplash.splashFactory),
             child: ListTile(
-              horizontalTitleGap: 0,
+              // // horizontalTitleGap: 0,
               dense: true,
               title: DefaultTextStyle(
                 style: Theme.of(context).textTheme.bodyLarge!,

@@ -93,7 +93,7 @@ class _PropertyPage<T> extends StatelessWidget {
                     return Material(
                       color: Colors.transparent,
                       child: ListTile(
-                        horizontalTitleGap: 0,
+                        // horizontalTitleGap: 0,
                         tileColor: Theme.of(context).colorScheme.background,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(

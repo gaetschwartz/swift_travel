@@ -71,7 +71,7 @@ class _CompletionTileState extends ConsumerState<CompletionTile> {
         borderRadius: CompletionTile._kRadius,
       ),
       child: ListTile(
-        horizontalTitleGap: 0,
+        // horizontalTitleGap: 0,
         dense: true,
         shape:
             const RoundedRectangleBorder(borderRadius: CompletionTile._kRadius),
