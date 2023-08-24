@@ -15,7 +15,7 @@ dependencies:
   contacts_service:
     git:
       url: https://github.com/gaetschwartz/flutter_contacts.git
-      ref: 21ecb33d5bf6f19776cc8466db2437a6e5600703
+      ref: 20b1f91051ca9821f57f340b0fd4c6a2e1dfdfee
 
   cross_file: ^0.3.3+2
   cupertino_icons: ^1.0.0
@@ -36,9 +36,9 @@ dependencies:
       path: packages/logging
   gap: ^3.0.0
   geolocator: ^10.0.0
-  google_fonts: ^4.0.3
+  google_fonts: ^5.0.0
   hive: ^2.0.0
-  http: ^0.13.3
+  http: ^1.0.0
   in_app_purchase: ^3.0.8
   in_app_purchase_android: ^0.3.0+4
   in_app_purchase_storekit: ^0.3.3
@@ -79,7 +79,7 @@ dev_dependencies:
   all_lint_rules_community: ^0.0.15
   build_runner: ^2.0.1
   custom_lint: ^0.5.2
-  dart_code_metrics: ^5.2.1
+  # dart_code_metrics: ^5.2.1
   flutter_driver:
     sdk: flutter
   flutter_launcher_icons: ^0.13.0

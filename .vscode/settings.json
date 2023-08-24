@@ -1,6 +1,4 @@
 {
   "terminal.integrated.cwd": "app/",
   "build-runner.commandToUse": "flutter",
-  "dart.flutterSdkPath": "app/.fvm/flutter_sdk",
-  "cmake.configureOnOpen": true,
 }

@@ -151,7 +151,7 @@ class _ScreenPage extends StatelessWidget {
             ErrorDataWidget(
                 'Orientation:', MediaQuery.of(context).orientation.toString()),
             ErrorDataWidget('Text scale factor:',
-                MediaQuery.of(context).textScaleFactor.toString()),
+                MediaQuery.of(context).textScaler.toString()),
             ErrorDataWidget('Pixel ratio:',
                 MediaQuery.of(context).devicePixelRatio.toString()),
           ],
