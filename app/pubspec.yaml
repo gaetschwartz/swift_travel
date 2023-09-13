@@ -54,7 +54,7 @@ dependencies:
   package_info_plus: ^4.0.0
   path: ^1.8.0
   path_provider: ^2.0.0
-  permission_handler: ^10.0.0
+  permission_handler: ^11.0.0
   process_run: ^0.13.0
   quick_actions: ^1.0.0
   riverpod_annotation: ^2.0.0
