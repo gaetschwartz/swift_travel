@@ -109,10 +109,11 @@ class _$SchRouteCopyWithImpl<$Res, $Val extends SchRoute>
 }
 
 /// @nodoc
-abstract class _$$_SchRouteCopyWith<$Res> implements $SchRouteCopyWith<$Res> {
-  factory _$$_SchRouteCopyWith(
-          _$_SchRoute value, $Res Function(_$_SchRoute) then) =
-      __$$_SchRouteCopyWithImpl<$Res>;
+abstract class _$$SchRouteImplCopyWith<$Res>
+    implements $SchRouteCopyWith<$Res> {
+  factory _$$SchRouteImplCopyWith(
+          _$SchRouteImpl value, $Res Function(_$SchRouteImpl) then) =
+      __$$SchRouteImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -127,11 +128,11 @@ abstract class _$$_SchRouteCopyWith<$Res> implements $SchRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SchRouteCopyWithImpl<$Res>
-    extends _$SchRouteCopyWithImpl<$Res, _$_SchRoute>
-    implements _$$_SchRouteCopyWith<$Res> {
-  __$$_SchRouteCopyWithImpl(
-      _$_SchRoute _value, $Res Function(_$_SchRoute) _then)
+class __$$SchRouteImplCopyWithImpl<$Res>
+    extends _$SchRouteCopyWithImpl<$Res, _$SchRouteImpl>
+    implements _$$SchRouteImplCopyWith<$Res> {
+  __$$SchRouteImplCopyWithImpl(
+      _$SchRouteImpl _value, $Res Function(_$SchRouteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -145,7 +146,7 @@ class __$$_SchRouteCopyWithImpl<$Res>
     Object? requestUrl = freezed,
     Object? dateTime = freezed,
   }) {
-    return _then(_$_SchRoute(
+    return _then(_$SchRouteImpl(
       count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -181,8 +182,8 @@ class __$$_SchRouteCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-class _$_SchRoute extends _SchRoute {
-  const _$_SchRoute(
+class _$SchRouteImpl extends _SchRoute {
+  const _$SchRouteImpl(
       {this.count = 0,
       @JsonKey(name: 'min_duration') this.minDuration,
       @JsonKey(name: 'max_duration') this.maxDuration,
@@ -196,8 +197,8 @@ class _$_SchRoute extends _SchRoute {
         _messages = messages,
         super._();
 
-  factory _$_SchRoute.fromJson(Map<String, dynamic> json) =>
-      _$$_SchRouteFromJson(json);
+  factory _$SchRouteImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchRouteImplFromJson(json);
 
   @override
   @JsonKey()
@@ -240,7 +241,7 @@ class _$_SchRoute extends _SchRoute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchRoute &&
+            other is _$SchRouteImpl &&
             (identical(other.count, count) || other.count == count) &&
             (identical(other.minDuration, minDuration) ||
                 other.minDuration == minDuration) &&
@@ -270,12 +271,12 @@ class _$_SchRoute extends _SchRoute {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchRouteCopyWith<_$_SchRoute> get copyWith =>
-      __$$_SchRouteCopyWithImpl<_$_SchRoute>(this, _$identity);
+  _$$SchRouteImplCopyWith<_$SchRouteImpl> get copyWith =>
+      __$$SchRouteImplCopyWithImpl<_$SchRouteImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchRouteToJson(
+    return _$$SchRouteImplToJson(
       this,
     );
   }
@@ -290,10 +291,11 @@ abstract class _SchRoute extends SchRoute {
       final List<SchRouteConnection> sbbConnections,
       final List<String> messages,
       final String? requestUrl,
-      final DateTime? dateTime}) = _$_SchRoute;
+      final DateTime? dateTime}) = _$SchRouteImpl;
   const _SchRoute._() : super._();
 
-  factory _SchRoute.fromJson(Map<String, dynamic> json) = _$_SchRoute.fromJson;
+  factory _SchRoute.fromJson(Map<String, dynamic> json) =
+      _$SchRouteImpl.fromJson;
 
   @override
   int get count;
@@ -314,6 +316,6 @@ abstract class _SchRoute extends SchRoute {
   DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  _$$_SchRouteCopyWith<_$_SchRoute> get copyWith =>
+  _$$SchRouteImplCopyWith<_$SchRouteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

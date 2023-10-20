@@ -95,11 +95,12 @@ class _$TextFieldConfigurationCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_TextFieldConfigurationCopyWith<$Res>
+abstract class _$$TextFieldConfigurationImplCopyWith<$Res>
     implements $TextFieldConfigurationCopyWith<$Res> {
-  factory _$$_TextFieldConfigurationCopyWith(_$_TextFieldConfiguration value,
-          $Res Function(_$_TextFieldConfiguration) then) =
-      __$$_TextFieldConfigurationCopyWithImpl<$Res>;
+  factory _$$TextFieldConfigurationImplCopyWith(
+          _$TextFieldConfigurationImpl value,
+          $Res Function(_$TextFieldConfigurationImpl) then) =
+      __$$TextFieldConfigurationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -112,12 +113,13 @@ abstract class _$$_TextFieldConfigurationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TextFieldConfigurationCopyWithImpl<$Res>
+class __$$TextFieldConfigurationImplCopyWithImpl<$Res>
     extends _$TextFieldConfigurationCopyWithImpl<$Res,
-        _$_TextFieldConfiguration>
-    implements _$$_TextFieldConfigurationCopyWith<$Res> {
-  __$$_TextFieldConfigurationCopyWithImpl(_$_TextFieldConfiguration _value,
-      $Res Function(_$_TextFieldConfiguration) _then)
+        _$TextFieldConfigurationImpl>
+    implements _$$TextFieldConfigurationImplCopyWith<$Res> {
+  __$$TextFieldConfigurationImplCopyWithImpl(
+      _$TextFieldConfigurationImpl _value,
+      $Res Function(_$TextFieldConfigurationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -130,7 +132,7 @@ class __$$_TextFieldConfigurationCopyWithImpl<$Res>
     Object? focusNode = freezed,
     Object? key = freezed,
   }) {
-    return _then(_$_TextFieldConfiguration(
+    return _then(_$TextFieldConfigurationImpl(
       placeholder: freezed == placeholder
           ? _value.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
@@ -161,8 +163,8 @@ class __$$_TextFieldConfigurationCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TextFieldConfiguration implements _TextFieldConfiguration {
-  const _$_TextFieldConfiguration(
+class _$TextFieldConfigurationImpl implements _TextFieldConfiguration {
+  const _$TextFieldConfigurationImpl(
       {this.placeholder,
       final List<TextInputFormatter>? inputFormatters,
       this.textInputAction,
@@ -201,7 +203,7 @@ class _$_TextFieldConfiguration implements _TextFieldConfiguration {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextFieldConfiguration &&
+            other is _$TextFieldConfigurationImpl &&
             (identical(other.placeholder, placeholder) ||
                 other.placeholder == placeholder) &&
             const DeepCollectionEquality()
@@ -227,9 +229,9 @@ class _$_TextFieldConfiguration implements _TextFieldConfiguration {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextFieldConfigurationCopyWith<_$_TextFieldConfiguration> get copyWith =>
-      __$$_TextFieldConfigurationCopyWithImpl<_$_TextFieldConfiguration>(
-          this, _$identity);
+  _$$TextFieldConfigurationImplCopyWith<_$TextFieldConfigurationImpl>
+      get copyWith => __$$TextFieldConfigurationImplCopyWithImpl<
+          _$TextFieldConfigurationImpl>(this, _$identity);
 }
 
 abstract class _TextFieldConfiguration implements TextFieldConfiguration {
@@ -239,7 +241,7 @@ abstract class _TextFieldConfiguration implements TextFieldConfiguration {
       final TextInputAction? textInputAction,
       final Widget? prefix,
       final FocusNode? focusNode,
-      final Key? key}) = _$_TextFieldConfiguration;
+      final Key? key}) = _$TextFieldConfigurationImpl;
 
   @override
   String? get placeholder;
@@ -255,6 +257,6 @@ abstract class _TextFieldConfiguration implements TextFieldConfiguration {
   Key? get key;
   @override
   @JsonKey(ignore: true)
-  _$$_TextFieldConfigurationCopyWith<_$_TextFieldConfiguration> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$TextFieldConfigurationImplCopyWith<_$TextFieldConfigurationImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

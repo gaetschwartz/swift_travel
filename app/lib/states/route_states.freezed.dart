@@ -109,18 +109,20 @@ class _$RouteStatesCopyWithImpl<$Res, $Val extends RouteStates>
 }
 
 /// @nodoc
-abstract class _$$RSDataCopyWith<$Res> {
-  factory _$$RSDataCopyWith(_$RSData value, $Res Function(_$RSData) then) =
-      __$$RSDataCopyWithImpl<$Res>;
+abstract class _$$RSDataImplCopyWith<$Res> {
+  factory _$$RSDataImplCopyWith(
+          _$RSDataImpl value, $Res Function(_$RSDataImpl) then) =
+      __$$RSDataImplCopyWithImpl<$Res>;
   @useResult
   $Res call({NavRoute routes});
 }
 
 /// @nodoc
-class __$$RSDataCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSData>
-    implements _$$RSDataCopyWith<$Res> {
-  __$$RSDataCopyWithImpl(_$RSData _value, $Res Function(_$RSData) _then)
+class __$$RSDataImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSDataImpl>
+    implements _$$RSDataImplCopyWith<$Res> {
+  __$$RSDataImplCopyWithImpl(
+      _$RSDataImpl _value, $Res Function(_$RSDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -128,7 +130,7 @@ class __$$RSDataCopyWithImpl<$Res>
   $Res call({
     Object? routes = null,
   }) {
-    return _then(_$RSData(
+    return _then(_$RSDataImpl(
       null == routes
           ? _value.routes
           : routes // ignore: cast_nullable_to_non_nullable
@@ -139,8 +141,8 @@ class __$$RSDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RSData implements RSData {
-  const _$RSData(this.routes);
+class _$RSDataImpl implements RSData {
+  const _$RSDataImpl(this.routes);
 
   @override
   final NavRoute routes;
@@ -154,7 +156,7 @@ class _$RSData implements RSData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RSData &&
+            other is _$RSDataImpl &&
             (identical(other.routes, routes) || other.routes == routes));
   }
 
@@ -164,8 +166,8 @@ class _$RSData implements RSData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RSDataCopyWith<_$RSData> get copyWith =>
-      __$$RSDataCopyWithImpl<_$RSData>(this, _$identity);
+  _$$RSDataImplCopyWith<_$RSDataImpl> get copyWith =>
+      __$$RSDataImplCopyWithImpl<_$RSDataImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -265,34 +267,34 @@ class _$RSData implements RSData {
 }
 
 abstract class RSData implements RouteStates {
-  const factory RSData(final NavRoute routes) = _$RSData;
+  const factory RSData(final NavRoute routes) = _$RSDataImpl;
 
   NavRoute get routes;
   @JsonKey(ignore: true)
-  _$$RSDataCopyWith<_$RSData> get copyWith =>
+  _$$RSDataImplCopyWith<_$RSDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RSNetworkExceptionCopyWith<$Res> {
-  factory _$$RSNetworkExceptionCopyWith(_$RSNetworkException value,
-          $Res Function(_$RSNetworkException) then) =
-      __$$RSNetworkExceptionCopyWithImpl<$Res>;
+abstract class _$$RSNetworkExceptionImplCopyWith<$Res> {
+  factory _$$RSNetworkExceptionImplCopyWith(_$RSNetworkExceptionImpl value,
+          $Res Function(_$RSNetworkExceptionImpl) then) =
+      __$$RSNetworkExceptionImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RSNetworkExceptionCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSNetworkException>
-    implements _$$RSNetworkExceptionCopyWith<$Res> {
-  __$$RSNetworkExceptionCopyWithImpl(
-      _$RSNetworkException _value, $Res Function(_$RSNetworkException) _then)
+class __$$RSNetworkExceptionImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSNetworkExceptionImpl>
+    implements _$$RSNetworkExceptionImplCopyWith<$Res> {
+  __$$RSNetworkExceptionImplCopyWithImpl(_$RSNetworkExceptionImpl _value,
+      $Res Function(_$RSNetworkExceptionImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RSNetworkException implements RSNetworkException {
-  const _$RSNetworkException();
+class _$RSNetworkExceptionImpl implements RSNetworkException {
+  const _$RSNetworkExceptionImpl();
 
   @override
   String toString() {
@@ -302,7 +304,7 @@ class _$RSNetworkException implements RSNetworkException {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RSNetworkException);
+        (other.runtimeType == runtimeType && other is _$RSNetworkExceptionImpl);
   }
 
   @override
@@ -406,32 +408,33 @@ class _$RSNetworkException implements RSNetworkException {
 }
 
 abstract class RSNetworkException implements RouteStates {
-  const factory RSNetworkException() = _$RSNetworkException;
+  const factory RSNetworkException() = _$RSNetworkExceptionImpl;
 }
 
 /// @nodoc
-abstract class _$$RSLocationPermissionNotGrantedCopyWith<$Res> {
-  factory _$$RSLocationPermissionNotGrantedCopyWith(
-          _$RSLocationPermissionNotGranted value,
-          $Res Function(_$RSLocationPermissionNotGranted) then) =
-      __$$RSLocationPermissionNotGrantedCopyWithImpl<$Res>;
+abstract class _$$RSLocationPermissionNotGrantedImplCopyWith<$Res> {
+  factory _$$RSLocationPermissionNotGrantedImplCopyWith(
+          _$RSLocationPermissionNotGrantedImpl value,
+          $Res Function(_$RSLocationPermissionNotGrantedImpl) then) =
+      __$$RSLocationPermissionNotGrantedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RSLocationPermissionNotGrantedCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSLocationPermissionNotGranted>
-    implements _$$RSLocationPermissionNotGrantedCopyWith<$Res> {
-  __$$RSLocationPermissionNotGrantedCopyWithImpl(
-      _$RSLocationPermissionNotGranted _value,
-      $Res Function(_$RSLocationPermissionNotGranted) _then)
+class __$$RSLocationPermissionNotGrantedImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res,
+        _$RSLocationPermissionNotGrantedImpl>
+    implements _$$RSLocationPermissionNotGrantedImplCopyWith<$Res> {
+  __$$RSLocationPermissionNotGrantedImplCopyWithImpl(
+      _$RSLocationPermissionNotGrantedImpl _value,
+      $Res Function(_$RSLocationPermissionNotGrantedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RSLocationPermissionNotGranted
+class _$RSLocationPermissionNotGrantedImpl
     implements RSLocationPermissionNotGranted {
-  const _$RSLocationPermissionNotGranted();
+  const _$RSLocationPermissionNotGrantedImpl();
 
   @override
   String toString() {
@@ -442,7 +445,7 @@ class _$RSLocationPermissionNotGranted
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RSLocationPermissionNotGranted);
+            other is _$RSLocationPermissionNotGrantedImpl);
   }
 
   @override
@@ -547,29 +550,31 @@ class _$RSLocationPermissionNotGranted
 
 abstract class RSLocationPermissionNotGranted implements RouteStates {
   const factory RSLocationPermissionNotGranted() =
-      _$RSLocationPermissionNotGranted;
+      _$RSLocationPermissionNotGrantedImpl;
 }
 
 /// @nodoc
-abstract class _$$RSMissingPluginExceptionCopyWith<$Res> {
-  factory _$$RSMissingPluginExceptionCopyWith(_$RSMissingPluginException value,
-          $Res Function(_$RSMissingPluginException) then) =
-      __$$RSMissingPluginExceptionCopyWithImpl<$Res>;
+abstract class _$$RSMissingPluginExceptionImplCopyWith<$Res> {
+  factory _$$RSMissingPluginExceptionImplCopyWith(
+          _$RSMissingPluginExceptionImpl value,
+          $Res Function(_$RSMissingPluginExceptionImpl) then) =
+      __$$RSMissingPluginExceptionImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RSMissingPluginExceptionCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSMissingPluginException>
-    implements _$$RSMissingPluginExceptionCopyWith<$Res> {
-  __$$RSMissingPluginExceptionCopyWithImpl(_$RSMissingPluginException _value,
-      $Res Function(_$RSMissingPluginException) _then)
+class __$$RSMissingPluginExceptionImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSMissingPluginExceptionImpl>
+    implements _$$RSMissingPluginExceptionImplCopyWith<$Res> {
+  __$$RSMissingPluginExceptionImplCopyWithImpl(
+      _$RSMissingPluginExceptionImpl _value,
+      $Res Function(_$RSMissingPluginExceptionImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RSMissingPluginException implements RSMissingPluginException {
-  const _$RSMissingPluginException();
+class _$RSMissingPluginExceptionImpl implements RSMissingPluginException {
+  const _$RSMissingPluginExceptionImpl();
 
   @override
   String toString() {
@@ -580,7 +585,7 @@ class _$RSMissingPluginException implements RSMissingPluginException {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RSMissingPluginException);
+            other is _$RSMissingPluginExceptionImpl);
   }
 
   @override
@@ -684,24 +689,24 @@ class _$RSMissingPluginException implements RSMissingPluginException {
 }
 
 abstract class RSMissingPluginException implements RouteStates {
-  const factory RSMissingPluginException() = _$RSMissingPluginException;
+  const factory RSMissingPluginException() = _$RSMissingPluginExceptionImpl;
 }
 
 /// @nodoc
-abstract class _$$RSExceptionCopyWith<$Res> {
-  factory _$$RSExceptionCopyWith(
-          _$RSException value, $Res Function(_$RSException) then) =
-      __$$RSExceptionCopyWithImpl<$Res>;
+abstract class _$$RSExceptionImplCopyWith<$Res> {
+  factory _$$RSExceptionImplCopyWith(
+          _$RSExceptionImpl value, $Res Function(_$RSExceptionImpl) then) =
+      __$$RSExceptionImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Object exception});
 }
 
 /// @nodoc
-class __$$RSExceptionCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSException>
-    implements _$$RSExceptionCopyWith<$Res> {
-  __$$RSExceptionCopyWithImpl(
-      _$RSException _value, $Res Function(_$RSException) _then)
+class __$$RSExceptionImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSExceptionImpl>
+    implements _$$RSExceptionImplCopyWith<$Res> {
+  __$$RSExceptionImplCopyWithImpl(
+      _$RSExceptionImpl _value, $Res Function(_$RSExceptionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -709,7 +714,7 @@ class __$$RSExceptionCopyWithImpl<$Res>
   $Res call({
     Object? exception = null,
   }) {
-    return _then(_$RSException(
+    return _then(_$RSExceptionImpl(
       null == exception ? _value.exception : exception,
     ));
   }
@@ -717,8 +722,8 @@ class __$$RSExceptionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RSException implements RSException {
-  const _$RSException(this.exception);
+class _$RSExceptionImpl implements RSException {
+  const _$RSExceptionImpl(this.exception);
 
   @override
   final Object exception;
@@ -732,7 +737,7 @@ class _$RSException implements RSException {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RSException &&
+            other is _$RSExceptionImpl &&
             const DeepCollectionEquality().equals(other.exception, exception));
   }
 
@@ -743,8 +748,8 @@ class _$RSException implements RSException {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RSExceptionCopyWith<_$RSException> get copyWith =>
-      __$$RSExceptionCopyWithImpl<_$RSException>(this, _$identity);
+  _$$RSExceptionImplCopyWith<_$RSExceptionImpl> get copyWith =>
+      __$$RSExceptionImplCopyWithImpl<_$RSExceptionImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -844,32 +849,34 @@ class _$RSException implements RSException {
 }
 
 abstract class RSException implements RouteStates {
-  const factory RSException(final Object exception) = _$RSException;
+  const factory RSException(final Object exception) = _$RSExceptionImpl;
 
   Object get exception;
   @JsonKey(ignore: true)
-  _$$RSExceptionCopyWith<_$RSException> get copyWith =>
+  _$$RSExceptionImplCopyWith<_$RSExceptionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RSEmptyCopyWith<$Res> {
-  factory _$$RSEmptyCopyWith(_$RSEmpty value, $Res Function(_$RSEmpty) then) =
-      __$$RSEmptyCopyWithImpl<$Res>;
+abstract class _$$RSEmptyImplCopyWith<$Res> {
+  factory _$$RSEmptyImplCopyWith(
+          _$RSEmptyImpl value, $Res Function(_$RSEmptyImpl) then) =
+      __$$RSEmptyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RSEmptyCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSEmpty>
-    implements _$$RSEmptyCopyWith<$Res> {
-  __$$RSEmptyCopyWithImpl(_$RSEmpty _value, $Res Function(_$RSEmpty) _then)
+class __$$RSEmptyImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSEmptyImpl>
+    implements _$$RSEmptyImplCopyWith<$Res> {
+  __$$RSEmptyImplCopyWithImpl(
+      _$RSEmptyImpl _value, $Res Function(_$RSEmptyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RSEmpty implements RSEmpty {
-  const _$RSEmpty();
+class _$RSEmptyImpl implements RSEmpty {
+  const _$RSEmptyImpl();
 
   @override
   String toString() {
@@ -879,7 +886,7 @@ class _$RSEmpty implements RSEmpty {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RSEmpty);
+        (other.runtimeType == runtimeType && other is _$RSEmptyImpl);
   }
 
   @override
@@ -983,29 +990,29 @@ class _$RSEmpty implements RSEmpty {
 }
 
 abstract class RSEmpty implements RouteStates {
-  const factory RSEmpty() = _$RSEmpty;
+  const factory RSEmpty() = _$RSEmptyImpl;
 }
 
 /// @nodoc
-abstract class _$$RSLoadingCopyWith<$Res> {
-  factory _$$RSLoadingCopyWith(
-          _$RSLoading value, $Res Function(_$RSLoading) then) =
-      __$$RSLoadingCopyWithImpl<$Res>;
+abstract class _$$RSLoadingImplCopyWith<$Res> {
+  factory _$$RSLoadingImplCopyWith(
+          _$RSLoadingImpl value, $Res Function(_$RSLoadingImpl) then) =
+      __$$RSLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RSLoadingCopyWithImpl<$Res>
-    extends _$RouteStatesCopyWithImpl<$Res, _$RSLoading>
-    implements _$$RSLoadingCopyWith<$Res> {
-  __$$RSLoadingCopyWithImpl(
-      _$RSLoading _value, $Res Function(_$RSLoading) _then)
+class __$$RSLoadingImplCopyWithImpl<$Res>
+    extends _$RouteStatesCopyWithImpl<$Res, _$RSLoadingImpl>
+    implements _$$RSLoadingImplCopyWith<$Res> {
+  __$$RSLoadingImplCopyWithImpl(
+      _$RSLoadingImpl _value, $Res Function(_$RSLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RSLoading implements RSLoading {
-  const _$RSLoading();
+class _$RSLoadingImpl implements RSLoading {
+  const _$RSLoadingImpl();
 
   @override
   String toString() {
@@ -1015,7 +1022,7 @@ class _$RSLoading implements RSLoading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RSLoading);
+        (other.runtimeType == runtimeType && other is _$RSLoadingImpl);
   }
 
   @override
@@ -1119,5 +1126,5 @@ class _$RSLoading implements RSLoading {
 }
 
 abstract class RSLoading implements RouteStates {
-  const factory RSLoading() = _$RSLoading;
+  const factory RSLoading() = _$RSLoadingImpl;
 }

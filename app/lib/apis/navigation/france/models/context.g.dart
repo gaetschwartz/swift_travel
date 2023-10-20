@@ -6,15 +6,15 @@ part of 'context.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SncfContext _$$_SncfContextFromJson(Map<String, dynamic> json) =>
-    _$_SncfContext(
+_$SncfContextImpl _$$SncfContextImplFromJson(Map<String, dynamic> json) =>
+    _$SncfContextImpl(
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
       timezone: json['timezone'] as String?,
     );
 
-Map<String, dynamic> _$$_SncfContextToJson(_$_SncfContext instance) =>
+Map<String, dynamic> _$$SncfContextImplToJson(_$SncfContextImpl instance) =>
     <String, dynamic>{
       'dateTime': instance.dateTime?.toIso8601String(),
       'timezone': instance.timezone,

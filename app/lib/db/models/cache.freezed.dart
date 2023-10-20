@@ -84,22 +84,22 @@ class _$LineCacheEntryCopyWithImpl<$Res, $Val extends LineCacheEntry>
 }
 
 /// @nodoc
-abstract class _$$_LineCacheEntryCopyWith<$Res>
+abstract class _$$LineCacheEntryImplCopyWith<$Res>
     implements $LineCacheEntryCopyWith<$Res> {
-  factory _$$_LineCacheEntryCopyWith(
-          _$_LineCacheEntry value, $Res Function(_$_LineCacheEntry) then) =
-      __$$_LineCacheEntryCopyWithImpl<$Res>;
+  factory _$$LineCacheEntryImplCopyWith(_$LineCacheEntryImpl value,
+          $Res Function(_$LineCacheEntryImpl) then) =
+      __$$LineCacheEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime timestamp, String stop, List<Line> lines, int ttl});
 }
 
 /// @nodoc
-class __$$_LineCacheEntryCopyWithImpl<$Res>
-    extends _$LineCacheEntryCopyWithImpl<$Res, _$_LineCacheEntry>
-    implements _$$_LineCacheEntryCopyWith<$Res> {
-  __$$_LineCacheEntryCopyWithImpl(
-      _$_LineCacheEntry _value, $Res Function(_$_LineCacheEntry) _then)
+class __$$LineCacheEntryImplCopyWithImpl<$Res>
+    extends _$LineCacheEntryCopyWithImpl<$Res, _$LineCacheEntryImpl>
+    implements _$$LineCacheEntryImplCopyWith<$Res> {
+  __$$LineCacheEntryImplCopyWithImpl(
+      _$LineCacheEntryImpl _value, $Res Function(_$LineCacheEntryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -110,7 +110,7 @@ class __$$_LineCacheEntryCopyWithImpl<$Res>
     Object? lines = null,
     Object? ttl = null,
   }) {
-    return _then(_$_LineCacheEntry(
+    return _then(_$LineCacheEntryImpl(
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
@@ -135,16 +135,16 @@ class __$$_LineCacheEntryCopyWithImpl<$Res>
 
 @LineConverter()
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class _$_LineCacheEntry implements _LineCacheEntry {
-  const _$_LineCacheEntry(
+class _$LineCacheEntryImpl implements _LineCacheEntry {
+  const _$LineCacheEntryImpl(
       {required this.timestamp,
       required this.stop,
       required final List<Line> lines,
       this.ttl = Duration.minutesPerDay * 7})
       : _lines = lines;
 
-  factory _$_LineCacheEntry.fromJson(Map<String, dynamic> json) =>
-      _$$_LineCacheEntryFromJson(json);
+  factory _$LineCacheEntryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LineCacheEntryImplFromJson(json);
 
   @override
   final DateTime timestamp;
@@ -174,7 +174,7 @@ class _$_LineCacheEntry implements _LineCacheEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LineCacheEntry &&
+            other is _$LineCacheEntryImpl &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
             (identical(other.stop, stop) || other.stop == stop) &&
@@ -190,12 +190,13 @@ class _$_LineCacheEntry implements _LineCacheEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LineCacheEntryCopyWith<_$_LineCacheEntry> get copyWith =>
-      __$$_LineCacheEntryCopyWithImpl<_$_LineCacheEntry>(this, _$identity);
+  _$$LineCacheEntryImplCopyWith<_$LineCacheEntryImpl> get copyWith =>
+      __$$LineCacheEntryImplCopyWithImpl<_$LineCacheEntryImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LineCacheEntryToJson(
+    return _$$LineCacheEntryImplToJson(
       this,
     );
   }
@@ -206,10 +207,10 @@ abstract class _LineCacheEntry implements LineCacheEntry {
       {required final DateTime timestamp,
       required final String stop,
       required final List<Line> lines,
-      final int ttl}) = _$_LineCacheEntry;
+      final int ttl}) = _$LineCacheEntryImpl;
 
   factory _LineCacheEntry.fromJson(Map<String, dynamic> json) =
-      _$_LineCacheEntry.fromJson;
+      _$LineCacheEntryImpl.fromJson;
 
   @override
   DateTime get timestamp;
@@ -225,7 +226,7 @@ abstract class _LineCacheEntry implements LineCacheEntry {
   int get ttl;
   @override
   @JsonKey(ignore: true)
-  _$$_LineCacheEntryCopyWith<_$_LineCacheEntry> get copyWith =>
+  _$$LineCacheEntryImplCopyWith<_$LineCacheEntryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -287,18 +288,20 @@ class _$LineCopyWithImpl<$Res, $Val extends Line>
 }
 
 /// @nodoc
-abstract class _$$_LineCopyWith<$Res> implements $LineCopyWith<$Res> {
-  factory _$$_LineCopyWith(_$_Line value, $Res Function(_$_Line) then) =
-      __$$_LineCopyWithImpl<$Res>;
+abstract class _$$LineImplCopyWith<$Res> implements $LineCopyWith<$Res> {
+  factory _$$LineImplCopyWith(
+          _$LineImpl value, $Res Function(_$LineImpl) then) =
+      __$$LineImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? line, int? bgColor, int? fgColor});
 }
 
 /// @nodoc
-class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res, _$_Line>
-    implements _$$_LineCopyWith<$Res> {
-  __$$_LineCopyWithImpl(_$_Line _value, $Res Function(_$_Line) _then)
+class __$$LineImplCopyWithImpl<$Res>
+    extends _$LineCopyWithImpl<$Res, _$LineImpl>
+    implements _$$LineImplCopyWith<$Res> {
+  __$$LineImplCopyWithImpl(_$LineImpl _value, $Res Function(_$LineImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -308,7 +311,7 @@ class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res, _$_Line>
     Object? bgColor = freezed,
     Object? fgColor = freezed,
   }) {
-    return _then(_$_Line(
+    return _then(_$LineImpl(
       line: freezed == line
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
@@ -327,11 +330,12 @@ class __$$_LineCopyWithImpl<$Res> extends _$LineCopyWithImpl<$Res, _$_Line>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Line implements _Line {
-  const _$_Line(
+class _$LineImpl implements _Line {
+  const _$LineImpl(
       {required this.line, required this.bgColor, required this.fgColor});
 
-  factory _$_Line.fromJson(Map<String, dynamic> json) => _$$_LineFromJson(json);
+  factory _$LineImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LineImplFromJson(json);
 
   @override
   final String? line;
@@ -349,7 +353,7 @@ class _$_Line implements _Line {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Line &&
+            other is _$LineImpl &&
             (identical(other.line, line) || other.line == line) &&
             (identical(other.bgColor, bgColor) || other.bgColor == bgColor) &&
             (identical(other.fgColor, fgColor) || other.fgColor == fgColor));
@@ -362,12 +366,12 @@ class _$_Line implements _Line {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LineCopyWith<_$_Line> get copyWith =>
-      __$$_LineCopyWithImpl<_$_Line>(this, _$identity);
+  _$$LineImplCopyWith<_$LineImpl> get copyWith =>
+      __$$LineImplCopyWithImpl<_$LineImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LineToJson(
+    return _$$LineImplToJson(
       this,
     );
   }
@@ -377,9 +381,9 @@ abstract class _Line implements Line {
   const factory _Line(
       {required final String? line,
       required final int? bgColor,
-      required final int? fgColor}) = _$_Line;
+      required final int? fgColor}) = _$LineImpl;
 
-  factory _Line.fromJson(Map<String, dynamic> json) = _$_Line.fromJson;
+  factory _Line.fromJson(Map<String, dynamic> json) = _$LineImpl.fromJson;
 
   @override
   String? get line;
@@ -389,5 +393,6 @@ abstract class _Line implements Line {
   int? get fgColor;
   @override
   @JsonKey(ignore: true)
-  _$$_LineCopyWith<_$_Line> get copyWith => throw _privateConstructorUsedError;
+  _$$LineImplCopyWith<_$LineImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -6,8 +6,9 @@ part of 'departures.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SncfStationboard _$$_SncfStationboardFromJson(Map<String, dynamic> json) =>
-    _$_SncfStationboard(
+_$SncfStationboardImpl _$$SncfStationboardImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SncfStationboardImpl(
       context: SncfContext.fromJson(json['context'] as Map<String, dynamic>),
       departures: (json['departures'] as List<dynamic>)
           .map((e) => SncfDeparture.fromJson(e as Map<String, dynamic>))
@@ -17,26 +18,28 @@ _$_SncfStationboard _$$_SncfStationboardFromJson(Map<String, dynamic> json) =>
           : SncfError.fromJson(json['error'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_SncfStationboardToJson(_$_SncfStationboard instance) =>
+Map<String, dynamic> _$$SncfStationboardImplToJson(
+        _$SncfStationboardImpl instance) =>
     <String, dynamic>{
       'context': instance.context.toJson(),
       'departures': instance.departures.map((e) => e.toJson()).toList(),
       'error': instance.error?.toJson(),
     };
 
-_$_SncfError _$$_SncfErrorFromJson(Map<String, dynamic> json) => _$_SncfError(
+_$SncfErrorImpl _$$SncfErrorImplFromJson(Map<String, dynamic> json) =>
+    _$SncfErrorImpl(
       json['id'] as String,
       json['message'] as String,
     );
 
-Map<String, dynamic> _$$_SncfErrorToJson(_$_SncfError instance) =>
+Map<String, dynamic> _$$SncfErrorImplToJson(_$SncfErrorImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'message': instance.message,
     };
 
-_$_SncfDeparture _$$_SncfDepartureFromJson(Map<String, dynamic> json) =>
-    _$_SncfDeparture(
+_$SncfDepartureImpl _$$SncfDepartureImplFromJson(Map<String, dynamic> json) =>
+    _$SncfDepartureImpl(
       displayInformations: SncfDispInfo.fromJson(
           json['display_informations'] as Map<String, dynamic>),
       stopDateTime: SncfStopDateTime.fromJson(
@@ -45,39 +48,41 @@ _$_SncfDeparture _$$_SncfDepartureFromJson(Map<String, dynamic> json) =>
           SncfStopPoint.fromJson(json['stop_point'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_SncfDepartureToJson(_$_SncfDeparture instance) =>
+Map<String, dynamic> _$$SncfDepartureImplToJson(_$SncfDepartureImpl instance) =>
     <String, dynamic>{
       'display_informations': instance.displayInformations.toJson(),
       'stop_date_time': instance.stopDateTime.toJson(),
       'stop_point': instance.stopPoint.toJson(),
     };
 
-_$_SncfStopPoint _$$_SncfStopPointFromJson(Map<String, dynamic> json) =>
-    _$_SncfStopPoint(
+_$SncfStopPointImpl _$$SncfStopPointImplFromJson(Map<String, dynamic> json) =>
+    _$SncfStopPointImpl(
       (json['commercial_modes'] as List<dynamic>)
           .map((e) => SncfMode.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_SncfStopPointToJson(_$_SncfStopPoint instance) =>
+Map<String, dynamic> _$$SncfStopPointImplToJson(_$SncfStopPointImpl instance) =>
     <String, dynamic>{
       'commercial_modes':
           instance.commercialModes.map((e) => e.toJson()).toList(),
     };
 
-_$_SncfMode _$$_SncfModeFromJson(Map<String, dynamic> json) => _$_SncfMode(
+_$SncfModeImpl _$$SncfModeImplFromJson(Map<String, dynamic> json) =>
+    _$SncfModeImpl(
       json['id'] as String,
       json['name'] as String,
     );
 
-Map<String, dynamic> _$$_SncfModeToJson(_$_SncfMode instance) =>
+Map<String, dynamic> _$$SncfModeImplToJson(_$SncfModeImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
 
-_$_SncfStopDateTime _$$_SncfStopDateTimeFromJson(Map<String, dynamic> json) =>
-    _$_SncfStopDateTime(
+_$SncfStopDateTimeImpl _$$SncfStopDateTimeImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SncfStopDateTimeImpl(
       additionalInformations: (json['additional_informations'] as List<dynamic>)
           .map((e) => e as Object)
           .toList(),
@@ -91,7 +96,8 @@ _$_SncfStopDateTime _$$_SncfStopDateTimeFromJson(Map<String, dynamic> json) =>
       links: (json['links'] as List<dynamic>).map((e) => e as Object).toList(),
     );
 
-Map<String, dynamic> _$$_SncfStopDateTimeToJson(_$_SncfStopDateTime instance) =>
+Map<String, dynamic> _$$SncfStopDateTimeImplToJson(
+        _$SncfStopDateTimeImpl instance) =>
     <String, dynamic>{
       'additional_informations': instance.additionalInformations,
       'arrival_date_time': instance.arrivalDateTime.toIso8601String(),
@@ -103,8 +109,8 @@ Map<String, dynamic> _$$_SncfStopDateTimeToJson(_$_SncfStopDateTime instance) =>
       'links': instance.links,
     };
 
-_$_SncfDispInfo _$$_SncfDispInfoFromJson(Map<String, dynamic> json) =>
-    _$_SncfDispInfo(
+_$SncfDispInfoImpl _$$SncfDispInfoImplFromJson(Map<String, dynamic> json) =>
+    _$SncfDispInfoImpl(
       code: json['code'] as String,
       color: json['color'] as String,
       commercialMode: json['commercial_mode'] as String,
@@ -123,7 +129,7 @@ _$_SncfDispInfo _$$_SncfDispInfoFromJson(Map<String, dynamic> json) =>
       tripShortName: json['trip_short_name'] as String,
     );
 
-Map<String, dynamic> _$$_SncfDispInfoToJson(_$_SncfDispInfo instance) =>
+Map<String, dynamic> _$$SncfDispInfoImplToJson(_$SncfDispInfoImpl instance) =>
     <String, dynamic>{
       'code': instance.code,
       'color': instance.color,

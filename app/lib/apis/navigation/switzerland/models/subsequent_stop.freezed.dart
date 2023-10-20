@@ -132,11 +132,11 @@ class _$SchSubsequentStopCopyWithImpl<$Res, $Val extends SchSubsequentStop>
 }
 
 /// @nodoc
-abstract class _$$_SchSubsequentStopCopyWith<$Res>
+abstract class _$$SchSubsequentStopImplCopyWith<$Res>
     implements $SchSubsequentStopCopyWith<$Res> {
-  factory _$$_SchSubsequentStopCopyWith(_$_SchSubsequentStop value,
-          $Res Function(_$_SchSubsequentStop) then) =
-      __$$_SchSubsequentStopCopyWithImpl<$Res>;
+  factory _$$SchSubsequentStopImplCopyWith(_$SchSubsequentStopImpl value,
+          $Res Function(_$SchSubsequentStopImpl) then) =
+      __$$SchSubsequentStopImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -153,11 +153,11 @@ abstract class _$$_SchSubsequentStopCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SchSubsequentStopCopyWithImpl<$Res>
-    extends _$SchSubsequentStopCopyWithImpl<$Res, _$_SchSubsequentStop>
-    implements _$$_SchSubsequentStopCopyWith<$Res> {
-  __$$_SchSubsequentStopCopyWithImpl(
-      _$_SchSubsequentStop _value, $Res Function(_$_SchSubsequentStop) _then)
+class __$$SchSubsequentStopImplCopyWithImpl<$Res>
+    extends _$SchSubsequentStopCopyWithImpl<$Res, _$SchSubsequentStopImpl>
+    implements _$$SchSubsequentStopImplCopyWith<$Res> {
+  __$$SchSubsequentStopImplCopyWithImpl(_$SchSubsequentStopImpl _value,
+      $Res Function(_$SchSubsequentStopImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -174,7 +174,7 @@ class __$$_SchSubsequentStopCopyWithImpl<$Res>
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_$_SchSubsequentStop(
+    return _then(_$SchSubsequentStopImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -221,8 +221,8 @@ class __$$_SchSubsequentStopCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchSubsequentStop extends _SchSubsequentStop {
-  _$_SchSubsequentStop(
+class _$SchSubsequentStopImpl extends _SchSubsequentStop {
+  _$SchSubsequentStopImpl(
       {required this.name,
       @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
       @DelayConverter() @JsonKey(name: 'arr_delay') this.arrDelay,
@@ -235,8 +235,8 @@ class _$_SchSubsequentStop extends _SchSubsequentStop {
       this.y})
       : super._();
 
-  factory _$_SchSubsequentStop.fromJson(Map<String, dynamic> json) =>
-      _$$_SchSubsequentStopFromJson(json);
+  factory _$SchSubsequentStopImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchSubsequentStopImplFromJson(json);
 
   @override
   final String name;
@@ -274,7 +274,7 @@ class _$_SchSubsequentStop extends _SchSubsequentStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchSubsequentStop &&
+            other is _$SchSubsequentStopImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.depDelay, depDelay) ||
                 other.depDelay == depDelay) &&
@@ -298,13 +298,13 @@ class _$_SchSubsequentStop extends _SchSubsequentStop {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchSubsequentStopCopyWith<_$_SchSubsequentStop> get copyWith =>
-      __$$_SchSubsequentStopCopyWithImpl<_$_SchSubsequentStop>(
+  _$$SchSubsequentStopImplCopyWith<_$SchSubsequentStopImpl> get copyWith =>
+      __$$SchSubsequentStopImplCopyWithImpl<_$SchSubsequentStopImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchSubsequentStopToJson(
+    return _$$SchSubsequentStopImplToJson(
       this,
     );
   }
@@ -321,11 +321,11 @@ abstract class _SchSubsequentStop extends SchSubsequentStop {
       final double? lat,
       final double? lon,
       final int? x,
-      final int? y}) = _$_SchSubsequentStop;
+      final int? y}) = _$SchSubsequentStopImpl;
   _SchSubsequentStop._() : super._();
 
   factory _SchSubsequentStop.fromJson(Map<String, dynamic> json) =
-      _$_SchSubsequentStop.fromJson;
+      _$SchSubsequentStopImpl.fromJson;
 
   @override
   String get name;
@@ -355,6 +355,6 @@ abstract class _SchSubsequentStop extends SchSubsequentStop {
   int? get y;
   @override
   @JsonKey(ignore: true)
-  _$$_SchSubsequentStopCopyWith<_$_SchSubsequentStop> get copyWith =>
+  _$$SchSubsequentStopImplCopyWith<_$SchSubsequentStopImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -57,22 +57,22 @@ class _$NavigationApiIdCopyWithImpl<$Res, $Val extends NavigationApiId>
 }
 
 /// @nodoc
-abstract class _$$_NavigationApiIdCopyWith<$Res>
+abstract class _$$NavigationApiIdImplCopyWith<$Res>
     implements $NavigationApiIdCopyWith<$Res> {
-  factory _$$_NavigationApiIdCopyWith(
-          _$_NavigationApiId value, $Res Function(_$_NavigationApiId) then) =
-      __$$_NavigationApiIdCopyWithImpl<$Res>;
+  factory _$$NavigationApiIdImplCopyWith(_$NavigationApiIdImpl value,
+          $Res Function(_$NavigationApiIdImpl) then) =
+      __$$NavigationApiIdImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String value});
 }
 
 /// @nodoc
-class __$$_NavigationApiIdCopyWithImpl<$Res>
-    extends _$NavigationApiIdCopyWithImpl<$Res, _$_NavigationApiId>
-    implements _$$_NavigationApiIdCopyWith<$Res> {
-  __$$_NavigationApiIdCopyWithImpl(
-      _$_NavigationApiId _value, $Res Function(_$_NavigationApiId) _then)
+class __$$NavigationApiIdImplCopyWithImpl<$Res>
+    extends _$NavigationApiIdCopyWithImpl<$Res, _$NavigationApiIdImpl>
+    implements _$$NavigationApiIdImplCopyWith<$Res> {
+  __$$NavigationApiIdImplCopyWithImpl(
+      _$NavigationApiIdImpl _value, $Res Function(_$NavigationApiIdImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$_NavigationApiIdCopyWithImpl<$Res>
   $Res call({
     Object? value = null,
   }) {
-    return _then(_$_NavigationApiId(
+    return _then(_$NavigationApiIdImpl(
       null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -91,8 +91,8 @@ class __$$_NavigationApiIdCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NavigationApiId implements _NavigationApiId {
-  const _$_NavigationApiId(this.value);
+class _$NavigationApiIdImpl implements _NavigationApiId {
+  const _$NavigationApiIdImpl(this.value);
 
   @override
   final String value;
@@ -106,7 +106,7 @@ class _$_NavigationApiId implements _NavigationApiId {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NavigationApiId &&
+            other is _$NavigationApiIdImpl &&
             (identical(other.value, value) || other.value == value));
   }
 
@@ -116,17 +116,18 @@ class _$_NavigationApiId implements _NavigationApiId {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NavigationApiIdCopyWith<_$_NavigationApiId> get copyWith =>
-      __$$_NavigationApiIdCopyWithImpl<_$_NavigationApiId>(this, _$identity);
+  _$$NavigationApiIdImplCopyWith<_$NavigationApiIdImpl> get copyWith =>
+      __$$NavigationApiIdImplCopyWithImpl<_$NavigationApiIdImpl>(
+          this, _$identity);
 }
 
 abstract class _NavigationApiId implements NavigationApiId {
-  const factory _NavigationApiId(final String value) = _$_NavigationApiId;
+  const factory _NavigationApiId(final String value) = _$NavigationApiIdImpl;
 
   @override
   String get value;
   @override
   @JsonKey(ignore: true)
-  _$$_NavigationApiIdCopyWith<_$_NavigationApiId> get copyWith =>
+  _$$NavigationApiIdImplCopyWith<_$NavigationApiIdImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

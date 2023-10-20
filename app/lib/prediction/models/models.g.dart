@@ -6,15 +6,17 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RoutePrediction _$$_RoutePredictionFromJson(Map<String, dynamic> json) =>
-    _$_RoutePrediction(
+_$RoutePredictionImpl _$$RoutePredictionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$RoutePredictionImpl(
       _$JsonConverterFromJson<Map<String, dynamic>, LocalRoute>(
           json['prediction'], const LocalRouteConverter().fromJson),
       (json['confidence'] as num).toDouble(),
       PredictionArguments.fromJson(json['arguments'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_RoutePredictionToJson(_$_RoutePrediction instance) =>
+Map<String, dynamic> _$$RoutePredictionImplToJson(
+        _$RoutePredictionImpl instance) =>
     <String, dynamic>{
       'prediction': _$JsonConverterToJson<Map<String, dynamic>, LocalRoute>(
           instance.prediction, const LocalRouteConverter().toJson),
@@ -34,37 +36,37 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$_FullArguments _$$_FullArgumentsFromJson(Map<String, dynamic> json) =>
-    _$_FullArguments(
+_$FullArgumentsImpl _$$FullArgumentsImplFromJson(Map<String, dynamic> json) =>
+    _$FullArgumentsImpl(
       (json['routes'] as List<dynamic>)
           .map((e) => LocalRoute.fromJson(e as Map<String, dynamic>))
           .toList(),
       PredictionArguments.fromJson(json['arguments'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_FullArgumentsToJson(_$_FullArguments instance) =>
+Map<String, dynamic> _$$FullArgumentsImplToJson(_$FullArgumentsImpl instance) =>
     <String, dynamic>{
       'routes': instance.routes.map((e) => e.toJson()).toList(),
       'arguments': instance.arguments.toJson(),
     };
 
-_$EmptyArgument _$$EmptyArgumentFromJson(Map<String, dynamic> json) =>
-    _$EmptyArgument(
+_$EmptyArgumentImpl _$$EmptyArgumentImplFromJson(Map<String, dynamic> json) =>
+    _$EmptyArgumentImpl(
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$EmptyArgumentToJson(_$EmptyArgument instance) =>
+Map<String, dynamic> _$$EmptyArgumentImplToJson(_$EmptyArgumentImpl instance) =>
     <String, dynamic>{
       'dateTime': instance.dateTime?.toIso8601String(),
       'runtimeType': instance.$type,
     };
 
-_$SourceDateArguments _$$SourceDateArgumentsFromJson(
+_$SourceDateArgumentsImpl _$$SourceDateArgumentsImplFromJson(
         Map<String, dynamic> json) =>
-    _$SourceDateArguments(
+    _$SourceDateArgumentsImpl(
       json['source'] as String,
       dateTime: json['dateTime'] == null
           ? null
@@ -72,16 +74,17 @@ _$SourceDateArguments _$$SourceDateArgumentsFromJson(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$SourceDateArgumentsToJson(
-        _$SourceDateArguments instance) =>
+Map<String, dynamic> _$$SourceDateArgumentsImplToJson(
+        _$SourceDateArgumentsImpl instance) =>
     <String, dynamic>{
       'source': instance.source,
       'dateTime': instance.dateTime?.toIso8601String(),
       'runtimeType': instance.$type,
     };
 
-_$LocationArgument _$$LocationArgumentFromJson(Map<String, dynamic> json) =>
-    _$LocationArgument(
+_$LocationArgumentImpl _$$LocationArgumentImplFromJson(
+        Map<String, dynamic> json) =>
+    _$LocationArgumentImpl(
       LatLon.fromJson(json['latLon'] as Map<String, dynamic>),
       dateTime: json['dateTime'] == null
           ? null
@@ -89,7 +92,8 @@ _$LocationArgument _$$LocationArgumentFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$LocationArgumentToJson(_$LocationArgument instance) =>
+Map<String, dynamic> _$$LocationArgumentImplToJson(
+        _$LocationArgumentImpl instance) =>
     <String, dynamic>{
       'latLon': instance.latLon.toJson(),
       'dateTime': instance.dateTime?.toIso8601String(),

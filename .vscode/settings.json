@@ -1,4 +1,6 @@
 {
   "terminal.integrated.cwd": "app/",
   "build-runner.commandToUse": "flutter",
+    "dart.flutterSdkPath": "/Users/gaetan/.puro/envs/beta/flutter",
+    "dart.sdkPath": "/Users/gaetan/.puro/envs/beta/flutter/bin/cache/dart-sdk"
 }

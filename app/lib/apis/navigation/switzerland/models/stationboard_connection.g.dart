@@ -6,13 +6,13 @@ part of 'stationboard_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SchStationboardConnection _$$_SchStationboardConnectionFromJson(
+_$SchStationboardConnectionImpl _$$SchStationboardConnectionImplFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_SchStationboardConnection',
+      r'_$SchStationboardConnectionImpl',
       json,
       ($checkedConvert) {
-        final val = _$_SchStationboardConnection(
+        final val = _$SchStationboardConnectionImpl(
           time: $checkedConvert('time', (v) => DateTime.parse(v as String)),
           type: $checkedConvert(
               'type', (v) => $enumDecode(_$VehicleTypeEnumMap, v)),
@@ -50,8 +50,8 @@ _$_SchStationboardConnection _$$_SchStationboardConnectionFromJson(
       },
     );
 
-Map<String, dynamic> _$$_SchStationboardConnectionToJson(
-        _$_SchStationboardConnection instance) =>
+Map<String, dynamic> _$$SchStationboardConnectionImplToJson(
+        _$SchStationboardConnectionImpl instance) =>
     <String, dynamic>{
       'time': instance.time.toIso8601String(),
       'type': _$VehicleTypeEnumMap[instance.type]!,

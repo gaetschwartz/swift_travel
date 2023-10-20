@@ -81,20 +81,22 @@ class _$StationStatesCopyWithImpl<$Res, $Val extends StationStates>
 }
 
 /// @nodoc
-abstract class _$$CompletionsStationStatesCopyWith<$Res> {
-  factory _$$CompletionsStationStatesCopyWith(_$CompletionsStationStates value,
-          $Res Function(_$CompletionsStationStates) then) =
-      __$$CompletionsStationStatesCopyWithImpl<$Res>;
+abstract class _$$CompletionsStationStatesImplCopyWith<$Res> {
+  factory _$$CompletionsStationStatesImplCopyWith(
+          _$CompletionsStationStatesImpl value,
+          $Res Function(_$CompletionsStationStatesImpl) then) =
+      __$$CompletionsStationStatesImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Completion> completions});
 }
 
 /// @nodoc
-class __$$CompletionsStationStatesCopyWithImpl<$Res>
-    extends _$StationStatesCopyWithImpl<$Res, _$CompletionsStationStates>
-    implements _$$CompletionsStationStatesCopyWith<$Res> {
-  __$$CompletionsStationStatesCopyWithImpl(_$CompletionsStationStates _value,
-      $Res Function(_$CompletionsStationStates) _then)
+class __$$CompletionsStationStatesImplCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res, _$CompletionsStationStatesImpl>
+    implements _$$CompletionsStationStatesImplCopyWith<$Res> {
+  __$$CompletionsStationStatesImplCopyWithImpl(
+      _$CompletionsStationStatesImpl _value,
+      $Res Function(_$CompletionsStationStatesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -102,7 +104,7 @@ class __$$CompletionsStationStatesCopyWithImpl<$Res>
   $Res call({
     Object? completions = null,
   }) {
-    return _then(_$CompletionsStationStates(
+    return _then(_$CompletionsStationStatesImpl(
       null == completions
           ? _value._completions
           : completions // ignore: cast_nullable_to_non_nullable
@@ -113,8 +115,8 @@ class __$$CompletionsStationStatesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CompletionsStationStates implements CompletionsStationStates {
-  const _$CompletionsStationStates(final List<Completion> completions)
+class _$CompletionsStationStatesImpl implements CompletionsStationStates {
+  const _$CompletionsStationStatesImpl(final List<Completion> completions)
       : _completions = completions;
 
   final List<Completion> _completions;
@@ -134,7 +136,7 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CompletionsStationStates &&
+            other is _$CompletionsStationStatesImpl &&
             const DeepCollectionEquality()
                 .equals(other._completions, _completions));
   }
@@ -146,10 +148,9 @@ class _$CompletionsStationStates implements CompletionsStationStates {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CompletionsStationStatesCopyWith<_$CompletionsStationStates>
-      get copyWith =>
-          __$$CompletionsStationStatesCopyWithImpl<_$CompletionsStationStates>(
-              this, _$identity);
+  _$$CompletionsStationStatesImplCopyWith<_$CompletionsStationStatesImpl>
+      get copyWith => __$$CompletionsStationStatesImplCopyWithImpl<
+          _$CompletionsStationStatesImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -222,34 +223,34 @@ class _$CompletionsStationStates implements CompletionsStationStates {
 
 abstract class CompletionsStationStates implements StationStates {
   const factory CompletionsStationStates(final List<Completion> completions) =
-      _$CompletionsStationStates;
+      _$CompletionsStationStatesImpl;
 
   List<Completion> get completions;
   @JsonKey(ignore: true)
-  _$$CompletionsStationStatesCopyWith<_$CompletionsStationStates>
+  _$$CompletionsStationStatesImplCopyWith<_$CompletionsStationStatesImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EmptyStationStatesCopyWith<$Res> {
-  factory _$$EmptyStationStatesCopyWith(_$EmptyStationStates value,
-          $Res Function(_$EmptyStationStates) then) =
-      __$$EmptyStationStatesCopyWithImpl<$Res>;
+abstract class _$$EmptyStationStatesImplCopyWith<$Res> {
+  factory _$$EmptyStationStatesImplCopyWith(_$EmptyStationStatesImpl value,
+          $Res Function(_$EmptyStationStatesImpl) then) =
+      __$$EmptyStationStatesImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$EmptyStationStatesCopyWithImpl<$Res>
-    extends _$StationStatesCopyWithImpl<$Res, _$EmptyStationStates>
-    implements _$$EmptyStationStatesCopyWith<$Res> {
-  __$$EmptyStationStatesCopyWithImpl(
-      _$EmptyStationStates _value, $Res Function(_$EmptyStationStates) _then)
+class __$$EmptyStationStatesImplCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res, _$EmptyStationStatesImpl>
+    implements _$$EmptyStationStatesImplCopyWith<$Res> {
+  __$$EmptyStationStatesImplCopyWithImpl(_$EmptyStationStatesImpl _value,
+      $Res Function(_$EmptyStationStatesImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$EmptyStationStates implements EmptyStationStates {
-  const _$EmptyStationStates();
+class _$EmptyStationStatesImpl implements EmptyStationStates {
+  const _$EmptyStationStatesImpl();
 
   @override
   String toString() {
@@ -259,7 +260,7 @@ class _$EmptyStationStates implements EmptyStationStates {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EmptyStationStates);
+        (other.runtimeType == runtimeType && other is _$EmptyStationStatesImpl);
   }
 
   @override
@@ -335,30 +336,31 @@ class _$EmptyStationStates implements EmptyStationStates {
 }
 
 abstract class EmptyStationStates implements StationStates {
-  const factory EmptyStationStates() = _$EmptyStationStates;
+  const factory EmptyStationStates() = _$EmptyStationStatesImpl;
 }
 
 /// @nodoc
-abstract class _$$NetworkErrorStationStatesCopyWith<$Res> {
-  factory _$$NetworkErrorStationStatesCopyWith(
-          _$NetworkErrorStationStates value,
-          $Res Function(_$NetworkErrorStationStates) then) =
-      __$$NetworkErrorStationStatesCopyWithImpl<$Res>;
+abstract class _$$NetworkErrorStationStatesImplCopyWith<$Res> {
+  factory _$$NetworkErrorStationStatesImplCopyWith(
+          _$NetworkErrorStationStatesImpl value,
+          $Res Function(_$NetworkErrorStationStatesImpl) then) =
+      __$$NetworkErrorStationStatesImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$NetworkErrorStationStatesCopyWithImpl<$Res>
-    extends _$StationStatesCopyWithImpl<$Res, _$NetworkErrorStationStates>
-    implements _$$NetworkErrorStationStatesCopyWith<$Res> {
-  __$$NetworkErrorStationStatesCopyWithImpl(_$NetworkErrorStationStates _value,
-      $Res Function(_$NetworkErrorStationStates) _then)
+class __$$NetworkErrorStationStatesImplCopyWithImpl<$Res>
+    extends _$StationStatesCopyWithImpl<$Res, _$NetworkErrorStationStatesImpl>
+    implements _$$NetworkErrorStationStatesImplCopyWith<$Res> {
+  __$$NetworkErrorStationStatesImplCopyWithImpl(
+      _$NetworkErrorStationStatesImpl _value,
+      $Res Function(_$NetworkErrorStationStatesImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$NetworkErrorStationStates implements NetworkErrorStationStates {
-  const _$NetworkErrorStationStates();
+class _$NetworkErrorStationStatesImpl implements NetworkErrorStationStates {
+  const _$NetworkErrorStationStatesImpl();
 
   @override
   String toString() {
@@ -369,7 +371,7 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NetworkErrorStationStates);
+            other is _$NetworkErrorStationStatesImpl);
   }
 
   @override
@@ -445,5 +447,5 @@ class _$NetworkErrorStationStates implements NetworkErrorStationStates {
 }
 
 abstract class NetworkErrorStationStates implements StationStates {
-  const factory NetworkErrorStationStates() = _$NetworkErrorStationStates;
+  const factory NetworkErrorStationStates() = _$NetworkErrorStationStatesImpl;
 }

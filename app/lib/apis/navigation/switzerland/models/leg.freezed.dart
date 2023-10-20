@@ -253,9 +253,10 @@ class _$SchLegCopyWithImpl<$Res, $Val extends SchLeg>
 }
 
 /// @nodoc
-abstract class _$$_SchLegCopyWith<$Res> implements $SchLegCopyWith<$Res> {
-  factory _$$_SchLegCopyWith(_$_SchLeg value, $Res Function(_$_SchLeg) then) =
-      __$$_SchLegCopyWithImpl<$Res>;
+abstract class _$$SchLegImplCopyWith<$Res> implements $SchLegCopyWith<$Res> {
+  factory _$$SchLegImplCopyWith(
+          _$SchLegImpl value, $Res Function(_$SchLegImpl) then) =
+      __$$SchLegImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -290,10 +291,11 @@ abstract class _$$_SchLegCopyWith<$Res> implements $SchLegCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SchLegCopyWithImpl<$Res>
-    extends _$SchLegCopyWithImpl<$Res, _$_SchLeg>
-    implements _$$_SchLegCopyWith<$Res> {
-  __$$_SchLegCopyWithImpl(_$_SchLeg _value, $Res Function(_$_SchLeg) _then)
+class __$$SchLegImplCopyWithImpl<$Res>
+    extends _$SchLegCopyWithImpl<$Res, _$SchLegImpl>
+    implements _$$SchLegImplCopyWith<$Res> {
+  __$$SchLegImplCopyWithImpl(
+      _$SchLegImpl _value, $Res Function(_$SchLegImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -325,7 +327,7 @@ class __$$_SchLegCopyWithImpl<$Res>
     Object? y = freezed,
     Object? attributes = null,
   }) {
-    return _then(_$_SchLeg(
+    return _then(_$SchLegImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -433,8 +435,8 @@ class __$$_SchLegCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-class _$_SchLeg extends _SchLeg {
-  _$_SchLeg(
+class _$SchLegImpl extends _SchLeg {
+  _$SchLegImpl(
       {required this.name,
       @JsonKey(name: 'exit') this.sbbExit,
       @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
@@ -465,8 +467,8 @@ class _$_SchLeg extends _SchLeg {
         _attributes = attributes,
         super._();
 
-  factory _$_SchLeg.fromJson(Map<String, dynamic> json) =>
-      _$$_SchLegFromJson(json);
+  factory _$SchLegImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchLegImplFromJson(json);
 
   @override
   final String name;
@@ -550,7 +552,7 @@ class _$_SchLeg extends _SchLeg {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchLeg &&
+            other is _$SchLegImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.sbbExit, sbbExit) || other.sbbExit == sbbExit) &&
             (identical(other.depDelay, depDelay) ||
@@ -620,12 +622,12 @@ class _$_SchLeg extends _SchLeg {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchLegCopyWith<_$_SchLeg> get copyWith =>
-      __$$_SchLegCopyWithImpl<_$_SchLeg>(this, _$identity);
+  _$$SchLegImplCopyWith<_$SchLegImpl> get copyWith =>
+      __$$SchLegImplCopyWithImpl<_$SchLegImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchLegToJson(
+    return _$$SchLegImplToJson(
       this,
     );
   }
@@ -658,10 +660,10 @@ abstract class _SchLeg extends SchLeg {
       final double? lon,
       @IntConverter() final int? x,
       @IntConverter() final int? y,
-      final Map<String, String> attributes}) = _$_SchLeg;
+      final Map<String, String> attributes}) = _$SchLegImpl;
   _SchLeg._() : super._();
 
-  factory _SchLeg.fromJson(Map<String, dynamic> json) = _$_SchLeg.fromJson;
+  factory _SchLeg.fromJson(Map<String, dynamic> json) = _$SchLegImpl.fromJson;
 
   @override
   String get name;
@@ -725,6 +727,6 @@ abstract class _SchLeg extends SchLeg {
   Map<String, String> get attributes;
   @override
   @JsonKey(ignore: true)
-  _$$_SchLegCopyWith<_$_SchLeg> get copyWith =>
+  _$$SchLegImplCopyWith<_$SchLegImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

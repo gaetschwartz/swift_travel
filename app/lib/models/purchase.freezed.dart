@@ -61,20 +61,21 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
 }
 
 /// @nodoc
-abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
-  factory _$$_ProductCopyWith(
-          _$_Product value, $Res Function(_$_Product) then) =
-      __$$_ProductCopyWithImpl<$Res>;
+abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
+  factory _$$ProductImplCopyWith(
+          _$ProductImpl value, $Res Function(_$ProductImpl) then) =
+      __$$ProductImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, bool isConsumable});
 }
 
 /// @nodoc
-class __$$_ProductCopyWithImpl<$Res>
-    extends _$ProductCopyWithImpl<$Res, _$_Product>
-    implements _$$_ProductCopyWith<$Res> {
-  __$$_ProductCopyWithImpl(_$_Product _value, $Res Function(_$_Product) _then)
+class __$$ProductImplCopyWithImpl<$Res>
+    extends _$ProductCopyWithImpl<$Res, _$ProductImpl>
+    implements _$$ProductImplCopyWith<$Res> {
+  __$$ProductImplCopyWithImpl(
+      _$ProductImpl _value, $Res Function(_$ProductImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -83,7 +84,7 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? id = null,
     Object? isConsumable = null,
   }) {
-    return _then(_$_Product(
+    return _then(_$ProductImpl(
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -98,8 +99,8 @@ class __$$_ProductCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Product implements _Product {
-  const _$_Product(this.id, {required this.isConsumable});
+class _$ProductImpl implements _Product {
+  const _$ProductImpl(this.id, {required this.isConsumable});
 
   @override
   final String id;
@@ -115,7 +116,7 @@ class _$_Product implements _Product {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Product &&
+            other is _$ProductImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.isConsumable, isConsumable) ||
                 other.isConsumable == isConsumable));
@@ -127,13 +128,13 @@ class _$_Product implements _Product {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProductCopyWith<_$_Product> get copyWith =>
-      __$$_ProductCopyWithImpl<_$_Product>(this, _$identity);
+  _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
+      __$$ProductImplCopyWithImpl<_$ProductImpl>(this, _$identity);
 }
 
 abstract class _Product implements Product {
   const factory _Product(final String id, {required final bool isConsumable}) =
-      _$_Product;
+      _$ProductImpl;
 
   @override
   String get id;
@@ -141,7 +142,7 @@ abstract class _Product implements Product {
   bool get isConsumable;
   @override
   @JsonKey(ignore: true)
-  _$$_ProductCopyWith<_$_Product> get copyWith =>
+  _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -194,22 +195,22 @@ class _$PurchasedProductCopyWithImpl<$Res, $Val extends PurchasedProduct>
 }
 
 /// @nodoc
-abstract class _$$_PurchasedProductCopyWith<$Res>
+abstract class _$$PurchasedProductImplCopyWith<$Res>
     implements $PurchasedProductCopyWith<$Res> {
-  factory _$$_PurchasedProductCopyWith(
-          _$_PurchasedProduct value, $Res Function(_$_PurchasedProduct) then) =
-      __$$_PurchasedProductCopyWithImpl<$Res>;
+  factory _$$PurchasedProductImplCopyWith(_$PurchasedProductImpl value,
+          $Res Function(_$PurchasedProductImpl) then) =
+      __$$PurchasedProductImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String productId, PurchaseDetails purchaseDetails});
 }
 
 /// @nodoc
-class __$$_PurchasedProductCopyWithImpl<$Res>
-    extends _$PurchasedProductCopyWithImpl<$Res, _$_PurchasedProduct>
-    implements _$$_PurchasedProductCopyWith<$Res> {
-  __$$_PurchasedProductCopyWithImpl(
-      _$_PurchasedProduct _value, $Res Function(_$_PurchasedProduct) _then)
+class __$$PurchasedProductImplCopyWithImpl<$Res>
+    extends _$PurchasedProductCopyWithImpl<$Res, _$PurchasedProductImpl>
+    implements _$$PurchasedProductImplCopyWith<$Res> {
+  __$$PurchasedProductImplCopyWithImpl(_$PurchasedProductImpl _value,
+      $Res Function(_$PurchasedProductImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -218,7 +219,7 @@ class __$$_PurchasedProductCopyWithImpl<$Res>
     Object? productId = null,
     Object? purchaseDetails = null,
   }) {
-    return _then(_$_PurchasedProduct(
+    return _then(_$PurchasedProductImpl(
       null == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
@@ -233,8 +234,8 @@ class __$$_PurchasedProductCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchasedProduct implements _PurchasedProduct {
-  const _$_PurchasedProduct(this.productId, this.purchaseDetails);
+class _$PurchasedProductImpl implements _PurchasedProduct {
+  const _$PurchasedProductImpl(this.productId, this.purchaseDetails);
 
   @override
   final String productId;
@@ -250,7 +251,7 @@ class _$_PurchasedProduct implements _PurchasedProduct {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchasedProduct &&
+            other is _$PurchasedProductImpl &&
             (identical(other.productId, productId) ||
                 other.productId == productId) &&
             (identical(other.purchaseDetails, purchaseDetails) ||
@@ -263,14 +264,15 @@ class _$_PurchasedProduct implements _PurchasedProduct {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchasedProductCopyWith<_$_PurchasedProduct> get copyWith =>
-      __$$_PurchasedProductCopyWithImpl<_$_PurchasedProduct>(this, _$identity);
+  _$$PurchasedProductImplCopyWith<_$PurchasedProductImpl> get copyWith =>
+      __$$PurchasedProductImplCopyWithImpl<_$PurchasedProductImpl>(
+          this, _$identity);
 }
 
 abstract class _PurchasedProduct implements PurchasedProduct {
   const factory _PurchasedProduct(
           final String productId, final PurchaseDetails purchaseDetails) =
-      _$_PurchasedProduct;
+      _$PurchasedProductImpl;
 
   @override
   String get productId;
@@ -278,7 +280,7 @@ abstract class _PurchasedProduct implements PurchasedProduct {
   PurchaseDetails get purchaseDetails;
   @override
   @JsonKey(ignore: true)
-  _$$_PurchasedProductCopyWith<_$_PurchasedProduct> get copyWith =>
+  _$$PurchasedProductImplCopyWith<_$PurchasedProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -356,28 +358,28 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
 }
 
 /// @nodoc
-abstract class _$$_ProductDetailsStateLoadingCopyWith<$Res> {
-  factory _$$_ProductDetailsStateLoadingCopyWith(
-          _$_ProductDetailsStateLoading value,
-          $Res Function(_$_ProductDetailsStateLoading) then) =
-      __$$_ProductDetailsStateLoadingCopyWithImpl<$Res>;
+abstract class _$$ProductDetailsStateLoadingImplCopyWith<$Res> {
+  factory _$$ProductDetailsStateLoadingImplCopyWith(
+          _$ProductDetailsStateLoadingImpl value,
+          $Res Function(_$ProductDetailsStateLoadingImpl) then) =
+      __$$ProductDetailsStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ProductDetailsStateLoadingCopyWithImpl<$Res>
+class __$$ProductDetailsStateLoadingImplCopyWithImpl<$Res>
     extends _$ProductDetailsStateCopyWithImpl<$Res,
-        _$_ProductDetailsStateLoading>
-    implements _$$_ProductDetailsStateLoadingCopyWith<$Res> {
-  __$$_ProductDetailsStateLoadingCopyWithImpl(
-      _$_ProductDetailsStateLoading _value,
-      $Res Function(_$_ProductDetailsStateLoading) _then)
+        _$ProductDetailsStateLoadingImpl>
+    implements _$$ProductDetailsStateLoadingImplCopyWith<$Res> {
+  __$$ProductDetailsStateLoadingImplCopyWithImpl(
+      _$ProductDetailsStateLoadingImpl _value,
+      $Res Function(_$ProductDetailsStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ProductDetailsStateLoading implements _ProductDetailsStateLoading {
-  const _$_ProductDetailsStateLoading();
+class _$ProductDetailsStateLoadingImpl implements _ProductDetailsStateLoading {
+  const _$ProductDetailsStateLoadingImpl();
 
   @override
   String toString() {
@@ -388,7 +390,7 @@ class _$_ProductDetailsStateLoading implements _ProductDetailsStateLoading {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductDetailsStateLoading);
+            other is _$ProductDetailsStateLoadingImpl);
   }
 
   @override
@@ -471,33 +473,34 @@ class _$_ProductDetailsStateLoading implements _ProductDetailsStateLoading {
 }
 
 abstract class _ProductDetailsStateLoading implements ProductDetailsState {
-  const factory _ProductDetailsStateLoading() = _$_ProductDetailsStateLoading;
+  const factory _ProductDetailsStateLoading() =
+      _$ProductDetailsStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_ProductDetailsStateUnavailableCopyWith<$Res> {
-  factory _$$_ProductDetailsStateUnavailableCopyWith(
-          _$_ProductDetailsStateUnavailable value,
-          $Res Function(_$_ProductDetailsStateUnavailable) then) =
-      __$$_ProductDetailsStateUnavailableCopyWithImpl<$Res>;
+abstract class _$$ProductDetailsStateUnavailableImplCopyWith<$Res> {
+  factory _$$ProductDetailsStateUnavailableImplCopyWith(
+          _$ProductDetailsStateUnavailableImpl value,
+          $Res Function(_$ProductDetailsStateUnavailableImpl) then) =
+      __$$ProductDetailsStateUnavailableImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ProductDetailsStateUnavailableCopyWithImpl<$Res>
+class __$$ProductDetailsStateUnavailableImplCopyWithImpl<$Res>
     extends _$ProductDetailsStateCopyWithImpl<$Res,
-        _$_ProductDetailsStateUnavailable>
-    implements _$$_ProductDetailsStateUnavailableCopyWith<$Res> {
-  __$$_ProductDetailsStateUnavailableCopyWithImpl(
-      _$_ProductDetailsStateUnavailable _value,
-      $Res Function(_$_ProductDetailsStateUnavailable) _then)
+        _$ProductDetailsStateUnavailableImpl>
+    implements _$$ProductDetailsStateUnavailableImplCopyWith<$Res> {
+  __$$ProductDetailsStateUnavailableImplCopyWithImpl(
+      _$ProductDetailsStateUnavailableImpl _value,
+      $Res Function(_$ProductDetailsStateUnavailableImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ProductDetailsStateUnavailable
+class _$ProductDetailsStateUnavailableImpl
     implements _ProductDetailsStateUnavailable {
-  const _$_ProductDetailsStateUnavailable();
+  const _$ProductDetailsStateUnavailableImpl();
 
   @override
   String toString() {
@@ -508,7 +511,7 @@ class _$_ProductDetailsStateUnavailable
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductDetailsStateUnavailable);
+            other is _$ProductDetailsStateUnavailableImpl);
   }
 
   @override
@@ -592,24 +595,24 @@ class _$_ProductDetailsStateUnavailable
 
 abstract class _ProductDetailsStateUnavailable implements ProductDetailsState {
   const factory _ProductDetailsStateUnavailable() =
-      _$_ProductDetailsStateUnavailable;
+      _$ProductDetailsStateUnavailableImpl;
 }
 
 /// @nodoc
-abstract class _$$_IapErrorCopyWith<$Res> {
-  factory _$$_IapErrorCopyWith(
-          _$_IapError value, $Res Function(_$_IapError) then) =
-      __$$_IapErrorCopyWithImpl<$Res>;
+abstract class _$$IapErrorImplCopyWith<$Res> {
+  factory _$$IapErrorImplCopyWith(
+          _$IapErrorImpl value, $Res Function(_$IapErrorImpl) then) =
+      __$$IapErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({IAPError error});
 }
 
 /// @nodoc
-class __$$_IapErrorCopyWithImpl<$Res>
-    extends _$ProductDetailsStateCopyWithImpl<$Res, _$_IapError>
-    implements _$$_IapErrorCopyWith<$Res> {
-  __$$_IapErrorCopyWithImpl(
-      _$_IapError _value, $Res Function(_$_IapError) _then)
+class __$$IapErrorImplCopyWithImpl<$Res>
+    extends _$ProductDetailsStateCopyWithImpl<$Res, _$IapErrorImpl>
+    implements _$$IapErrorImplCopyWith<$Res> {
+  __$$IapErrorImplCopyWithImpl(
+      _$IapErrorImpl _value, $Res Function(_$IapErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -617,7 +620,7 @@ class __$$_IapErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_IapError(
+    return _then(_$IapErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -628,8 +631,8 @@ class __$$_IapErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_IapError implements _IapError {
-  const _$_IapError(this.error);
+class _$IapErrorImpl implements _IapError {
+  const _$IapErrorImpl(this.error);
 
   @override
   final IAPError error;
@@ -643,7 +646,7 @@ class _$_IapError implements _IapError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_IapError &&
+            other is _$IapErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -653,8 +656,8 @@ class _$_IapError implements _IapError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_IapErrorCopyWith<_$_IapError> get copyWith =>
-      __$$_IapErrorCopyWithImpl<_$_IapError>(this, _$identity);
+  _$$IapErrorImplCopyWith<_$IapErrorImpl> get copyWith =>
+      __$$IapErrorImplCopyWithImpl<_$IapErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -733,29 +736,29 @@ class _$_IapError implements _IapError {
 }
 
 abstract class _IapError implements ProductDetailsState {
-  const factory _IapError(final IAPError error) = _$_IapError;
+  const factory _IapError(final IAPError error) = _$IapErrorImpl;
 
   IAPError get error;
   @JsonKey(ignore: true)
-  _$$_IapErrorCopyWith<_$_IapError> get copyWith =>
+  _$$IapErrorImplCopyWith<_$IapErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ProductsCopyWith<$Res> {
-  factory _$$_ProductsCopyWith(
-          _$_Products value, $Res Function(_$_Products) then) =
-      __$$_ProductsCopyWithImpl<$Res>;
+abstract class _$$ProductsImplCopyWith<$Res> {
+  factory _$$ProductsImplCopyWith(
+          _$ProductsImpl value, $Res Function(_$ProductsImpl) then) =
+      __$$ProductsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<ProductDetails> products});
 }
 
 /// @nodoc
-class __$$_ProductsCopyWithImpl<$Res>
-    extends _$ProductDetailsStateCopyWithImpl<$Res, _$_Products>
-    implements _$$_ProductsCopyWith<$Res> {
-  __$$_ProductsCopyWithImpl(
-      _$_Products _value, $Res Function(_$_Products) _then)
+class __$$ProductsImplCopyWithImpl<$Res>
+    extends _$ProductDetailsStateCopyWithImpl<$Res, _$ProductsImpl>
+    implements _$$ProductsImplCopyWith<$Res> {
+  __$$ProductsImplCopyWithImpl(
+      _$ProductsImpl _value, $Res Function(_$ProductsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -763,7 +766,7 @@ class __$$_ProductsCopyWithImpl<$Res>
   $Res call({
     Object? products = null,
   }) {
-    return _then(_$_Products(
+    return _then(_$ProductsImpl(
       null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -774,8 +777,9 @@ class __$$_ProductsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Products implements _Products {
-  const _$_Products(final List<ProductDetails> products) : _products = products;
+class _$ProductsImpl implements _Products {
+  const _$ProductsImpl(final List<ProductDetails> products)
+      : _products = products;
 
   final List<ProductDetails> _products;
   @override
@@ -794,7 +798,7 @@ class _$_Products implements _Products {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Products &&
+            other is _$ProductsImpl &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
@@ -805,8 +809,8 @@ class _$_Products implements _Products {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProductsCopyWith<_$_Products> get copyWith =>
-      __$$_ProductsCopyWithImpl<_$_Products>(this, _$identity);
+  _$$ProductsImplCopyWith<_$ProductsImpl> get copyWith =>
+      __$$ProductsImplCopyWithImpl<_$ProductsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -885,11 +889,11 @@ class _$_Products implements _Products {
 }
 
 abstract class _Products implements ProductDetailsState {
-  const factory _Products(final List<ProductDetails> products) = _$_Products;
+  const factory _Products(final List<ProductDetails> products) = _$ProductsImpl;
 
   List<ProductDetails> get products;
   @JsonKey(ignore: true)
-  _$$_ProductsCopyWith<_$_Products> get copyWith =>
+  _$$ProductsImplCopyWith<_$ProductsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -972,10 +976,10 @@ class _$PurchaseStateCopyWithImpl<$Res, $Val extends PurchaseState>
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateErrorCopyWith<$Res> {
-  factory _$$_PurchaseStateErrorCopyWith(_$_PurchaseStateError value,
-          $Res Function(_$_PurchaseStateError) then) =
-      __$$_PurchaseStateErrorCopyWithImpl<$Res>;
+abstract class _$$PurchaseStateErrorImplCopyWith<$Res> {
+  factory _$$PurchaseStateErrorImplCopyWith(_$PurchaseStateErrorImpl value,
+          $Res Function(_$PurchaseStateErrorImpl) then) =
+      __$$PurchaseStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PurchaseStateError error});
 
@@ -983,11 +987,11 @@ abstract class _$$_PurchaseStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_PurchaseStateErrorCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseStateError>
-    implements _$$_PurchaseStateErrorCopyWith<$Res> {
-  __$$_PurchaseStateErrorCopyWithImpl(
-      _$_PurchaseStateError _value, $Res Function(_$_PurchaseStateError) _then)
+class __$$PurchaseStateErrorImplCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$PurchaseStateErrorImpl>
+    implements _$$PurchaseStateErrorImplCopyWith<$Res> {
+  __$$PurchaseStateErrorImplCopyWithImpl(_$PurchaseStateErrorImpl _value,
+      $Res Function(_$PurchaseStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -995,7 +999,7 @@ class __$$_PurchaseStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_PurchaseStateError(
+    return _then(_$PurchaseStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1014,8 +1018,8 @@ class __$$_PurchaseStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateError extends _PurchaseStateError {
-  const _$_PurchaseStateError(this.error) : super._();
+class _$PurchaseStateErrorImpl extends _PurchaseStateError {
+  const _$PurchaseStateErrorImpl(this.error) : super._();
 
   @override
   final PurchaseStateError error;
@@ -1029,7 +1033,7 @@ class _$_PurchaseStateError extends _PurchaseStateError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchaseStateError &&
+            other is _$PurchaseStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1039,8 +1043,8 @@ class _$_PurchaseStateError extends _PurchaseStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchaseStateErrorCopyWith<_$_PurchaseStateError> get copyWith =>
-      __$$_PurchaseStateErrorCopyWithImpl<_$_PurchaseStateError>(
+  _$$PurchaseStateErrorImplCopyWith<_$PurchaseStateErrorImpl> get copyWith =>
+      __$$PurchaseStateErrorImplCopyWithImpl<_$PurchaseStateErrorImpl>(
           this, _$identity);
 
   @override
@@ -1126,35 +1130,35 @@ class _$_PurchaseStateError extends _PurchaseStateError {
 
 abstract class _PurchaseStateError extends PurchaseState {
   const factory _PurchaseStateError(final PurchaseStateError error) =
-      _$_PurchaseStateError;
+      _$PurchaseStateErrorImpl;
   const _PurchaseStateError._() : super._();
 
   PurchaseStateError get error;
   @JsonKey(ignore: true)
-  _$$_PurchaseStateErrorCopyWith<_$_PurchaseStateError> get copyWith =>
+  _$$PurchaseStateErrorImplCopyWith<_$PurchaseStateErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateSuccessCopyWith<$Res> {
-  factory _$$_PurchaseStateSuccessCopyWith(_$_PurchaseStateSuccess value,
-          $Res Function(_$_PurchaseStateSuccess) then) =
-      __$$_PurchaseStateSuccessCopyWithImpl<$Res>;
+abstract class _$$PurchaseStateSuccessImplCopyWith<$Res> {
+  factory _$$PurchaseStateSuccessImplCopyWith(_$PurchaseStateSuccessImpl value,
+          $Res Function(_$PurchaseStateSuccessImpl) then) =
+      __$$PurchaseStateSuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PurchaseStateSuccessCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseStateSuccess>
-    implements _$$_PurchaseStateSuccessCopyWith<$Res> {
-  __$$_PurchaseStateSuccessCopyWithImpl(_$_PurchaseStateSuccess _value,
-      $Res Function(_$_PurchaseStateSuccess) _then)
+class __$$PurchaseStateSuccessImplCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$PurchaseStateSuccessImpl>
+    implements _$$PurchaseStateSuccessImplCopyWith<$Res> {
+  __$$PurchaseStateSuccessImplCopyWithImpl(_$PurchaseStateSuccessImpl _value,
+      $Res Function(_$PurchaseStateSuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_PurchaseStateSuccess extends _PurchaseStateSuccess {
-  const _$_PurchaseStateSuccess() : super._();
+class _$PurchaseStateSuccessImpl extends _PurchaseStateSuccess {
+  const _$PurchaseStateSuccessImpl() : super._();
 
   @override
   String toString() {
@@ -1164,7 +1168,8 @@ class _$_PurchaseStateSuccess extends _PurchaseStateSuccess {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_PurchaseStateSuccess);
+        (other.runtimeType == runtimeType &&
+            other is _$PurchaseStateSuccessImpl);
   }
 
   @override
@@ -1252,30 +1257,30 @@ class _$_PurchaseStateSuccess extends _PurchaseStateSuccess {
 }
 
 abstract class _PurchaseStateSuccess extends PurchaseState {
-  const factory _PurchaseStateSuccess() = _$_PurchaseStateSuccess;
+  const factory _PurchaseStateSuccess() = _$PurchaseStateSuccessImpl;
   const _PurchaseStateSuccess._() : super._();
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateLoadingCopyWith<$Res> {
-  factory _$$_PurchaseStateLoadingCopyWith(_$_PurchaseStateLoading value,
-          $Res Function(_$_PurchaseStateLoading) then) =
-      __$$_PurchaseStateLoadingCopyWithImpl<$Res>;
+abstract class _$$PurchaseStateLoadingImplCopyWith<$Res> {
+  factory _$$PurchaseStateLoadingImplCopyWith(_$PurchaseStateLoadingImpl value,
+          $Res Function(_$PurchaseStateLoadingImpl) then) =
+      __$$PurchaseStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PurchaseStateLoadingCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseStateLoading>
-    implements _$$_PurchaseStateLoadingCopyWith<$Res> {
-  __$$_PurchaseStateLoadingCopyWithImpl(_$_PurchaseStateLoading _value,
-      $Res Function(_$_PurchaseStateLoading) _then)
+class __$$PurchaseStateLoadingImplCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$PurchaseStateLoadingImpl>
+    implements _$$PurchaseStateLoadingImplCopyWith<$Res> {
+  __$$PurchaseStateLoadingImplCopyWithImpl(_$PurchaseStateLoadingImpl _value,
+      $Res Function(_$PurchaseStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_PurchaseStateLoading extends _PurchaseStateLoading {
-  const _$_PurchaseStateLoading() : super._();
+class _$PurchaseStateLoadingImpl extends _PurchaseStateLoading {
+  const _$PurchaseStateLoadingImpl() : super._();
 
   @override
   String toString() {
@@ -1285,7 +1290,8 @@ class _$_PurchaseStateLoading extends _PurchaseStateLoading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_PurchaseStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$PurchaseStateLoadingImpl);
   }
 
   @override
@@ -1373,25 +1379,25 @@ class _$_PurchaseStateLoading extends _PurchaseStateLoading {
 }
 
 abstract class _PurchaseStateLoading extends PurchaseState {
-  const factory _PurchaseStateLoading() = _$_PurchaseStateLoading;
+  const factory _PurchaseStateLoading() = _$PurchaseStateLoadingImpl;
   const _PurchaseStateLoading._() : super._();
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStatePendingCopyWith<$Res> {
-  factory _$$_PurchaseStatePendingCopyWith(_$_PurchaseStatePending value,
-          $Res Function(_$_PurchaseStatePending) then) =
-      __$$_PurchaseStatePendingCopyWithImpl<$Res>;
+abstract class _$$PurchaseStatePendingImplCopyWith<$Res> {
+  factory _$$PurchaseStatePendingImplCopyWith(_$PurchaseStatePendingImpl value,
+          $Res Function(_$PurchaseStatePendingImpl) then) =
+      __$$PurchaseStatePendingImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PurchaseDetails purchase});
 }
 
 /// @nodoc
-class __$$_PurchaseStatePendingCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseStatePending>
-    implements _$$_PurchaseStatePendingCopyWith<$Res> {
-  __$$_PurchaseStatePendingCopyWithImpl(_$_PurchaseStatePending _value,
-      $Res Function(_$_PurchaseStatePending) _then)
+class __$$PurchaseStatePendingImplCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$PurchaseStatePendingImpl>
+    implements _$$PurchaseStatePendingImplCopyWith<$Res> {
+  __$$PurchaseStatePendingImplCopyWithImpl(_$PurchaseStatePendingImpl _value,
+      $Res Function(_$PurchaseStatePendingImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1399,7 +1405,7 @@ class __$$_PurchaseStatePendingCopyWithImpl<$Res>
   $Res call({
     Object? purchase = null,
   }) {
-    return _then(_$_PurchaseStatePending(
+    return _then(_$PurchaseStatePendingImpl(
       null == purchase
           ? _value.purchase
           : purchase // ignore: cast_nullable_to_non_nullable
@@ -1410,8 +1416,8 @@ class __$$_PurchaseStatePendingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStatePending extends _PurchaseStatePending {
-  const _$_PurchaseStatePending(this.purchase) : super._();
+class _$PurchaseStatePendingImpl extends _PurchaseStatePending {
+  const _$PurchaseStatePendingImpl(this.purchase) : super._();
 
   @override
   final PurchaseDetails purchase;
@@ -1425,7 +1431,7 @@ class _$_PurchaseStatePending extends _PurchaseStatePending {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchaseStatePending &&
+            other is _$PurchaseStatePendingImpl &&
             (identical(other.purchase, purchase) ||
                 other.purchase == purchase));
   }
@@ -1436,9 +1442,10 @@ class _$_PurchaseStatePending extends _PurchaseStatePending {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchaseStatePendingCopyWith<_$_PurchaseStatePending> get copyWith =>
-      __$$_PurchaseStatePendingCopyWithImpl<_$_PurchaseStatePending>(
-          this, _$identity);
+  _$$PurchaseStatePendingImplCopyWith<_$PurchaseStatePendingImpl>
+      get copyWith =>
+          __$$PurchaseStatePendingImplCopyWithImpl<_$PurchaseStatePendingImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1523,30 +1530,30 @@ class _$_PurchaseStatePending extends _PurchaseStatePending {
 
 abstract class _PurchaseStatePending extends PurchaseState {
   const factory _PurchaseStatePending(final PurchaseDetails purchase) =
-      _$_PurchaseStatePending;
+      _$PurchaseStatePendingImpl;
   const _PurchaseStatePending._() : super._();
 
   PurchaseDetails get purchase;
   @JsonKey(ignore: true)
-  _$$_PurchaseStatePendingCopyWith<_$_PurchaseStatePending> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PurchaseStatePendingImplCopyWith<_$PurchaseStatePendingImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateInvalidCopyWith<$Res> {
-  factory _$$_PurchaseStateInvalidCopyWith(_$_PurchaseStateInvalid value,
-          $Res Function(_$_PurchaseStateInvalid) then) =
-      __$$_PurchaseStateInvalidCopyWithImpl<$Res>;
+abstract class _$$PurchaseStateInvalidImplCopyWith<$Res> {
+  factory _$$PurchaseStateInvalidImplCopyWith(_$PurchaseStateInvalidImpl value,
+          $Res Function(_$PurchaseStateInvalidImpl) then) =
+      __$$PurchaseStateInvalidImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PurchaseDetails purchase});
 }
 
 /// @nodoc
-class __$$_PurchaseStateInvalidCopyWithImpl<$Res>
-    extends _$PurchaseStateCopyWithImpl<$Res, _$_PurchaseStateInvalid>
-    implements _$$_PurchaseStateInvalidCopyWith<$Res> {
-  __$$_PurchaseStateInvalidCopyWithImpl(_$_PurchaseStateInvalid _value,
-      $Res Function(_$_PurchaseStateInvalid) _then)
+class __$$PurchaseStateInvalidImplCopyWithImpl<$Res>
+    extends _$PurchaseStateCopyWithImpl<$Res, _$PurchaseStateInvalidImpl>
+    implements _$$PurchaseStateInvalidImplCopyWith<$Res> {
+  __$$PurchaseStateInvalidImplCopyWithImpl(_$PurchaseStateInvalidImpl _value,
+      $Res Function(_$PurchaseStateInvalidImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1554,7 +1561,7 @@ class __$$_PurchaseStateInvalidCopyWithImpl<$Res>
   $Res call({
     Object? purchase = null,
   }) {
-    return _then(_$_PurchaseStateInvalid(
+    return _then(_$PurchaseStateInvalidImpl(
       null == purchase
           ? _value.purchase
           : purchase // ignore: cast_nullable_to_non_nullable
@@ -1565,8 +1572,8 @@ class __$$_PurchaseStateInvalidCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateInvalid extends _PurchaseStateInvalid {
-  const _$_PurchaseStateInvalid(this.purchase) : super._();
+class _$PurchaseStateInvalidImpl extends _PurchaseStateInvalid {
+  const _$PurchaseStateInvalidImpl(this.purchase) : super._();
 
   @override
   final PurchaseDetails purchase;
@@ -1580,7 +1587,7 @@ class _$_PurchaseStateInvalid extends _PurchaseStateInvalid {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchaseStateInvalid &&
+            other is _$PurchaseStateInvalidImpl &&
             (identical(other.purchase, purchase) ||
                 other.purchase == purchase));
   }
@@ -1591,9 +1598,10 @@ class _$_PurchaseStateInvalid extends _PurchaseStateInvalid {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchaseStateInvalidCopyWith<_$_PurchaseStateInvalid> get copyWith =>
-      __$$_PurchaseStateInvalidCopyWithImpl<_$_PurchaseStateInvalid>(
-          this, _$identity);
+  _$$PurchaseStateInvalidImplCopyWith<_$PurchaseStateInvalidImpl>
+      get copyWith =>
+          __$$PurchaseStateInvalidImplCopyWithImpl<_$PurchaseStateInvalidImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1678,13 +1686,13 @@ class _$_PurchaseStateInvalid extends _PurchaseStateInvalid {
 
 abstract class _PurchaseStateInvalid extends PurchaseState {
   const factory _PurchaseStateInvalid(final PurchaseDetails purchase) =
-      _$_PurchaseStateInvalid;
+      _$PurchaseStateInvalidImpl;
   const _PurchaseStateInvalid._() : super._();
 
   PurchaseDetails get purchase;
   @JsonKey(ignore: true)
-  _$$_PurchaseStateInvalidCopyWith<_$_PurchaseStateInvalid> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PurchaseStateInvalidImplCopyWith<_$PurchaseStateInvalidImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1750,23 +1758,23 @@ class _$PurchaseStateErrorCopyWithImpl<$Res, $Val extends PurchaseStateError>
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateErrorIapErrorCopyWith<$Res> {
-  factory _$$_PurchaseStateErrorIapErrorCopyWith(
-          _$_PurchaseStateErrorIapError value,
-          $Res Function(_$_PurchaseStateErrorIapError) then) =
-      __$$_PurchaseStateErrorIapErrorCopyWithImpl<$Res>;
+abstract class _$$PurchaseStateErrorIapErrorImplCopyWith<$Res> {
+  factory _$$PurchaseStateErrorIapErrorImplCopyWith(
+          _$PurchaseStateErrorIapErrorImpl value,
+          $Res Function(_$PurchaseStateErrorIapErrorImpl) then) =
+      __$$PurchaseStateErrorIapErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({IAPError error});
 }
 
 /// @nodoc
-class __$$_PurchaseStateErrorIapErrorCopyWithImpl<$Res>
+class __$$PurchaseStateErrorIapErrorImplCopyWithImpl<$Res>
     extends _$PurchaseStateErrorCopyWithImpl<$Res,
-        _$_PurchaseStateErrorIapError>
-    implements _$$_PurchaseStateErrorIapErrorCopyWith<$Res> {
-  __$$_PurchaseStateErrorIapErrorCopyWithImpl(
-      _$_PurchaseStateErrorIapError _value,
-      $Res Function(_$_PurchaseStateErrorIapError) _then)
+        _$PurchaseStateErrorIapErrorImpl>
+    implements _$$PurchaseStateErrorIapErrorImplCopyWith<$Res> {
+  __$$PurchaseStateErrorIapErrorImplCopyWithImpl(
+      _$PurchaseStateErrorIapErrorImpl _value,
+      $Res Function(_$PurchaseStateErrorIapErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1774,7 +1782,7 @@ class __$$_PurchaseStateErrorIapErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_PurchaseStateErrorIapError(
+    return _then(_$PurchaseStateErrorIapErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1785,8 +1793,8 @@ class __$$_PurchaseStateErrorIapErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateErrorIapError implements _PurchaseStateErrorIapError {
-  const _$_PurchaseStateErrorIapError(this.error);
+class _$PurchaseStateErrorIapErrorImpl implements _PurchaseStateErrorIapError {
+  const _$PurchaseStateErrorIapErrorImpl(this.error);
 
   @override
   final IAPError error;
@@ -1800,7 +1808,7 @@ class _$_PurchaseStateErrorIapError implements _PurchaseStateErrorIapError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchaseStateErrorIapError &&
+            other is _$PurchaseStateErrorIapErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1810,9 +1818,9 @@ class _$_PurchaseStateErrorIapError implements _PurchaseStateErrorIapError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchaseStateErrorIapErrorCopyWith<_$_PurchaseStateErrorIapError>
-      get copyWith => __$$_PurchaseStateErrorIapErrorCopyWithImpl<
-          _$_PurchaseStateErrorIapError>(this, _$identity);
+  _$$PurchaseStateErrorIapErrorImplCopyWith<_$PurchaseStateErrorIapErrorImpl>
+      get copyWith => __$$PurchaseStateErrorIapErrorImplCopyWithImpl<
+          _$PurchaseStateErrorIapErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1880,33 +1888,33 @@ class _$_PurchaseStateErrorIapError implements _PurchaseStateErrorIapError {
 
 abstract class _PurchaseStateErrorIapError implements PurchaseStateError {
   const factory _PurchaseStateErrorIapError(final IAPError error) =
-      _$_PurchaseStateErrorIapError;
+      _$PurchaseStateErrorIapErrorImpl;
 
   @override
   IAPError get error;
   @JsonKey(ignore: true)
-  _$$_PurchaseStateErrorIapErrorCopyWith<_$_PurchaseStateErrorIapError>
+  _$$PurchaseStateErrorIapErrorImplCopyWith<_$PurchaseStateErrorIapErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_PurchaseStateErrorGeneralErrorCopyWith<$Res> {
-  factory _$$_PurchaseStateErrorGeneralErrorCopyWith(
-          _$_PurchaseStateErrorGeneralError value,
-          $Res Function(_$_PurchaseStateErrorGeneralError) then) =
-      __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<$Res>;
+abstract class _$$PurchaseStateErrorGeneralErrorImplCopyWith<$Res> {
+  factory _$$PurchaseStateErrorGeneralErrorImplCopyWith(
+          _$PurchaseStateErrorGeneralErrorImpl value,
+          $Res Function(_$PurchaseStateErrorGeneralErrorImpl) then) =
+      __$$PurchaseStateErrorGeneralErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Object error, StackTrace stackTrace});
 }
 
 /// @nodoc
-class __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<$Res>
+class __$$PurchaseStateErrorGeneralErrorImplCopyWithImpl<$Res>
     extends _$PurchaseStateErrorCopyWithImpl<$Res,
-        _$_PurchaseStateErrorGeneralError>
-    implements _$$_PurchaseStateErrorGeneralErrorCopyWith<$Res> {
-  __$$_PurchaseStateErrorGeneralErrorCopyWithImpl(
-      _$_PurchaseStateErrorGeneralError _value,
-      $Res Function(_$_PurchaseStateErrorGeneralError) _then)
+        _$PurchaseStateErrorGeneralErrorImpl>
+    implements _$$PurchaseStateErrorGeneralErrorImplCopyWith<$Res> {
+  __$$PurchaseStateErrorGeneralErrorImplCopyWithImpl(
+      _$PurchaseStateErrorGeneralErrorImpl _value,
+      $Res Function(_$PurchaseStateErrorGeneralErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1915,7 +1923,7 @@ class __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<$Res>
     Object? error = null,
     Object? stackTrace = null,
   }) {
-    return _then(_$_PurchaseStateErrorGeneralError(
+    return _then(_$PurchaseStateErrorGeneralErrorImpl(
       null == error ? _value.error : error,
       null == stackTrace
           ? _value.stackTrace
@@ -1927,9 +1935,9 @@ class __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchaseStateErrorGeneralError
+class _$PurchaseStateErrorGeneralErrorImpl
     implements _PurchaseStateErrorGeneralError {
-  const _$_PurchaseStateErrorGeneralError(this.error, this.stackTrace);
+  const _$PurchaseStateErrorGeneralErrorImpl(this.error, this.stackTrace);
 
   @override
   final Object error;
@@ -1945,7 +1953,7 @@ class _$_PurchaseStateErrorGeneralError
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchaseStateErrorGeneralError &&
+            other is _$PurchaseStateErrorGeneralErrorImpl &&
             const DeepCollectionEquality().equals(other.error, error) &&
             (identical(other.stackTrace, stackTrace) ||
                 other.stackTrace == stackTrace));
@@ -1958,9 +1966,10 @@ class _$_PurchaseStateErrorGeneralError
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchaseStateErrorGeneralErrorCopyWith<_$_PurchaseStateErrorGeneralError>
-      get copyWith => __$$_PurchaseStateErrorGeneralErrorCopyWithImpl<
-          _$_PurchaseStateErrorGeneralError>(this, _$identity);
+  _$$PurchaseStateErrorGeneralErrorImplCopyWith<
+          _$PurchaseStateErrorGeneralErrorImpl>
+      get copyWith => __$$PurchaseStateErrorGeneralErrorImplCopyWithImpl<
+          _$PurchaseStateErrorGeneralErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2029,12 +2038,13 @@ class _$_PurchaseStateErrorGeneralError
 abstract class _PurchaseStateErrorGeneralError implements PurchaseStateError {
   const factory _PurchaseStateErrorGeneralError(
           final Object error, final StackTrace stackTrace) =
-      _$_PurchaseStateErrorGeneralError;
+      _$PurchaseStateErrorGeneralErrorImpl;
 
   @override
   Object get error;
   StackTrace get stackTrace;
   @JsonKey(ignore: true)
-  _$$_PurchaseStateErrorGeneralErrorCopyWith<_$_PurchaseStateErrorGeneralError>
+  _$$PurchaseStateErrorGeneralErrorImplCopyWith<
+          _$PurchaseStateErrorGeneralErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

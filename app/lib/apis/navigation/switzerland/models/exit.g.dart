@@ -6,11 +6,11 @@ part of 'exit.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Exit _$$_ExitFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_Exit',
+_$ExitImpl _$$ExitImplFromJson(Map<String, dynamic> json) => $checkedCreate(
+      r'_$ExitImpl',
       json,
       ($checkedConvert) {
-        final val = _$_Exit(
+        final val = _$ExitImpl(
           name: $checkedConvert('name', (v) => v as String),
           arrDelay: $checkedConvert('arr_delay',
               (v) => const DelayConverter().fromJson(v as String?)),
@@ -31,7 +31,7 @@ _$_Exit _$$_ExitFromJson(Map<String, dynamic> json) => $checkedCreate(
       fieldKeyMap: const {'arrDelay': 'arr_delay'},
     );
 
-Map<String, dynamic> _$$_ExitToJson(_$_Exit instance) {
+Map<String, dynamic> _$$ExitImplToJson(_$ExitImpl instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };

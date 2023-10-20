@@ -116,11 +116,11 @@ class _$SchRouteConnectionCopyWithImpl<$Res, $Val extends SchRouteConnection>
 }
 
 /// @nodoc
-abstract class _$$_SchRouteConnectionCopyWith<$Res>
+abstract class _$$SchRouteConnectionImplCopyWith<$Res>
     implements $SchRouteConnectionCopyWith<$Res> {
-  factory _$$_SchRouteConnectionCopyWith(_$_SchRouteConnection value,
-          $Res Function(_$_SchRouteConnection) then) =
-      __$$_SchRouteConnectionCopyWithImpl<$Res>;
+  factory _$$SchRouteConnectionImplCopyWith(_$SchRouteConnectionImpl value,
+          $Res Function(_$SchRouteConnectionImpl) then) =
+      __$$SchRouteConnectionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -135,11 +135,11 @@ abstract class _$$_SchRouteConnectionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SchRouteConnectionCopyWithImpl<$Res>
-    extends _$SchRouteConnectionCopyWithImpl<$Res, _$_SchRouteConnection>
-    implements _$$_SchRouteConnectionCopyWith<$Res> {
-  __$$_SchRouteConnectionCopyWithImpl(
-      _$_SchRouteConnection _value, $Res Function(_$_SchRouteConnection) _then)
+class __$$SchRouteConnectionImplCopyWithImpl<$Res>
+    extends _$SchRouteConnectionCopyWithImpl<$Res, _$SchRouteConnectionImpl>
+    implements _$$SchRouteConnectionImplCopyWith<$Res> {
+  __$$SchRouteConnectionImplCopyWithImpl(_$SchRouteConnectionImpl _value,
+      $Res Function(_$SchRouteConnectionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -154,7 +154,7 @@ class __$$_SchRouteConnectionCopyWithImpl<$Res>
     Object? sbbLegs = null,
     Object? disruptions = null,
   }) {
-    return _then(_$_SchRouteConnection(
+    return _then(_$SchRouteConnectionImpl(
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -194,8 +194,8 @@ class __$$_SchRouteConnectionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-class _$_SchRouteConnection extends _SchRouteConnection {
-  const _$_SchRouteConnection(
+class _$SchRouteConnectionImpl extends _SchRouteConnection {
+  const _$SchRouteConnectionImpl(
       {required this.from,
       required this.to,
       @DelayConverter() @JsonKey(name: 'dep_delay') this.depDelay,
@@ -208,8 +208,8 @@ class _$_SchRouteConnection extends _SchRouteConnection {
         _disruptions = disruptions,
         super._();
 
-  factory _$_SchRouteConnection.fromJson(Map<String, dynamic> json) =>
-      _$$_SchRouteConnectionFromJson(json);
+  factory _$SchRouteConnectionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchRouteConnectionImplFromJson(json);
 
   @override
   final String from;
@@ -253,7 +253,7 @@ class _$_SchRouteConnection extends _SchRouteConnection {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchRouteConnection &&
+            other is _$SchRouteConnectionImpl &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.depDelay, depDelay) ||
@@ -284,13 +284,13 @@ class _$_SchRouteConnection extends _SchRouteConnection {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchRouteConnectionCopyWith<_$_SchRouteConnection> get copyWith =>
-      __$$_SchRouteConnectionCopyWithImpl<_$_SchRouteConnection>(
+  _$$SchRouteConnectionImplCopyWith<_$SchRouteConnectionImpl> get copyWith =>
+      __$$SchRouteConnectionImplCopyWithImpl<_$SchRouteConnectionImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchRouteConnectionToJson(
+    return _$$SchRouteConnectionImplToJson(
       this,
     );
   }
@@ -305,11 +305,11 @@ abstract class _SchRouteConnection extends SchRouteConnection {
       final DateTime? arrival,
       @JsonKey(name: 'duration') final double? durationInSeconds,
       @JsonKey(name: 'legs') final List<SchLeg> sbbLegs,
-      final Map<String, Disruption> disruptions}) = _$_SchRouteConnection;
+      final Map<String, Disruption> disruptions}) = _$SchRouteConnectionImpl;
   const _SchRouteConnection._() : super._();
 
   factory _SchRouteConnection.fromJson(Map<String, dynamic> json) =
-      _$_SchRouteConnection.fromJson;
+      _$SchRouteConnectionImpl.fromJson;
 
   @override
   String get from;
@@ -333,6 +333,6 @@ abstract class _SchRouteConnection extends SchRouteConnection {
   Map<String, Disruption> get disruptions;
   @override
   @JsonKey(ignore: true)
-  _$$_SchRouteConnectionCopyWith<_$_SchRouteConnection> get copyWith =>
+  _$$SchRouteConnectionImplCopyWith<_$SchRouteConnectionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -218,7 +218,7 @@ class SearchChApi extends BaseNavigationApi {
       'to': arrival,
       'date': '${date.month}/${date.day}/${date.year}',
       'time': '${time.hour}:${time.minute}',
-      'time_type': describeEnum(timeType),
+      'time_type': timeType.name,
       'show_trackchanges': 1,
       'show_delays': showDelays.toInt(),
       'pre': previous,

@@ -6,8 +6,8 @@ part of 'cache.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LineCacheEntry _$$_LineCacheEntryFromJson(Map<String, dynamic> json) =>
-    _$_LineCacheEntry(
+_$LineCacheEntryImpl _$$LineCacheEntryImplFromJson(Map<String, dynamic> json) =>
+    _$LineCacheEntryImpl(
       timestamp: DateTime.parse(json['timestamp'] as String),
       stop: json['stop'] as String,
       lines: (json['lines'] as List<dynamic>)
@@ -16,7 +16,8 @@ _$_LineCacheEntry _$$_LineCacheEntryFromJson(Map<String, dynamic> json) =>
       ttl: json['ttl'] as int? ?? Duration.minutesPerDay * 7,
     );
 
-Map<String, dynamic> _$$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>
+Map<String, dynamic> _$$LineCacheEntryImplToJson(
+        _$LineCacheEntryImpl instance) =>
     <String, dynamic>{
       'timestamp': instance.timestamp.toIso8601String(),
       'stop': instance.stop,
@@ -24,13 +25,14 @@ Map<String, dynamic> _$$_LineCacheEntryToJson(_$_LineCacheEntry instance) =>
       'ttl': instance.ttl,
     };
 
-_$_Line _$$_LineFromJson(Map<String, dynamic> json) => _$_Line(
+_$LineImpl _$$LineImplFromJson(Map<String, dynamic> json) => _$LineImpl(
       line: json['line'] as String?,
       bgColor: json['bgColor'] as int?,
       fgColor: json['fgColor'] as int?,
     );
 
-Map<String, dynamic> _$$_LineToJson(_$_Line instance) => <String, dynamic>{
+Map<String, dynamic> _$$LineImplToJson(_$LineImpl instance) =>
+    <String, dynamic>{
       'line': instance.line,
       'bgColor': instance.bgColor,
       'fgColor': instance.fgColor,

@@ -101,11 +101,11 @@ class _$RoutePredictionCopyWithImpl<$Res, $Val extends RoutePrediction>
 }
 
 /// @nodoc
-abstract class _$$_RoutePredictionCopyWith<$Res>
+abstract class _$$RoutePredictionImplCopyWith<$Res>
     implements $RoutePredictionCopyWith<$Res> {
-  factory _$$_RoutePredictionCopyWith(
-          _$_RoutePrediction value, $Res Function(_$_RoutePrediction) then) =
-      __$$_RoutePredictionCopyWithImpl<$Res>;
+  factory _$$RoutePredictionImplCopyWith(_$RoutePredictionImpl value,
+          $Res Function(_$RoutePredictionImpl) then) =
+      __$$RoutePredictionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -120,11 +120,11 @@ abstract class _$$_RoutePredictionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RoutePredictionCopyWithImpl<$Res>
-    extends _$RoutePredictionCopyWithImpl<$Res, _$_RoutePrediction>
-    implements _$$_RoutePredictionCopyWith<$Res> {
-  __$$_RoutePredictionCopyWithImpl(
-      _$_RoutePrediction _value, $Res Function(_$_RoutePrediction) _then)
+class __$$RoutePredictionImplCopyWithImpl<$Res>
+    extends _$RoutePredictionCopyWithImpl<$Res, _$RoutePredictionImpl>
+    implements _$$RoutePredictionImplCopyWith<$Res> {
+  __$$RoutePredictionImplCopyWithImpl(
+      _$RoutePredictionImpl _value, $Res Function(_$RoutePredictionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -134,7 +134,7 @@ class __$$_RoutePredictionCopyWithImpl<$Res>
     Object? confidence = null,
     Object? arguments = null,
   }) {
-    return _then(_$_RoutePrediction(
+    return _then(_$RoutePredictionImpl(
       freezed == prediction
           ? _value.prediction
           : prediction // ignore: cast_nullable_to_non_nullable
@@ -154,12 +154,12 @@ class __$$_RoutePredictionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_RoutePrediction implements _RoutePrediction {
-  const _$_RoutePrediction(
+class _$RoutePredictionImpl implements _RoutePrediction {
+  const _$RoutePredictionImpl(
       @LocalRouteConverter() this.prediction, this.confidence, this.arguments);
 
-  factory _$_RoutePrediction.fromJson(Map<String, dynamic> json) =>
-      _$$_RoutePredictionFromJson(json);
+  factory _$RoutePredictionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RoutePredictionImplFromJson(json);
 
   @override
   @LocalRouteConverter()
@@ -178,7 +178,7 @@ class _$_RoutePrediction implements _RoutePrediction {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RoutePrediction &&
+            other is _$RoutePredictionImpl &&
             (identical(other.prediction, prediction) ||
                 other.prediction == prediction) &&
             (identical(other.confidence, confidence) ||
@@ -195,12 +195,13 @@ class _$_RoutePrediction implements _RoutePrediction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RoutePredictionCopyWith<_$_RoutePrediction> get copyWith =>
-      __$$_RoutePredictionCopyWithImpl<_$_RoutePrediction>(this, _$identity);
+  _$$RoutePredictionImplCopyWith<_$RoutePredictionImpl> get copyWith =>
+      __$$RoutePredictionImplCopyWithImpl<_$RoutePredictionImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RoutePredictionToJson(
+    return _$$RoutePredictionImplToJson(
       this,
     );
   }
@@ -210,10 +211,10 @@ abstract class _RoutePrediction implements RoutePrediction {
   const factory _RoutePrediction(
       @LocalRouteConverter() final LocalRoute? prediction,
       final double confidence,
-      final PredictionArguments arguments) = _$_RoutePrediction;
+      final PredictionArguments arguments) = _$RoutePredictionImpl;
 
   factory _RoutePrediction.fromJson(Map<String, dynamic> json) =
-      _$_RoutePrediction.fromJson;
+      _$RoutePredictionImpl.fromJson;
 
   @override
   @LocalRouteConverter()
@@ -224,7 +225,7 @@ abstract class _RoutePrediction implements RoutePrediction {
   PredictionArguments get arguments;
   @override
   @JsonKey(ignore: true)
-  _$$_RoutePredictionCopyWith<_$_RoutePrediction> get copyWith =>
+  _$$RoutePredictionImplCopyWith<_$RoutePredictionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -292,11 +293,11 @@ class _$FullArgumentsCopyWithImpl<$Res, $Val extends FullArguments>
 }
 
 /// @nodoc
-abstract class _$$_FullArgumentsCopyWith<$Res>
+abstract class _$$FullArgumentsImplCopyWith<$Res>
     implements $FullArgumentsCopyWith<$Res> {
-  factory _$$_FullArgumentsCopyWith(
-          _$_FullArguments value, $Res Function(_$_FullArguments) then) =
-      __$$_FullArgumentsCopyWithImpl<$Res>;
+  factory _$$FullArgumentsImplCopyWith(
+          _$FullArgumentsImpl value, $Res Function(_$FullArgumentsImpl) then) =
+      __$$FullArgumentsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<LocalRoute> routes, PredictionArguments arguments});
@@ -306,11 +307,11 @@ abstract class _$$_FullArgumentsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_FullArgumentsCopyWithImpl<$Res>
-    extends _$FullArgumentsCopyWithImpl<$Res, _$_FullArguments>
-    implements _$$_FullArgumentsCopyWith<$Res> {
-  __$$_FullArgumentsCopyWithImpl(
-      _$_FullArguments _value, $Res Function(_$_FullArguments) _then)
+class __$$FullArgumentsImplCopyWithImpl<$Res>
+    extends _$FullArgumentsCopyWithImpl<$Res, _$FullArgumentsImpl>
+    implements _$$FullArgumentsImplCopyWith<$Res> {
+  __$$FullArgumentsImplCopyWithImpl(
+      _$FullArgumentsImpl _value, $Res Function(_$FullArgumentsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -319,7 +320,7 @@ class __$$_FullArgumentsCopyWithImpl<$Res>
     Object? routes = null,
     Object? arguments = null,
   }) {
-    return _then(_$_FullArguments(
+    return _then(_$FullArgumentsImpl(
       null == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
@@ -335,12 +336,12 @@ class __$$_FullArgumentsCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_FullArguments implements _FullArguments {
-  const _$_FullArguments(final List<LocalRoute> routes, this.arguments)
+class _$FullArgumentsImpl implements _FullArguments {
+  const _$FullArgumentsImpl(final List<LocalRoute> routes, this.arguments)
       : _routes = routes;
 
-  factory _$_FullArguments.fromJson(Map<String, dynamic> json) =>
-      _$$_FullArgumentsFromJson(json);
+  factory _$FullArgumentsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FullArgumentsImplFromJson(json);
 
   final List<LocalRoute> _routes;
   @override
@@ -362,7 +363,7 @@ class _$_FullArguments implements _FullArguments {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FullArguments &&
+            other is _$FullArgumentsImpl &&
             const DeepCollectionEquality().equals(other._routes, _routes) &&
             (identical(other.arguments, arguments) ||
                 other.arguments == arguments));
@@ -376,12 +377,12 @@ class _$_FullArguments implements _FullArguments {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FullArgumentsCopyWith<_$_FullArguments> get copyWith =>
-      __$$_FullArgumentsCopyWithImpl<_$_FullArguments>(this, _$identity);
+  _$$FullArgumentsImplCopyWith<_$FullArgumentsImpl> get copyWith =>
+      __$$FullArgumentsImplCopyWithImpl<_$FullArgumentsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FullArgumentsToJson(
+    return _$$FullArgumentsImplToJson(
       this,
     );
   }
@@ -390,10 +391,10 @@ class _$_FullArguments implements _FullArguments {
 abstract class _FullArguments implements FullArguments {
   const factory _FullArguments(
           final List<LocalRoute> routes, final PredictionArguments arguments) =
-      _$_FullArguments;
+      _$FullArgumentsImpl;
 
   factory _FullArguments.fromJson(Map<String, dynamic> json) =
-      _$_FullArguments.fromJson;
+      _$FullArgumentsImpl.fromJson;
 
   @override
   List<LocalRoute> get routes;
@@ -401,7 +402,7 @@ abstract class _FullArguments implements FullArguments {
   PredictionArguments get arguments;
   @override
   @JsonKey(ignore: true)
-  _$$_FullArgumentsCopyWith<_$_FullArguments> get copyWith =>
+  _$$FullArgumentsImplCopyWith<_$FullArgumentsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -507,22 +508,22 @@ class _$PredictionArgumentsCopyWithImpl<$Res, $Val extends PredictionArguments>
 }
 
 /// @nodoc
-abstract class _$$EmptyArgumentCopyWith<$Res>
+abstract class _$$EmptyArgumentImplCopyWith<$Res>
     implements $PredictionArgumentsCopyWith<$Res> {
-  factory _$$EmptyArgumentCopyWith(
-          _$EmptyArgument value, $Res Function(_$EmptyArgument) then) =
-      __$$EmptyArgumentCopyWithImpl<$Res>;
+  factory _$$EmptyArgumentImplCopyWith(
+          _$EmptyArgumentImpl value, $Res Function(_$EmptyArgumentImpl) then) =
+      __$$EmptyArgumentImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime? dateTime});
 }
 
 /// @nodoc
-class __$$EmptyArgumentCopyWithImpl<$Res>
-    extends _$PredictionArgumentsCopyWithImpl<$Res, _$EmptyArgument>
-    implements _$$EmptyArgumentCopyWith<$Res> {
-  __$$EmptyArgumentCopyWithImpl(
-      _$EmptyArgument _value, $Res Function(_$EmptyArgument) _then)
+class __$$EmptyArgumentImplCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res, _$EmptyArgumentImpl>
+    implements _$$EmptyArgumentImplCopyWith<$Res> {
+  __$$EmptyArgumentImplCopyWithImpl(
+      _$EmptyArgumentImpl _value, $Res Function(_$EmptyArgumentImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -530,7 +531,7 @@ class __$$EmptyArgumentCopyWithImpl<$Res>
   $Res call({
     Object? dateTime = freezed,
   }) {
-    return _then(_$EmptyArgument(
+    return _then(_$EmptyArgumentImpl(
       dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -542,13 +543,13 @@ class __$$EmptyArgumentCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$EmptyArgument extends EmptyArgument {
-  const _$EmptyArgument({required this.dateTime, final String? $type})
+class _$EmptyArgumentImpl extends EmptyArgument {
+  const _$EmptyArgumentImpl({required this.dateTime, final String? $type})
       : $type = $type ?? 'empty',
         super._();
 
-  factory _$EmptyArgument.fromJson(Map<String, dynamic> json) =>
-      _$$EmptyArgumentFromJson(json);
+  factory _$EmptyArgumentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EmptyArgumentImplFromJson(json);
 
   @override
   final DateTime? dateTime;
@@ -565,7 +566,7 @@ class _$EmptyArgument extends EmptyArgument {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EmptyArgument &&
+            other is _$EmptyArgumentImpl &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime));
   }
@@ -577,8 +578,8 @@ class _$EmptyArgument extends EmptyArgument {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EmptyArgumentCopyWith<_$EmptyArgument> get copyWith =>
-      __$$EmptyArgumentCopyWithImpl<_$EmptyArgument>(this, _$identity);
+  _$$EmptyArgumentImplCopyWith<_$EmptyArgumentImpl> get copyWith =>
+      __$$EmptyArgumentImplCopyWithImpl<_$EmptyArgumentImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -650,7 +651,7 @@ class _$EmptyArgument extends EmptyArgument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmptyArgumentToJson(
+    return _$$EmptyArgumentImplToJson(
       this,
     );
   }
@@ -658,37 +659,37 @@ class _$EmptyArgument extends EmptyArgument {
 
 abstract class EmptyArgument extends PredictionArguments {
   const factory EmptyArgument({required final DateTime? dateTime}) =
-      _$EmptyArgument;
+      _$EmptyArgumentImpl;
   const EmptyArgument._() : super._();
 
   factory EmptyArgument.fromJson(Map<String, dynamic> json) =
-      _$EmptyArgument.fromJson;
+      _$EmptyArgumentImpl.fromJson;
 
   @override
   DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  _$$EmptyArgumentCopyWith<_$EmptyArgument> get copyWith =>
+  _$$EmptyArgumentImplCopyWith<_$EmptyArgumentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SourceDateArgumentsCopyWith<$Res>
+abstract class _$$SourceDateArgumentsImplCopyWith<$Res>
     implements $PredictionArgumentsCopyWith<$Res> {
-  factory _$$SourceDateArgumentsCopyWith(_$SourceDateArguments value,
-          $Res Function(_$SourceDateArguments) then) =
-      __$$SourceDateArgumentsCopyWithImpl<$Res>;
+  factory _$$SourceDateArgumentsImplCopyWith(_$SourceDateArgumentsImpl value,
+          $Res Function(_$SourceDateArgumentsImpl) then) =
+      __$$SourceDateArgumentsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String source, DateTime? dateTime});
 }
 
 /// @nodoc
-class __$$SourceDateArgumentsCopyWithImpl<$Res>
-    extends _$PredictionArgumentsCopyWithImpl<$Res, _$SourceDateArguments>
-    implements _$$SourceDateArgumentsCopyWith<$Res> {
-  __$$SourceDateArgumentsCopyWithImpl(
-      _$SourceDateArguments _value, $Res Function(_$SourceDateArguments) _then)
+class __$$SourceDateArgumentsImplCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res, _$SourceDateArgumentsImpl>
+    implements _$$SourceDateArgumentsImplCopyWith<$Res> {
+  __$$SourceDateArgumentsImplCopyWithImpl(_$SourceDateArgumentsImpl _value,
+      $Res Function(_$SourceDateArgumentsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -697,7 +698,7 @@ class __$$SourceDateArgumentsCopyWithImpl<$Res>
     Object? source = null,
     Object? dateTime = freezed,
   }) {
-    return _then(_$SourceDateArguments(
+    return _then(_$SourceDateArgumentsImpl(
       null == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -713,14 +714,14 @@ class __$$SourceDateArgumentsCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$SourceDateArguments extends SourceDateArguments {
-  const _$SourceDateArguments(this.source,
+class _$SourceDateArgumentsImpl extends SourceDateArguments {
+  const _$SourceDateArgumentsImpl(this.source,
       {required this.dateTime, final String? $type})
       : $type = $type ?? 'withSource',
         super._();
 
-  factory _$SourceDateArguments.fromJson(Map<String, dynamic> json) =>
-      _$$SourceDateArgumentsFromJson(json);
+  factory _$SourceDateArgumentsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SourceDateArgumentsImplFromJson(json);
 
   @override
   final String source;
@@ -739,7 +740,7 @@ class _$SourceDateArguments extends SourceDateArguments {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SourceDateArguments &&
+            other is _$SourceDateArgumentsImpl &&
             (identical(other.source, source) || other.source == source) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime));
@@ -752,8 +753,8 @@ class _$SourceDateArguments extends SourceDateArguments {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SourceDateArgumentsCopyWith<_$SourceDateArguments> get copyWith =>
-      __$$SourceDateArgumentsCopyWithImpl<_$SourceDateArguments>(
+  _$$SourceDateArgumentsImplCopyWith<_$SourceDateArgumentsImpl> get copyWith =>
+      __$$SourceDateArgumentsImplCopyWithImpl<_$SourceDateArgumentsImpl>(
           this, _$identity);
 
   @override
@@ -826,7 +827,7 @@ class _$SourceDateArguments extends SourceDateArguments {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SourceDateArgumentsToJson(
+    return _$$SourceDateArgumentsImplToJson(
       this,
     );
   }
@@ -834,27 +835,27 @@ class _$SourceDateArguments extends SourceDateArguments {
 
 abstract class SourceDateArguments extends PredictionArguments {
   const factory SourceDateArguments(final String source,
-      {required final DateTime? dateTime}) = _$SourceDateArguments;
+      {required final DateTime? dateTime}) = _$SourceDateArgumentsImpl;
   const SourceDateArguments._() : super._();
 
   factory SourceDateArguments.fromJson(Map<String, dynamic> json) =
-      _$SourceDateArguments.fromJson;
+      _$SourceDateArgumentsImpl.fromJson;
 
   String get source;
   @override
   DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  _$$SourceDateArgumentsCopyWith<_$SourceDateArguments> get copyWith =>
+  _$$SourceDateArgumentsImplCopyWith<_$SourceDateArgumentsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LocationArgumentCopyWith<$Res>
+abstract class _$$LocationArgumentImplCopyWith<$Res>
     implements $PredictionArgumentsCopyWith<$Res> {
-  factory _$$LocationArgumentCopyWith(
-          _$LocationArgument value, $Res Function(_$LocationArgument) then) =
-      __$$LocationArgumentCopyWithImpl<$Res>;
+  factory _$$LocationArgumentImplCopyWith(_$LocationArgumentImpl value,
+          $Res Function(_$LocationArgumentImpl) then) =
+      __$$LocationArgumentImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({LatLon latLon, DateTime? dateTime});
@@ -863,11 +864,11 @@ abstract class _$$LocationArgumentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LocationArgumentCopyWithImpl<$Res>
-    extends _$PredictionArgumentsCopyWithImpl<$Res, _$LocationArgument>
-    implements _$$LocationArgumentCopyWith<$Res> {
-  __$$LocationArgumentCopyWithImpl(
-      _$LocationArgument _value, $Res Function(_$LocationArgument) _then)
+class __$$LocationArgumentImplCopyWithImpl<$Res>
+    extends _$PredictionArgumentsCopyWithImpl<$Res, _$LocationArgumentImpl>
+    implements _$$LocationArgumentImplCopyWith<$Res> {
+  __$$LocationArgumentImplCopyWithImpl(_$LocationArgumentImpl _value,
+      $Res Function(_$LocationArgumentImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -876,7 +877,7 @@ class __$$LocationArgumentCopyWithImpl<$Res>
     Object? latLon = null,
     Object? dateTime = freezed,
   }) {
-    return _then(_$LocationArgument(
+    return _then(_$LocationArgumentImpl(
       null == latLon
           ? _value.latLon
           : latLon // ignore: cast_nullable_to_non_nullable
@@ -900,14 +901,14 @@ class __$$LocationArgumentCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$LocationArgument extends LocationArgument {
-  const _$LocationArgument(this.latLon,
+class _$LocationArgumentImpl extends LocationArgument {
+  const _$LocationArgumentImpl(this.latLon,
       {required this.dateTime, final String? $type})
       : $type = $type ?? 'withLocation',
         super._();
 
-  factory _$LocationArgument.fromJson(Map<String, dynamic> json) =>
-      _$$LocationArgumentFromJson(json);
+  factory _$LocationArgumentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationArgumentImplFromJson(json);
 
   @override
   final LatLon latLon;
@@ -926,7 +927,7 @@ class _$LocationArgument extends LocationArgument {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocationArgument &&
+            other is _$LocationArgumentImpl &&
             (identical(other.latLon, latLon) || other.latLon == latLon) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime));
@@ -939,8 +940,9 @@ class _$LocationArgument extends LocationArgument {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocationArgumentCopyWith<_$LocationArgument> get copyWith =>
-      __$$LocationArgumentCopyWithImpl<_$LocationArgument>(this, _$identity);
+  _$$LocationArgumentImplCopyWith<_$LocationArgumentImpl> get copyWith =>
+      __$$LocationArgumentImplCopyWithImpl<_$LocationArgumentImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1012,7 +1014,7 @@ class _$LocationArgument extends LocationArgument {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationArgumentToJson(
+    return _$$LocationArgumentImplToJson(
       this,
     );
   }
@@ -1020,17 +1022,17 @@ class _$LocationArgument extends LocationArgument {
 
 abstract class LocationArgument extends PredictionArguments {
   const factory LocationArgument(final LatLon latLon,
-      {required final DateTime? dateTime}) = _$LocationArgument;
+      {required final DateTime? dateTime}) = _$LocationArgumentImpl;
   const LocationArgument._() : super._();
 
   factory LocationArgument.fromJson(Map<String, dynamic> json) =
-      _$LocationArgument.fromJson;
+      _$LocationArgumentImpl.fromJson;
 
   LatLon get latLon;
   @override
   DateTime? get dateTime;
   @override
   @JsonKey(ignore: true)
-  _$$LocationArgumentCopyWith<_$LocationArgument> get copyWith =>
+  _$$LocationArgumentImplCopyWith<_$LocationArgumentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

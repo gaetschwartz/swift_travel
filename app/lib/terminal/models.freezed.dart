@@ -80,11 +80,11 @@ class _$TerminalContextCopyWithImpl<$Res, $Val extends TerminalContext>
 }
 
 /// @nodoc
-abstract class _$$_TerminalContextCopyWith<$Res>
+abstract class _$$TerminalContextImplCopyWith<$Res>
     implements $TerminalContextCopyWith<$Res> {
-  factory _$$_TerminalContextCopyWith(
-          _$_TerminalContext value, $Res Function(_$_TerminalContext) then) =
-      __$$_TerminalContextCopyWithImpl<$Res>;
+  factory _$$TerminalContextImplCopyWith(_$TerminalContextImpl value,
+          $Res Function(_$TerminalContextImpl) then) =
+      __$$TerminalContextImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -95,11 +95,11 @@ abstract class _$$_TerminalContextCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TerminalContextCopyWithImpl<$Res>
-    extends _$TerminalContextCopyWithImpl<$Res, _$_TerminalContext>
-    implements _$$_TerminalContextCopyWith<$Res> {
-  __$$_TerminalContextCopyWithImpl(
-      _$_TerminalContext _value, $Res Function(_$_TerminalContext) _then)
+class __$$TerminalContextImplCopyWithImpl<$Res>
+    extends _$TerminalContextCopyWithImpl<$Res, _$TerminalContextImpl>
+    implements _$$TerminalContextImplCopyWith<$Res> {
+  __$$TerminalContextImplCopyWithImpl(
+      _$TerminalContextImpl _value, $Res Function(_$TerminalContextImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -110,7 +110,7 @@ class __$$_TerminalContextCopyWithImpl<$Res>
     Object? stateController = null,
     Object? context = null,
   }) {
-    return _then(_$_TerminalContext(
+    return _then(_$TerminalContextImpl(
       null == command
           ? _value._command
           : command // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,8 @@ class __$$_TerminalContextCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TerminalContext implements _TerminalContext {
-  const _$_TerminalContext(
+class _$TerminalContextImpl implements _TerminalContext {
+  const _$TerminalContextImpl(
       final List<String> command, this.w, this.stateController, this.context)
       : _command = command;
 
@@ -162,7 +162,7 @@ class _$_TerminalContext implements _TerminalContext {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TerminalContext &&
+            other is _$TerminalContextImpl &&
             const DeepCollectionEquality().equals(other._command, _command) &&
             (identical(other.w, w) || other.w == w) &&
             (identical(other.stateController, stateController) ||
@@ -181,8 +181,9 @@ class _$_TerminalContext implements _TerminalContext {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TerminalContextCopyWith<_$_TerminalContext> get copyWith =>
-      __$$_TerminalContextCopyWithImpl<_$_TerminalContext>(this, _$identity);
+  _$$TerminalContextImplCopyWith<_$TerminalContextImpl> get copyWith =>
+      __$$TerminalContextImplCopyWithImpl<_$TerminalContextImpl>(
+          this, _$identity);
 }
 
 abstract class _TerminalContext implements TerminalContext {
@@ -190,7 +191,7 @@ abstract class _TerminalContext implements TerminalContext {
       final List<String> command,
       final Writer w,
       final StateController<List<TerminalCommandResult>> stateController,
-      final BuildContext context) = _$_TerminalContext;
+      final BuildContext context) = _$TerminalContextImpl;
 
   @override
   List<String> get command;
@@ -202,7 +203,7 @@ abstract class _TerminalContext implements TerminalContext {
   BuildContext get context;
   @override
   @JsonKey(ignore: true)
-  _$$_TerminalContextCopyWith<_$_TerminalContext> get copyWith =>
+  _$$TerminalContextImplCopyWith<_$TerminalContextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -256,22 +257,24 @@ class _$TerminalCommandResultCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_TerminalCommandResultCopyWith<$Res>
+abstract class _$$TerminalCommandResultImplCopyWith<$Res>
     implements $TerminalCommandResultCopyWith<$Res> {
-  factory _$$_TerminalCommandResultCopyWith(_$_TerminalCommandResult value,
-          $Res Function(_$_TerminalCommandResult) then) =
-      __$$_TerminalCommandResultCopyWithImpl<$Res>;
+  factory _$$TerminalCommandResultImplCopyWith(
+          _$TerminalCommandResultImpl value,
+          $Res Function(_$TerminalCommandResultImpl) then) =
+      __$$TerminalCommandResultImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String command, String result});
 }
 
 /// @nodoc
-class __$$_TerminalCommandResultCopyWithImpl<$Res>
-    extends _$TerminalCommandResultCopyWithImpl<$Res, _$_TerminalCommandResult>
-    implements _$$_TerminalCommandResultCopyWith<$Res> {
-  __$$_TerminalCommandResultCopyWithImpl(_$_TerminalCommandResult _value,
-      $Res Function(_$_TerminalCommandResult) _then)
+class __$$TerminalCommandResultImplCopyWithImpl<$Res>
+    extends _$TerminalCommandResultCopyWithImpl<$Res,
+        _$TerminalCommandResultImpl>
+    implements _$$TerminalCommandResultImplCopyWith<$Res> {
+  __$$TerminalCommandResultImplCopyWithImpl(_$TerminalCommandResultImpl _value,
+      $Res Function(_$TerminalCommandResultImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -280,7 +283,7 @@ class __$$_TerminalCommandResultCopyWithImpl<$Res>
     Object? command = null,
     Object? result = null,
   }) {
-    return _then(_$_TerminalCommandResult(
+    return _then(_$TerminalCommandResultImpl(
       null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
@@ -295,8 +298,8 @@ class __$$_TerminalCommandResultCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TerminalCommandResult implements _TerminalCommandResult {
-  const _$_TerminalCommandResult(this.command, this.result);
+class _$TerminalCommandResultImpl implements _TerminalCommandResult {
+  const _$TerminalCommandResultImpl(this.command, this.result);
 
   @override
   final String command;
@@ -312,7 +315,7 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TerminalCommandResult &&
+            other is _$TerminalCommandResultImpl &&
             (identical(other.command, command) || other.command == command) &&
             (identical(other.result, result) || other.result == result));
   }
@@ -323,14 +326,14 @@ class _$_TerminalCommandResult implements _TerminalCommandResult {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TerminalCommandResultCopyWith<_$_TerminalCommandResult> get copyWith =>
-      __$$_TerminalCommandResultCopyWithImpl<_$_TerminalCommandResult>(
-          this, _$identity);
+  _$$TerminalCommandResultImplCopyWith<_$TerminalCommandResultImpl>
+      get copyWith => __$$TerminalCommandResultImplCopyWithImpl<
+          _$TerminalCommandResultImpl>(this, _$identity);
 }
 
 abstract class _TerminalCommandResult implements TerminalCommandResult {
   const factory _TerminalCommandResult(
-      final String command, final String result) = _$_TerminalCommandResult;
+      final String command, final String result) = _$TerminalCommandResultImpl;
 
   @override
   String get command;
@@ -338,8 +341,8 @@ abstract class _TerminalCommandResult implements TerminalCommandResult {
   String get result;
   @override
   @JsonKey(ignore: true)
-  _$$_TerminalCommandResultCopyWith<_$_TerminalCommandResult> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$TerminalCommandResultImplCopyWith<_$TerminalCommandResultImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -401,11 +404,11 @@ class _$CommandDefinitionCopyWithImpl<$Res, $Val extends CommandDefinition>
 }
 
 /// @nodoc
-abstract class _$$_CommandDefinitionCopyWith<$Res>
+abstract class _$$CommandDefinitionImplCopyWith<$Res>
     implements $CommandDefinitionCopyWith<$Res> {
-  factory _$$_CommandDefinitionCopyWith(_$_CommandDefinition value,
-          $Res Function(_$_CommandDefinition) then) =
-      __$$_CommandDefinitionCopyWithImpl<$Res>;
+  factory _$$CommandDefinitionImplCopyWith(_$CommandDefinitionImpl value,
+          $Res Function(_$CommandDefinitionImpl) then) =
+      __$$CommandDefinitionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -415,11 +418,11 @@ abstract class _$$_CommandDefinitionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CommandDefinitionCopyWithImpl<$Res>
-    extends _$CommandDefinitionCopyWithImpl<$Res, _$_CommandDefinition>
-    implements _$$_CommandDefinitionCopyWith<$Res> {
-  __$$_CommandDefinitionCopyWithImpl(
-      _$_CommandDefinition _value, $Res Function(_$_CommandDefinition) _then)
+class __$$CommandDefinitionImplCopyWithImpl<$Res>
+    extends _$CommandDefinitionCopyWithImpl<$Res, _$CommandDefinitionImpl>
+    implements _$$CommandDefinitionImplCopyWith<$Res> {
+  __$$CommandDefinitionImplCopyWithImpl(_$CommandDefinitionImpl _value,
+      $Res Function(_$CommandDefinitionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -429,7 +432,7 @@ class __$$_CommandDefinitionCopyWithImpl<$Res>
     Object? description = null,
     Object? run = null,
   }) {
-    return _then(_$_CommandDefinition(
+    return _then(_$CommandDefinitionImpl(
       null == command
           ? _value.command
           : command // ignore: cast_nullable_to_non_nullable
@@ -448,8 +451,8 @@ class __$$_CommandDefinitionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CommandDefinition implements _CommandDefinition {
-  const _$_CommandDefinition(this.command, this.description, this.run);
+class _$CommandDefinitionImpl implements _CommandDefinition {
+  const _$CommandDefinitionImpl(this.command, this.description, this.run);
 
   @override
   final String command;
@@ -467,7 +470,7 @@ class _$_CommandDefinition implements _CommandDefinition {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CommandDefinition &&
+            other is _$CommandDefinitionImpl &&
             (identical(other.command, command) || other.command == command) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -480,8 +483,8 @@ class _$_CommandDefinition implements _CommandDefinition {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CommandDefinitionCopyWith<_$_CommandDefinition> get copyWith =>
-      __$$_CommandDefinitionCopyWithImpl<_$_CommandDefinition>(
+  _$$CommandDefinitionImplCopyWith<_$CommandDefinitionImpl> get copyWith =>
+      __$$CommandDefinitionImplCopyWithImpl<_$CommandDefinitionImpl>(
           this, _$identity);
 }
 
@@ -490,7 +493,7 @@ abstract class _CommandDefinition implements CommandDefinition {
           final String command,
           final String description,
           final FutureOr<void> Function(TerminalContext) run) =
-      _$_CommandDefinition;
+      _$CommandDefinitionImpl;
 
   @override
   String get command;
@@ -500,6 +503,6 @@ abstract class _CommandDefinition implements CommandDefinition {
   FutureOr<void> Function(TerminalContext) get run;
   @override
   @JsonKey(ignore: true)
-  _$$_CommandDefinitionCopyWith<_$_CommandDefinition> get copyWith =>
+  _$$CommandDefinitionImplCopyWith<_$CommandDefinitionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

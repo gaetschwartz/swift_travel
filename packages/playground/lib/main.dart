@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -394,7 +393,7 @@ class _EditorPageState extends State<EditorPage> {
   String get filename => '${[
         widget.name,
         if (hasBackground) 'bg',
-        describeEnum(sizeType),
+        sizeType.name,
         scale,
       ].join('-')}.png';
 }

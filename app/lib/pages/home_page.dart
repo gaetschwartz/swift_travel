@@ -291,9 +291,6 @@ class DefaultSidebarWidget extends StatelessWidget {
         Positioned.fill(
           child: OctoImage(
             image: const AssetImage('assets/pictures/train.jfif'),
-            placeholderBuilder: OctoPlaceholder.blurHash(
-              'qwJRdKRORjayoej[fja{_4Rjf5fQayj@fRj[%MkDaejtWCazj@j[%1tRfkWBj[f7azayWDj]ogayoejsayayoff5ogofWBWBayoe',
-            ),
             errorBuilder: OctoError.icon(color: Colors.red),
             fit: BoxFit.cover,
           ),

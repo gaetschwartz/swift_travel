@@ -6,12 +6,13 @@ part of 'stationboard.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SchStationboard _$$_SchStationboardFromJson(Map<String, dynamic> json) =>
+_$SchStationboardImpl _$$SchStationboardImplFromJson(
+        Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_SchStationboard',
+      r'_$SchStationboardImpl',
       json,
       ($checkedConvert) {
-        final val = _$_SchStationboard(
+        final val = _$SchStationboardImpl(
           sbbStop: $checkedConvert(
               'stop',
               (v) => v == null
@@ -36,7 +37,8 @@ _$_SchStationboard _$$_SchStationboardFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {'sbbStop': 'stop', 'sbbConnections': 'connections'},
     );
 
-Map<String, dynamic> _$$_SchStationboardToJson(_$_SchStationboard instance) {
+Map<String, dynamic> _$$SchStationboardImplToJson(
+    _$SchStationboardImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

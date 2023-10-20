@@ -6,8 +6,8 @@ part of 'disruption.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Disruption _$$_DisruptionFromJson(Map<String, dynamic> json) =>
-    _$_Disruption(
+_$DisruptionImpl _$$DisruptionImplFromJson(Map<String, dynamic> json) =>
+    _$DisruptionImpl(
       id: json['id'] as String?,
       header: json['header'] as String?,
       lead: json['lead'] as String?,
@@ -17,7 +17,7 @@ _$_Disruption _$$_DisruptionFromJson(Map<String, dynamic> json) =>
       priority: json['priority'] as int?,
     );
 
-Map<String, dynamic> _$$_DisruptionToJson(_$_Disruption instance) =>
+Map<String, dynamic> _$$DisruptionImplToJson(_$DisruptionImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'header': instance.header,

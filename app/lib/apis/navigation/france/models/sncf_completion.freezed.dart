@@ -62,22 +62,22 @@ class _$SncfCompletionCopyWithImpl<$Res, $Val extends SncfCompletion>
 }
 
 /// @nodoc
-abstract class _$$_SncfCompletionCopyWith<$Res>
+abstract class _$$SncfCompletionImplCopyWith<$Res>
     implements $SncfCompletionCopyWith<$Res> {
-  factory _$$_SncfCompletionCopyWith(
-          _$_SncfCompletion value, $Res Function(_$_SncfCompletion) then) =
-      __$$_SncfCompletionCopyWithImpl<$Res>;
+  factory _$$SncfCompletionImplCopyWith(_$SncfCompletionImpl value,
+          $Res Function(_$SncfCompletionImpl) then) =
+      __$$SncfCompletionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<SncfPlace> places});
 }
 
 /// @nodoc
-class __$$_SncfCompletionCopyWithImpl<$Res>
-    extends _$SncfCompletionCopyWithImpl<$Res, _$_SncfCompletion>
-    implements _$$_SncfCompletionCopyWith<$Res> {
-  __$$_SncfCompletionCopyWithImpl(
-      _$_SncfCompletion _value, $Res Function(_$_SncfCompletion) _then)
+class __$$SncfCompletionImplCopyWithImpl<$Res>
+    extends _$SncfCompletionCopyWithImpl<$Res, _$SncfCompletionImpl>
+    implements _$$SncfCompletionImplCopyWith<$Res> {
+  __$$SncfCompletionImplCopyWithImpl(
+      _$SncfCompletionImpl _value, $Res Function(_$SncfCompletionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -85,7 +85,7 @@ class __$$_SncfCompletionCopyWithImpl<$Res>
   $Res call({
     Object? places = null,
   }) {
-    return _then(_$_SncfCompletion(
+    return _then(_$SncfCompletionImpl(
       places: null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
@@ -97,12 +97,12 @@ class __$$_SncfCompletionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfCompletion implements _SncfCompletion {
-  _$_SncfCompletion({final List<SncfPlace> places = const <SncfPlace>[]})
+class _$SncfCompletionImpl implements _SncfCompletion {
+  _$SncfCompletionImpl({final List<SncfPlace> places = const <SncfPlace>[]})
       : _places = places;
 
-  factory _$_SncfCompletion.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfCompletionFromJson(json);
+  factory _$SncfCompletionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfCompletionImplFromJson(json);
 
   final List<SncfPlace> _places;
   @override
@@ -122,7 +122,7 @@ class _$_SncfCompletion implements _SncfCompletion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfCompletion &&
+            other is _$SncfCompletionImpl &&
             const DeepCollectionEquality().equals(other._places, _places));
   }
 
@@ -134,27 +134,29 @@ class _$_SncfCompletion implements _SncfCompletion {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfCompletionCopyWith<_$_SncfCompletion> get copyWith =>
-      __$$_SncfCompletionCopyWithImpl<_$_SncfCompletion>(this, _$identity);
+  _$$SncfCompletionImplCopyWith<_$SncfCompletionImpl> get copyWith =>
+      __$$SncfCompletionImplCopyWithImpl<_$SncfCompletionImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfCompletionToJson(
+    return _$$SncfCompletionImplToJson(
       this,
     );
   }
 }
 
 abstract class _SncfCompletion implements SncfCompletion {
-  factory _SncfCompletion({final List<SncfPlace> places}) = _$_SncfCompletion;
+  factory _SncfCompletion({final List<SncfPlace> places}) =
+      _$SncfCompletionImpl;
 
   factory _SncfCompletion.fromJson(Map<String, dynamic> json) =
-      _$_SncfCompletion.fromJson;
+      _$SncfCompletionImpl.fromJson;
 
   @override
   List<SncfPlace> get places;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfCompletionCopyWith<_$_SncfCompletion> get copyWith =>
+  _$$SncfCompletionImplCopyWith<_$SncfCompletionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

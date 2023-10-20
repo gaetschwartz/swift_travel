@@ -170,12 +170,12 @@ class _$SchStationboardConnectionCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SchStationboardConnectionCopyWith<$Res>
+abstract class _$$SchStationboardConnectionImplCopyWith<$Res>
     implements $SchStationboardConnectionCopyWith<$Res> {
-  factory _$$_SchStationboardConnectionCopyWith(
-          _$_SchStationboardConnection value,
-          $Res Function(_$_SchStationboardConnection) then) =
-      __$$_SchStationboardConnectionCopyWithImpl<$Res>;
+  factory _$$SchStationboardConnectionImplCopyWith(
+          _$SchStationboardConnectionImpl value,
+          $Res Function(_$SchStationboardConnectionImpl) then) =
+      __$$SchStationboardConnectionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -199,13 +199,13 @@ abstract class _$$_SchStationboardConnectionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SchStationboardConnectionCopyWithImpl<$Res>
+class __$$SchStationboardConnectionImplCopyWithImpl<$Res>
     extends _$SchStationboardConnectionCopyWithImpl<$Res,
-        _$_SchStationboardConnection>
-    implements _$$_SchStationboardConnectionCopyWith<$Res> {
-  __$$_SchStationboardConnectionCopyWithImpl(
-      _$_SchStationboardConnection _value,
-      $Res Function(_$_SchStationboardConnection) _then)
+        _$SchStationboardConnectionImpl>
+    implements _$$SchStationboardConnectionImplCopyWith<$Res> {
+  __$$SchStationboardConnectionImplCopyWithImpl(
+      _$SchStationboardConnectionImpl _value,
+      $Res Function(_$SchStationboardConnectionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -225,7 +225,7 @@ class __$$_SchStationboardConnectionCopyWithImpl<$Res>
     Object? arrDelay = freezed,
     Object? track = freezed,
   }) {
-    return _then(_$_SchStationboardConnection(
+    return _then(_$SchStationboardConnectionImpl(
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -285,8 +285,8 @@ class __$$_SchStationboardConnectionCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, checked: true)
-class _$_SchStationboardConnection extends _SchStationboardConnection {
-  _$_SchStationboardConnection(
+class _$SchStationboardConnectionImpl extends _SchStationboardConnection {
+  _$SchStationboardConnectionImpl(
       {required this.time,
       required this.type,
       required this.color,
@@ -305,8 +305,8 @@ class _$_SchStationboardConnection extends _SchStationboardConnection {
       : _sbbSubsequentStops = sbbSubsequentStops,
         super._();
 
-  factory _$_SchStationboardConnection.fromJson(Map<String, dynamic> json) =>
-      _$$_SchStationboardConnectionFromJson(json);
+  factory _$SchStationboardConnectionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchStationboardConnectionImplFromJson(json);
 
   @override
   final DateTime time;
@@ -361,7 +361,7 @@ class _$_SchStationboardConnection extends _SchStationboardConnection {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchStationboardConnection &&
+            other is _$SchStationboardConnectionImpl &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.color, color) || other.color == color) &&
@@ -403,13 +403,13 @@ class _$_SchStationboardConnection extends _SchStationboardConnection {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchStationboardConnectionCopyWith<_$_SchStationboardConnection>
-      get copyWith => __$$_SchStationboardConnectionCopyWithImpl<
-          _$_SchStationboardConnection>(this, _$identity);
+  _$$SchStationboardConnectionImplCopyWith<_$SchStationboardConnectionImpl>
+      get copyWith => __$$SchStationboardConnectionImplCopyWithImpl<
+          _$SchStationboardConnectionImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchStationboardConnectionToJson(
+    return _$$SchStationboardConnectionImplToJson(
       this,
     );
   }
@@ -430,11 +430,11 @@ abstract class _SchStationboardConnection extends SchStationboardConnection {
       final List<SchSubsequentStop> sbbSubsequentStops,
       @DelayConverter() @JsonKey(name: 'dep_delay') final int? depDelay,
       @DelayConverter() @JsonKey(name: 'arr_delay') final int? arrDelay,
-      final String? track}) = _$_SchStationboardConnection;
+      final String? track}) = _$SchStationboardConnectionImpl;
   _SchStationboardConnection._() : super._();
 
   factory _SchStationboardConnection.fromJson(Map<String, dynamic> json) =
-      _$_SchStationboardConnection.fromJson;
+      _$SchStationboardConnectionImpl.fromJson;
 
   @override
   DateTime get time;
@@ -473,6 +473,6 @@ abstract class _SchStationboardConnection extends SchStationboardConnection {
   String? get track;
   @override
   @JsonKey(ignore: true)
-  _$$_SchStationboardConnectionCopyWith<_$_SchStationboardConnection>
+  _$$SchStationboardConnectionImplCopyWith<_$SchStationboardConnectionImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

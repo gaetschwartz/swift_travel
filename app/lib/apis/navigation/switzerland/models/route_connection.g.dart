@@ -6,13 +6,13 @@ part of 'route_connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SchRouteConnection _$$_SchRouteConnectionFromJson(
+_$SchRouteConnectionImpl _$$SchRouteConnectionImplFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_SchRouteConnection',
+      r'_$SchRouteConnectionImpl',
       json,
       ($checkedConvert) {
-        final val = _$_SchRouteConnection(
+        final val = _$SchRouteConnectionImpl(
           from: $checkedConvert('from', (v) => v as String),
           to: $checkedConvert('to', (v) => v as String),
           depDelay: $checkedConvert('dep_delay',
@@ -48,8 +48,8 @@ _$_SchRouteConnection _$$_SchRouteConnectionFromJson(
       },
     );
 
-Map<String, dynamic> _$$_SchRouteConnectionToJson(
-    _$_SchRouteConnection instance) {
+Map<String, dynamic> _$$SchRouteConnectionImplToJson(
+    _$SchRouteConnectionImpl instance) {
   final val = <String, dynamic>{
     'from': instance.from,
     'to': instance.to,

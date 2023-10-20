@@ -6,15 +6,16 @@ part of 'sncf_completion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SncfCompletion _$$_SncfCompletionFromJson(Map<String, dynamic> json) =>
-    _$_SncfCompletion(
+_$SncfCompletionImpl _$$SncfCompletionImplFromJson(Map<String, dynamic> json) =>
+    _$SncfCompletionImpl(
       places: (json['places'] as List<dynamic>?)
               ?.map((e) => SncfPlace.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <SncfPlace>[],
     );
 
-Map<String, dynamic> _$$_SncfCompletionToJson(_$_SncfCompletion instance) =>
+Map<String, dynamic> _$$SncfCompletionImplToJson(
+        _$SncfCompletionImpl instance) =>
     <String, dynamic>{
       'places': instance.places.map((e) => e.toJson()).toList(),
     };

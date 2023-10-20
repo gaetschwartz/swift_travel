@@ -6,8 +6,8 @@ part of 'contributor.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Contributor _$$_ContributorFromJson(Map<String, dynamic> json) =>
-    _$_Contributor(
+_$ContributorImpl _$$ContributorImplFromJson(Map<String, dynamic> json) =>
+    _$ContributorImpl(
       login: json['login'] as String,
       id: json['id'] as int,
       nodeId: json['node_id'] as String,
@@ -29,7 +29,7 @@ _$_Contributor _$$_ContributorFromJson(Map<String, dynamic> json) =>
       contributions: json['contributions'] as int,
     );
 
-Map<String, dynamic> _$$_ContributorToJson(_$_Contributor instance) =>
+Map<String, dynamic> _$$ContributorImplToJson(_$ContributorImpl instance) =>
     <String, dynamic>{
       'login': instance.login,
       'id': instance.id,

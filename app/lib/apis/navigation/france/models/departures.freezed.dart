@@ -108,11 +108,11 @@ class _$SncfStationboardCopyWithImpl<$Res, $Val extends SncfStationboard>
 }
 
 /// @nodoc
-abstract class _$$_SncfStationboardCopyWith<$Res>
+abstract class _$$SncfStationboardImplCopyWith<$Res>
     implements $SncfStationboardCopyWith<$Res> {
-  factory _$$_SncfStationboardCopyWith(
-          _$_SncfStationboard value, $Res Function(_$_SncfStationboard) then) =
-      __$$_SncfStationboardCopyWithImpl<$Res>;
+  factory _$$SncfStationboardImplCopyWith(_$SncfStationboardImpl value,
+          $Res Function(_$SncfStationboardImpl) then) =
+      __$$SncfStationboardImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -128,11 +128,11 @@ abstract class _$$_SncfStationboardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SncfStationboardCopyWithImpl<$Res>
-    extends _$SncfStationboardCopyWithImpl<$Res, _$_SncfStationboard>
-    implements _$$_SncfStationboardCopyWith<$Res> {
-  __$$_SncfStationboardCopyWithImpl(
-      _$_SncfStationboard _value, $Res Function(_$_SncfStationboard) _then)
+class __$$SncfStationboardImplCopyWithImpl<$Res>
+    extends _$SncfStationboardCopyWithImpl<$Res, _$SncfStationboardImpl>
+    implements _$$SncfStationboardImplCopyWith<$Res> {
+  __$$SncfStationboardImplCopyWithImpl(_$SncfStationboardImpl _value,
+      $Res Function(_$SncfStationboardImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -143,7 +143,7 @@ class __$$_SncfStationboardCopyWithImpl<$Res>
     Object? error = freezed,
     Object? stop = null,
   }) {
-    return _then(_$_SncfStationboard(
+    return _then(_$SncfStationboardImpl(
       context: null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
@@ -167,8 +167,8 @@ class __$$_SncfStationboardCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfStationboard extends _SncfStationboard {
-  const _$_SncfStationboard(
+class _$SncfStationboardImpl extends _SncfStationboard {
+  const _$SncfStationboardImpl(
       {required this.context,
       required final List<SncfDeparture> departures,
       this.error,
@@ -177,8 +177,8 @@ class _$_SncfStationboard extends _SncfStationboard {
       : _departures = departures,
         super._();
 
-  factory _$_SncfStationboard.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfStationboardFromJson(json);
+  factory _$SncfStationboardImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfStationboardImplFromJson(json);
 
   @override
   final SncfContext context;
@@ -205,7 +205,7 @@ class _$_SncfStationboard extends _SncfStationboard {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfStationboard &&
+            other is _$SncfStationboardImpl &&
             (identical(other.context, context) || other.context == context) &&
             const DeepCollectionEquality()
                 .equals(other._departures, _departures) &&
@@ -221,12 +221,13 @@ class _$_SncfStationboard extends _SncfStationboard {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfStationboardCopyWith<_$_SncfStationboard> get copyWith =>
-      __$$_SncfStationboardCopyWithImpl<_$_SncfStationboard>(this, _$identity);
+  _$$SncfStationboardImplCopyWith<_$SncfStationboardImpl> get copyWith =>
+      __$$SncfStationboardImplCopyWithImpl<_$SncfStationboardImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfStationboardToJson(
+    return _$$SncfStationboardImplToJson(
       this,
     );
   }
@@ -238,11 +239,11 @@ abstract class _SncfStationboard extends SncfStationboard {
       required final List<SncfDeparture> departures,
       final SncfError? error,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      final Stop stop}) = _$_SncfStationboard;
+      final Stop stop}) = _$SncfStationboardImpl;
   const _SncfStationboard._() : super._();
 
   factory _SncfStationboard.fromJson(Map<String, dynamic> json) =
-      _$_SncfStationboard.fromJson;
+      _$SncfStationboardImpl.fromJson;
 
   @override
   SncfContext get context;
@@ -255,7 +256,7 @@ abstract class _SncfStationboard extends SncfStationboard {
   Stop get stop;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfStationboardCopyWith<_$_SncfStationboard> get copyWith =>
+  _$$SncfStationboardImplCopyWith<_$SncfStationboardImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -312,21 +313,22 @@ class _$SncfErrorCopyWithImpl<$Res, $Val extends SncfError>
 }
 
 /// @nodoc
-abstract class _$$_SncfErrorCopyWith<$Res> implements $SncfErrorCopyWith<$Res> {
-  factory _$$_SncfErrorCopyWith(
-          _$_SncfError value, $Res Function(_$_SncfError) then) =
-      __$$_SncfErrorCopyWithImpl<$Res>;
+abstract class _$$SncfErrorImplCopyWith<$Res>
+    implements $SncfErrorCopyWith<$Res> {
+  factory _$$SncfErrorImplCopyWith(
+          _$SncfErrorImpl value, $Res Function(_$SncfErrorImpl) then) =
+      __$$SncfErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String message});
 }
 
 /// @nodoc
-class __$$_SncfErrorCopyWithImpl<$Res>
-    extends _$SncfErrorCopyWithImpl<$Res, _$_SncfError>
-    implements _$$_SncfErrorCopyWith<$Res> {
-  __$$_SncfErrorCopyWithImpl(
-      _$_SncfError _value, $Res Function(_$_SncfError) _then)
+class __$$SncfErrorImplCopyWithImpl<$Res>
+    extends _$SncfErrorCopyWithImpl<$Res, _$SncfErrorImpl>
+    implements _$$SncfErrorImplCopyWith<$Res> {
+  __$$SncfErrorImplCopyWithImpl(
+      _$SncfErrorImpl _value, $Res Function(_$SncfErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -335,7 +337,7 @@ class __$$_SncfErrorCopyWithImpl<$Res>
     Object? id = null,
     Object? message = null,
   }) {
-    return _then(_$_SncfError(
+    return _then(_$SncfErrorImpl(
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -350,11 +352,11 @@ class __$$_SncfErrorCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfError implements _SncfError {
-  const _$_SncfError(this.id, this.message);
+class _$SncfErrorImpl implements _SncfError {
+  const _$SncfErrorImpl(this.id, this.message);
 
-  factory _$_SncfError.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfErrorFromJson(json);
+  factory _$SncfErrorImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfErrorImplFromJson(json);
 
   @override
   final String id;
@@ -370,7 +372,7 @@ class _$_SncfError implements _SncfError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfError &&
+            other is _$SncfErrorImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.message, message) || other.message == message));
   }
@@ -382,12 +384,12 @@ class _$_SncfError implements _SncfError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfErrorCopyWith<_$_SncfError> get copyWith =>
-      __$$_SncfErrorCopyWithImpl<_$_SncfError>(this, _$identity);
+  _$$SncfErrorImplCopyWith<_$SncfErrorImpl> get copyWith =>
+      __$$SncfErrorImplCopyWithImpl<_$SncfErrorImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfErrorToJson(
+    return _$$SncfErrorImplToJson(
       this,
     );
   }
@@ -395,10 +397,10 @@ class _$_SncfError implements _SncfError {
 
 abstract class _SncfError implements SncfError {
   const factory _SncfError(final String id, final String message) =
-      _$_SncfError;
+      _$SncfErrorImpl;
 
   factory _SncfError.fromJson(Map<String, dynamic> json) =
-      _$_SncfError.fromJson;
+      _$SncfErrorImpl.fromJson;
 
   @override
   String get id;
@@ -406,7 +408,7 @@ abstract class _SncfError implements SncfError {
   String get message;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfErrorCopyWith<_$_SncfError> get copyWith =>
+  _$$SncfErrorImplCopyWith<_$SncfErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -504,11 +506,11 @@ class _$SncfDepartureCopyWithImpl<$Res, $Val extends SncfDeparture>
 }
 
 /// @nodoc
-abstract class _$$_SncfDepartureCopyWith<$Res>
+abstract class _$$SncfDepartureImplCopyWith<$Res>
     implements $SncfDepartureCopyWith<$Res> {
-  factory _$$_SncfDepartureCopyWith(
-          _$_SncfDeparture value, $Res Function(_$_SncfDeparture) then) =
-      __$$_SncfDepartureCopyWithImpl<$Res>;
+  factory _$$SncfDepartureImplCopyWith(
+          _$SncfDepartureImpl value, $Res Function(_$SncfDepartureImpl) then) =
+      __$$SncfDepartureImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -525,11 +527,11 @@ abstract class _$$_SncfDepartureCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SncfDepartureCopyWithImpl<$Res>
-    extends _$SncfDepartureCopyWithImpl<$Res, _$_SncfDeparture>
-    implements _$$_SncfDepartureCopyWith<$Res> {
-  __$$_SncfDepartureCopyWithImpl(
-      _$_SncfDeparture _value, $Res Function(_$_SncfDeparture) _then)
+class __$$SncfDepartureImplCopyWithImpl<$Res>
+    extends _$SncfDepartureCopyWithImpl<$Res, _$SncfDepartureImpl>
+    implements _$$SncfDepartureImplCopyWith<$Res> {
+  __$$SncfDepartureImplCopyWithImpl(
+      _$SncfDepartureImpl _value, $Res Function(_$SncfDepartureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -539,7 +541,7 @@ class __$$_SncfDepartureCopyWithImpl<$Res>
     Object? stopDateTime = null,
     Object? stopPoint = null,
   }) {
-    return _then(_$_SncfDeparture(
+    return _then(_$SncfDepartureImpl(
       displayInformations: null == displayInformations
           ? _value.displayInformations
           : displayInformations // ignore: cast_nullable_to_non_nullable
@@ -559,15 +561,15 @@ class __$$_SncfDepartureCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfDeparture extends _SncfDeparture {
-  const _$_SncfDeparture(
+class _$SncfDepartureImpl extends _SncfDeparture {
+  const _$SncfDepartureImpl(
       {@JsonKey(name: 'display_informations') required this.displayInformations,
       @JsonKey(name: 'stop_date_time') required this.stopDateTime,
       @JsonKey(name: 'stop_point') required this.stopPoint})
       : super._();
 
-  factory _$_SncfDeparture.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfDepartureFromJson(json);
+  factory _$SncfDepartureImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfDepartureImplFromJson(json);
 
   @override
   @JsonKey(name: 'display_informations')
@@ -588,7 +590,7 @@ class _$_SncfDeparture extends _SncfDeparture {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfDeparture &&
+            other is _$SncfDepartureImpl &&
             (identical(other.displayInformations, displayInformations) ||
                 other.displayInformations == displayInformations) &&
             (identical(other.stopDateTime, stopDateTime) ||
@@ -605,12 +607,12 @@ class _$_SncfDeparture extends _SncfDeparture {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfDepartureCopyWith<_$_SncfDeparture> get copyWith =>
-      __$$_SncfDepartureCopyWithImpl<_$_SncfDeparture>(this, _$identity);
+  _$$SncfDepartureImplCopyWith<_$SncfDepartureImpl> get copyWith =>
+      __$$SncfDepartureImplCopyWithImpl<_$SncfDepartureImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfDepartureToJson(
+    return _$$SncfDepartureImplToJson(
       this,
     );
   }
@@ -623,11 +625,11 @@ abstract class _SncfDeparture extends SncfDeparture {
       @JsonKey(name: 'stop_date_time')
       required final SncfStopDateTime stopDateTime,
       @JsonKey(name: 'stop_point')
-      required final SncfStopPoint stopPoint}) = _$_SncfDeparture;
+      required final SncfStopPoint stopPoint}) = _$SncfDepartureImpl;
   const _SncfDeparture._() : super._();
 
   factory _SncfDeparture.fromJson(Map<String, dynamic> json) =
-      _$_SncfDeparture.fromJson;
+      _$SncfDepartureImpl.fromJson;
 
   @override
   @JsonKey(name: 'display_informations')
@@ -640,7 +642,7 @@ abstract class _SncfDeparture extends SncfDeparture {
   SncfStopPoint get stopPoint;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfDepartureCopyWith<_$_SncfDeparture> get copyWith =>
+  _$$SncfDepartureImplCopyWith<_$SncfDepartureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -694,11 +696,11 @@ class _$SncfStopPointCopyWithImpl<$Res, $Val extends SncfStopPoint>
 }
 
 /// @nodoc
-abstract class _$$_SncfStopPointCopyWith<$Res>
+abstract class _$$SncfStopPointImplCopyWith<$Res>
     implements $SncfStopPointCopyWith<$Res> {
-  factory _$$_SncfStopPointCopyWith(
-          _$_SncfStopPoint value, $Res Function(_$_SncfStopPoint) then) =
-      __$$_SncfStopPointCopyWithImpl<$Res>;
+  factory _$$SncfStopPointImplCopyWith(
+          _$SncfStopPointImpl value, $Res Function(_$SncfStopPointImpl) then) =
+      __$$SncfStopPointImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -706,11 +708,11 @@ abstract class _$$_SncfStopPointCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SncfStopPointCopyWithImpl<$Res>
-    extends _$SncfStopPointCopyWithImpl<$Res, _$_SncfStopPoint>
-    implements _$$_SncfStopPointCopyWith<$Res> {
-  __$$_SncfStopPointCopyWithImpl(
-      _$_SncfStopPoint _value, $Res Function(_$_SncfStopPoint) _then)
+class __$$SncfStopPointImplCopyWithImpl<$Res>
+    extends _$SncfStopPointCopyWithImpl<$Res, _$SncfStopPointImpl>
+    implements _$$SncfStopPointImplCopyWith<$Res> {
+  __$$SncfStopPointImplCopyWithImpl(
+      _$SncfStopPointImpl _value, $Res Function(_$SncfStopPointImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -718,7 +720,7 @@ class __$$_SncfStopPointCopyWithImpl<$Res>
   $Res call({
     Object? commercialModes = null,
   }) {
-    return _then(_$_SncfStopPoint(
+    return _then(_$SncfStopPointImpl(
       null == commercialModes
           ? _value._commercialModes
           : commercialModes // ignore: cast_nullable_to_non_nullable
@@ -730,13 +732,13 @@ class __$$_SncfStopPointCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfStopPoint implements _SncfStopPoint {
-  const _$_SncfStopPoint(
+class _$SncfStopPointImpl implements _SncfStopPoint {
+  const _$SncfStopPointImpl(
       @JsonKey(name: 'commercial_modes') final List<SncfMode> commercialModes)
       : _commercialModes = commercialModes;
 
-  factory _$_SncfStopPoint.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfStopPointFromJson(json);
+  factory _$SncfStopPointImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfStopPointImplFromJson(json);
 
   final List<SncfMode> _commercialModes;
   @override
@@ -756,7 +758,7 @@ class _$_SncfStopPoint implements _SncfStopPoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfStopPoint &&
+            other is _$SncfStopPointImpl &&
             const DeepCollectionEquality()
                 .equals(other._commercialModes, _commercialModes));
   }
@@ -769,12 +771,12 @@ class _$_SncfStopPoint implements _SncfStopPoint {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfStopPointCopyWith<_$_SncfStopPoint> get copyWith =>
-      __$$_SncfStopPointCopyWithImpl<_$_SncfStopPoint>(this, _$identity);
+  _$$SncfStopPointImplCopyWith<_$SncfStopPointImpl> get copyWith =>
+      __$$SncfStopPointImplCopyWithImpl<_$SncfStopPointImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfStopPointToJson(
+    return _$$SncfStopPointImplToJson(
       this,
     );
   }
@@ -783,17 +785,17 @@ class _$_SncfStopPoint implements _SncfStopPoint {
 abstract class _SncfStopPoint implements SncfStopPoint {
   const factory _SncfStopPoint(
       @JsonKey(name: 'commercial_modes')
-      final List<SncfMode> commercialModes) = _$_SncfStopPoint;
+      final List<SncfMode> commercialModes) = _$SncfStopPointImpl;
 
   factory _SncfStopPoint.fromJson(Map<String, dynamic> json) =
-      _$_SncfStopPoint.fromJson;
+      _$SncfStopPointImpl.fromJson;
 
   @override
   @JsonKey(name: 'commercial_modes')
   List<SncfMode> get commercialModes;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfStopPointCopyWith<_$_SncfStopPoint> get copyWith =>
+  _$$SncfStopPointImplCopyWith<_$SncfStopPointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -850,21 +852,22 @@ class _$SncfModeCopyWithImpl<$Res, $Val extends SncfMode>
 }
 
 /// @nodoc
-abstract class _$$_SncfModeCopyWith<$Res> implements $SncfModeCopyWith<$Res> {
-  factory _$$_SncfModeCopyWith(
-          _$_SncfMode value, $Res Function(_$_SncfMode) then) =
-      __$$_SncfModeCopyWithImpl<$Res>;
+abstract class _$$SncfModeImplCopyWith<$Res>
+    implements $SncfModeCopyWith<$Res> {
+  factory _$$SncfModeImplCopyWith(
+          _$SncfModeImpl value, $Res Function(_$SncfModeImpl) then) =
+      __$$SncfModeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class __$$_SncfModeCopyWithImpl<$Res>
-    extends _$SncfModeCopyWithImpl<$Res, _$_SncfMode>
-    implements _$$_SncfModeCopyWith<$Res> {
-  __$$_SncfModeCopyWithImpl(
-      _$_SncfMode _value, $Res Function(_$_SncfMode) _then)
+class __$$SncfModeImplCopyWithImpl<$Res>
+    extends _$SncfModeCopyWithImpl<$Res, _$SncfModeImpl>
+    implements _$$SncfModeImplCopyWith<$Res> {
+  __$$SncfModeImplCopyWithImpl(
+      _$SncfModeImpl _value, $Res Function(_$SncfModeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -873,7 +876,7 @@ class __$$_SncfModeCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
   }) {
-    return _then(_$_SncfMode(
+    return _then(_$SncfModeImpl(
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -888,11 +891,11 @@ class __$$_SncfModeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfMode implements _SncfMode {
-  const _$_SncfMode(this.id, this.name);
+class _$SncfModeImpl implements _SncfMode {
+  const _$SncfModeImpl(this.id, this.name);
 
-  factory _$_SncfMode.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfModeFromJson(json);
+  factory _$SncfModeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfModeImplFromJson(json);
 
   @override
   final String id;
@@ -908,7 +911,7 @@ class _$_SncfMode implements _SncfMode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfMode &&
+            other is _$SncfModeImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -920,21 +923,22 @@ class _$_SncfMode implements _SncfMode {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfModeCopyWith<_$_SncfMode> get copyWith =>
-      __$$_SncfModeCopyWithImpl<_$_SncfMode>(this, _$identity);
+  _$$SncfModeImplCopyWith<_$SncfModeImpl> get copyWith =>
+      __$$SncfModeImplCopyWithImpl<_$SncfModeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfModeToJson(
+    return _$$SncfModeImplToJson(
       this,
     );
   }
 }
 
 abstract class _SncfMode implements SncfMode {
-  const factory _SncfMode(final String id, final String name) = _$_SncfMode;
+  const factory _SncfMode(final String id, final String name) = _$SncfModeImpl;
 
-  factory _SncfMode.fromJson(Map<String, dynamic> json) = _$_SncfMode.fromJson;
+  factory _SncfMode.fromJson(Map<String, dynamic> json) =
+      _$SncfModeImpl.fromJson;
 
   @override
   String get id;
@@ -942,7 +946,7 @@ abstract class _SncfMode implements SncfMode {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfModeCopyWith<_$_SncfMode> get copyWith =>
+  _$$SncfModeImplCopyWith<_$SncfModeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1044,11 +1048,11 @@ class _$SncfStopDateTimeCopyWithImpl<$Res, $Val extends SncfStopDateTime>
 }
 
 /// @nodoc
-abstract class _$$_SncfStopDateTimeCopyWith<$Res>
+abstract class _$$SncfStopDateTimeImplCopyWith<$Res>
     implements $SncfStopDateTimeCopyWith<$Res> {
-  factory _$$_SncfStopDateTimeCopyWith(
-          _$_SncfStopDateTime value, $Res Function(_$_SncfStopDateTime) then) =
-      __$$_SncfStopDateTimeCopyWithImpl<$Res>;
+  factory _$$SncfStopDateTimeImplCopyWith(_$SncfStopDateTimeImpl value,
+          $Res Function(_$SncfStopDateTimeImpl) then) =
+      __$$SncfStopDateTimeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1063,11 +1067,11 @@ abstract class _$$_SncfStopDateTimeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SncfStopDateTimeCopyWithImpl<$Res>
-    extends _$SncfStopDateTimeCopyWithImpl<$Res, _$_SncfStopDateTime>
-    implements _$$_SncfStopDateTimeCopyWith<$Res> {
-  __$$_SncfStopDateTimeCopyWithImpl(
-      _$_SncfStopDateTime _value, $Res Function(_$_SncfStopDateTime) _then)
+class __$$SncfStopDateTimeImplCopyWithImpl<$Res>
+    extends _$SncfStopDateTimeCopyWithImpl<$Res, _$SncfStopDateTimeImpl>
+    implements _$$SncfStopDateTimeImplCopyWith<$Res> {
+  __$$SncfStopDateTimeImplCopyWithImpl(_$SncfStopDateTimeImpl _value,
+      $Res Function(_$SncfStopDateTimeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1081,7 +1085,7 @@ class __$$_SncfStopDateTimeCopyWithImpl<$Res>
     Object? dataFreshness = null,
     Object? links = null,
   }) {
-    return _then(_$_SncfStopDateTime(
+    return _then(_$SncfStopDateTimeImpl(
       additionalInformations: null == additionalInformations
           ? _value._additionalInformations
           : additionalInformations // ignore: cast_nullable_to_non_nullable
@@ -1116,8 +1120,8 @@ class __$$_SncfStopDateTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfStopDateTime implements _SncfStopDateTime {
-  const _$_SncfStopDateTime(
+class _$SncfStopDateTimeImpl implements _SncfStopDateTime {
+  const _$SncfStopDateTimeImpl(
       {@JsonKey(name: 'additional_informations')
       required final List<Object> additionalInformations,
       @JsonKey(name: 'arrival_date_time') required this.arrivalDateTime,
@@ -1131,8 +1135,8 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
       : _additionalInformations = additionalInformations,
         _links = links;
 
-  factory _$_SncfStopDateTime.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfStopDateTimeFromJson(json);
+  factory _$SncfStopDateTimeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfStopDateTimeImplFromJson(json);
 
   final List<Object> _additionalInformations;
   @override
@@ -1176,7 +1180,7 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfStopDateTime &&
+            other is _$SncfStopDateTimeImpl &&
             const DeepCollectionEquality().equals(
                 other._additionalInformations, _additionalInformations) &&
             (identical(other.arrivalDateTime, arrivalDateTime) ||
@@ -1207,12 +1211,13 @@ class _$_SncfStopDateTime implements _SncfStopDateTime {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfStopDateTimeCopyWith<_$_SncfStopDateTime> get copyWith =>
-      __$$_SncfStopDateTimeCopyWithImpl<_$_SncfStopDateTime>(this, _$identity);
+  _$$SncfStopDateTimeImplCopyWith<_$SncfStopDateTimeImpl> get copyWith =>
+      __$$SncfStopDateTimeImplCopyWithImpl<_$SncfStopDateTimeImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfStopDateTimeToJson(
+    return _$$SncfStopDateTimeImplToJson(
       this,
     );
   }
@@ -1231,10 +1236,10 @@ abstract class _SncfStopDateTime implements SncfStopDateTime {
       @JsonKey(name: 'departure_date_time')
       required final DateTime departureDateTime,
       @JsonKey(name: 'data_freshness') required final String dataFreshness,
-      required final List<Object> links}) = _$_SncfStopDateTime;
+      required final List<Object> links}) = _$SncfStopDateTimeImpl;
 
   factory _SncfStopDateTime.fromJson(Map<String, dynamic> json) =
-      _$_SncfStopDateTime.fromJson;
+      _$SncfStopDateTimeImpl.fromJson;
 
   @override
   @JsonKey(name: 'additional_informations')
@@ -1258,7 +1263,7 @@ abstract class _SncfStopDateTime implements SncfStopDateTime {
   List<Object> get links;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfStopDateTimeCopyWith<_$_SncfStopDateTime> get copyWith =>
+  _$$SncfStopDateTimeImplCopyWith<_$SncfStopDateTimeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1406,11 +1411,11 @@ class _$SncfDispInfoCopyWithImpl<$Res, $Val extends SncfDispInfo>
 }
 
 /// @nodoc
-abstract class _$$_SncfDispInfoCopyWith<$Res>
+abstract class _$$SncfDispInfoImplCopyWith<$Res>
     implements $SncfDispInfoCopyWith<$Res> {
-  factory _$$_SncfDispInfoCopyWith(
-          _$_SncfDispInfo value, $Res Function(_$_SncfDispInfo) then) =
-      __$$_SncfDispInfoCopyWithImpl<$Res>;
+  factory _$$SncfDispInfoImplCopyWith(
+          _$SncfDispInfoImpl value, $Res Function(_$SncfDispInfoImpl) then) =
+      __$$SncfDispInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1431,11 +1436,11 @@ abstract class _$$_SncfDispInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SncfDispInfoCopyWithImpl<$Res>
-    extends _$SncfDispInfoCopyWithImpl<$Res, _$_SncfDispInfo>
-    implements _$$_SncfDispInfoCopyWith<$Res> {
-  __$$_SncfDispInfoCopyWithImpl(
-      _$_SncfDispInfo _value, $Res Function(_$_SncfDispInfo) _then)
+class __$$SncfDispInfoImplCopyWithImpl<$Res>
+    extends _$SncfDispInfoCopyWithImpl<$Res, _$SncfDispInfoImpl>
+    implements _$$SncfDispInfoImplCopyWith<$Res> {
+  __$$SncfDispInfoImplCopyWithImpl(
+      _$SncfDispInfoImpl _value, $Res Function(_$SncfDispInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1456,7 +1461,7 @@ class __$$_SncfDispInfoCopyWithImpl<$Res>
     Object? textColor = null,
     Object? tripShortName = null,
   }) {
-    return _then(_$_SncfDispInfo(
+    return _then(_$SncfDispInfoImpl(
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -1519,8 +1524,8 @@ class __$$_SncfDispInfoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfDispInfo implements _SncfDispInfo {
-  const _$_SncfDispInfo(
+class _$SncfDispInfoImpl implements _SncfDispInfo {
+  const _$SncfDispInfoImpl(
       {required this.code,
       required this.color,
       @JsonKey(name: 'commercial_mode') required this.commercialMode,
@@ -1538,8 +1543,8 @@ class _$_SncfDispInfo implements _SncfDispInfo {
       : _equipments = equipments,
         _links = links;
 
-  factory _$_SncfDispInfo.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfDispInfoFromJson(json);
+  factory _$SncfDispInfoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfDispInfoImplFromJson(json);
 
   @override
   final String code;
@@ -1595,7 +1600,7 @@ class _$_SncfDispInfo implements _SncfDispInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfDispInfo &&
+            other is _$SncfDispInfoImpl &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.commercialMode, commercialMode) ||
@@ -1642,12 +1647,12 @@ class _$_SncfDispInfo implements _SncfDispInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfDispInfoCopyWith<_$_SncfDispInfo> get copyWith =>
-      __$$_SncfDispInfoCopyWithImpl<_$_SncfDispInfo>(this, _$identity);
+  _$$SncfDispInfoImplCopyWith<_$SncfDispInfoImpl> get copyWith =>
+      __$$SncfDispInfoImplCopyWithImpl<_$SncfDispInfoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfDispInfoToJson(
+    return _$$SncfDispInfoImplToJson(
       this,
     );
   }
@@ -1669,10 +1674,10 @@ abstract class _SncfDispInfo implements SncfDispInfo {
       @JsonKey(name: 'physical_mode') required final String physicalMode,
       @JsonKey(name: 'text_color') required final String textColor,
       @JsonKey(name: 'trip_short_name')
-      required final String tripShortName}) = _$_SncfDispInfo;
+      required final String tripShortName}) = _$SncfDispInfoImpl;
 
   factory _SncfDispInfo.fromJson(Map<String, dynamic> json) =
-      _$_SncfDispInfo.fromJson;
+      _$SncfDispInfoImpl.fromJson;
 
   @override
   String get code;
@@ -1708,6 +1713,6 @@ abstract class _SncfDispInfo implements SncfDispInfo {
   String get tripShortName;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfDispInfoCopyWith<_$_SncfDispInfo> get copyWith =>
+  _$$SncfDispInfoImplCopyWith<_$SncfDispInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -128,22 +128,22 @@ class _$LocalRouteCopyWithImpl<$Res, $Val extends LocalRoute>
 }
 
 /// @nodoc
-abstract class _$$LocalRouteV1CopyWith<$Res>
+abstract class _$$LocalRouteV1ImplCopyWith<$Res>
     implements $LocalRouteCopyWith<$Res> {
-  factory _$$LocalRouteV1CopyWith(
-          _$LocalRouteV1 value, $Res Function(_$LocalRouteV1) then) =
-      __$$LocalRouteV1CopyWithImpl<$Res>;
+  factory _$$LocalRouteV1ImplCopyWith(
+          _$LocalRouteV1Impl value, $Res Function(_$LocalRouteV1Impl) then) =
+      __$$LocalRouteV1ImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String from, String to, String? displayName, DateTime? timestamp});
 }
 
 /// @nodoc
-class __$$LocalRouteV1CopyWithImpl<$Res>
-    extends _$LocalRouteCopyWithImpl<$Res, _$LocalRouteV1>
-    implements _$$LocalRouteV1CopyWith<$Res> {
-  __$$LocalRouteV1CopyWithImpl(
-      _$LocalRouteV1 _value, $Res Function(_$LocalRouteV1) _then)
+class __$$LocalRouteV1ImplCopyWithImpl<$Res>
+    extends _$LocalRouteCopyWithImpl<$Res, _$LocalRouteV1Impl>
+    implements _$$LocalRouteV1ImplCopyWith<$Res> {
+  __$$LocalRouteV1ImplCopyWithImpl(
+      _$LocalRouteV1Impl _value, $Res Function(_$LocalRouteV1Impl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -154,7 +154,7 @@ class __$$LocalRouteV1CopyWithImpl<$Res>
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(_$LocalRouteV1(
+    return _then(_$LocalRouteV1Impl(
       null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -179,14 +179,14 @@ class __$$LocalRouteV1CopyWithImpl<$Res>
 
 @JsonSerializable(includeIfNull: false)
 @Deprecated('Use v2')
-class _$LocalRouteV1 extends LocalRouteV1 {
-  const _$LocalRouteV1(this.from, this.to,
+class _$LocalRouteV1Impl extends LocalRouteV1 {
+  const _$LocalRouteV1Impl(this.from, this.to,
       {this.displayName, this.timestamp, final String? $type})
       : $type = $type ?? 'v1',
         super._();
 
-  factory _$LocalRouteV1.fromJson(Map<String, dynamic> json) =>
-      _$$LocalRouteV1FromJson(json);
+  factory _$LocalRouteV1Impl.fromJson(Map<String, dynamic> json) =>
+      _$$LocalRouteV1ImplFromJson(json);
 
   @override
   final String from;
@@ -209,7 +209,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocalRouteV1 &&
+            other is _$LocalRouteV1Impl &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.displayName, displayName) ||
@@ -226,8 +226,8 @@ class _$LocalRouteV1 extends LocalRouteV1 {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocalRouteV1CopyWith<_$LocalRouteV1> get copyWith =>
-      __$$LocalRouteV1CopyWithImpl<_$LocalRouteV1>(this, _$identity);
+  _$$LocalRouteV1ImplCopyWith<_$LocalRouteV1Impl> get copyWith =>
+      __$$LocalRouteV1ImplCopyWithImpl<_$LocalRouteV1Impl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -305,7 +305,7 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRouteV1ToJson(
+    return _$$LocalRouteV1ImplToJson(
       this,
     );
   }
@@ -313,11 +313,12 @@ class _$LocalRouteV1 extends LocalRouteV1 {
 
 abstract class LocalRouteV1 extends LocalRoute {
   const factory LocalRouteV1(final String from, final String to,
-      {final String? displayName, final DateTime? timestamp}) = _$LocalRouteV1;
+      {final String? displayName,
+      final DateTime? timestamp}) = _$LocalRouteV1Impl;
   const LocalRouteV1._() : super._();
 
   factory LocalRouteV1.fromJson(Map<String, dynamic> json) =
-      _$LocalRouteV1.fromJson;
+      _$LocalRouteV1Impl.fromJson;
 
   @override
   String get from;
@@ -329,16 +330,16 @@ abstract class LocalRouteV1 extends LocalRoute {
   DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  _$$LocalRouteV1CopyWith<_$LocalRouteV1> get copyWith =>
+  _$$LocalRouteV1ImplCopyWith<_$LocalRouteV1Impl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LocalRouteV2CopyWith<$Res>
+abstract class _$$LocalRouteV2ImplCopyWith<$Res>
     implements $LocalRouteCopyWith<$Res> {
-  factory _$$LocalRouteV2CopyWith(
-          _$LocalRouteV2 value, $Res Function(_$LocalRouteV2) then) =
-      __$$LocalRouteV2CopyWithImpl<$Res>;
+  factory _$$LocalRouteV2ImplCopyWith(
+          _$LocalRouteV2Impl value, $Res Function(_$LocalRouteV2Impl) then) =
+      __$$LocalRouteV2ImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -349,11 +350,11 @@ abstract class _$$LocalRouteV2CopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LocalRouteV2CopyWithImpl<$Res>
-    extends _$LocalRouteCopyWithImpl<$Res, _$LocalRouteV2>
-    implements _$$LocalRouteV2CopyWith<$Res> {
-  __$$LocalRouteV2CopyWithImpl(
-      _$LocalRouteV2 _value, $Res Function(_$LocalRouteV2) _then)
+class __$$LocalRouteV2ImplCopyWithImpl<$Res>
+    extends _$LocalRouteCopyWithImpl<$Res, _$LocalRouteV2Impl>
+    implements _$$LocalRouteV2ImplCopyWith<$Res> {
+  __$$LocalRouteV2ImplCopyWithImpl(
+      _$LocalRouteV2Impl _value, $Res Function(_$LocalRouteV2Impl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -364,7 +365,7 @@ class __$$LocalRouteV2CopyWithImpl<$Res>
     Object? displayName = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(_$LocalRouteV2(
+    return _then(_$LocalRouteV2Impl(
       null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -404,14 +405,14 @@ class __$$LocalRouteV2CopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class _$LocalRouteV2 extends LocalRouteV2 {
-  const _$LocalRouteV2(this.from, this.to,
+class _$LocalRouteV2Impl extends LocalRouteV2 {
+  const _$LocalRouteV2Impl(this.from, this.to,
       {this.displayName, this.timestamp, final String? $type})
       : $type = $type ?? 'v2',
         super._();
 
-  factory _$LocalRouteV2.fromJson(Map<String, dynamic> json) =>
-      _$$LocalRouteV2FromJson(json);
+  factory _$LocalRouteV2Impl.fromJson(Map<String, dynamic> json) =>
+      _$$LocalRouteV2ImplFromJson(json);
 
   @override
   final SchStop from;
@@ -434,7 +435,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocalRouteV2 &&
+            other is _$LocalRouteV2Impl &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.displayName, displayName) ||
@@ -451,8 +452,8 @@ class _$LocalRouteV2 extends LocalRouteV2 {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocalRouteV2CopyWith<_$LocalRouteV2> get copyWith =>
-      __$$LocalRouteV2CopyWithImpl<_$LocalRouteV2>(this, _$identity);
+  _$$LocalRouteV2ImplCopyWith<_$LocalRouteV2Impl> get copyWith =>
+      __$$LocalRouteV2ImplCopyWithImpl<_$LocalRouteV2Impl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -530,7 +531,7 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRouteV2ToJson(
+    return _$$LocalRouteV2ImplToJson(
       this,
     );
   }
@@ -538,11 +539,12 @@ class _$LocalRouteV2 extends LocalRouteV2 {
 
 abstract class LocalRouteV2 extends LocalRoute {
   const factory LocalRouteV2(final SchStop from, final SchStop to,
-      {final String? displayName, final DateTime? timestamp}) = _$LocalRouteV2;
+      {final String? displayName,
+      final DateTime? timestamp}) = _$LocalRouteV2Impl;
   const LocalRouteV2._() : super._();
 
   factory LocalRouteV2.fromJson(Map<String, dynamic> json) =
-      _$LocalRouteV2.fromJson;
+      _$LocalRouteV2Impl.fromJson;
 
   @override
   SchStop get from;
@@ -554,7 +556,7 @@ abstract class LocalRouteV2 extends LocalRoute {
   DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  _$$LocalRouteV2CopyWith<_$LocalRouteV2> get copyWith =>
+  _$$LocalRouteV2ImplCopyWith<_$LocalRouteV2Impl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -624,22 +626,22 @@ class _$FavoriteStopCopyWithImpl<$Res, $Val extends FavoriteStop>
 }
 
 /// @nodoc
-abstract class _$$_FavoriteStopCopyWith<$Res>
+abstract class _$$FavoriteStopImplCopyWith<$Res>
     implements $FavoriteStopCopyWith<$Res> {
-  factory _$$_FavoriteStopCopyWith(
-          _$_FavoriteStop value, $Res Function(_$_FavoriteStop) then) =
-      __$$_FavoriteStopCopyWithImpl<$Res>;
+  factory _$$FavoriteStopImplCopyWith(
+          _$FavoriteStopImpl value, $Res Function(_$FavoriteStopImpl) then) =
+      __$$FavoriteStopImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String stop, String name, String? api, String? id});
 }
 
 /// @nodoc
-class __$$_FavoriteStopCopyWithImpl<$Res>
-    extends _$FavoriteStopCopyWithImpl<$Res, _$_FavoriteStop>
-    implements _$$_FavoriteStopCopyWith<$Res> {
-  __$$_FavoriteStopCopyWithImpl(
-      _$_FavoriteStop _value, $Res Function(_$_FavoriteStop) _then)
+class __$$FavoriteStopImplCopyWithImpl<$Res>
+    extends _$FavoriteStopCopyWithImpl<$Res, _$FavoriteStopImpl>
+    implements _$$FavoriteStopImplCopyWith<$Res> {
+  __$$FavoriteStopImplCopyWithImpl(
+      _$FavoriteStopImpl _value, $Res Function(_$FavoriteStopImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -650,7 +652,7 @@ class __$$_FavoriteStopCopyWithImpl<$Res>
     Object? api = freezed,
     Object? id = freezed,
   }) {
-    return _then(_$_FavoriteStop(
+    return _then(_$FavoriteStopImpl(
       stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
@@ -674,13 +676,13 @@ class __$$_FavoriteStopCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_FavoriteStop extends _FavoriteStop {
-  const _$_FavoriteStop(
+class _$FavoriteStopImpl extends _FavoriteStop {
+  const _$FavoriteStopImpl(
       {required this.stop, required this.name, this.api, this.id})
       : super._();
 
-  factory _$_FavoriteStop.fromJson(Map<String, dynamic> json) =>
-      _$$_FavoriteStopFromJson(json);
+  factory _$FavoriteStopImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FavoriteStopImplFromJson(json);
 
   @override
   final String stop;
@@ -700,7 +702,7 @@ class _$_FavoriteStop extends _FavoriteStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FavoriteStop &&
+            other is _$FavoriteStopImpl &&
             (identical(other.stop, stop) || other.stop == stop) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.api, api) || other.api == api) &&
@@ -714,12 +716,12 @@ class _$_FavoriteStop extends _FavoriteStop {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FavoriteStopCopyWith<_$_FavoriteStop> get copyWith =>
-      __$$_FavoriteStopCopyWithImpl<_$_FavoriteStop>(this, _$identity);
+  _$$FavoriteStopImplCopyWith<_$FavoriteStopImpl> get copyWith =>
+      __$$FavoriteStopImplCopyWithImpl<_$FavoriteStopImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FavoriteStopToJson(
+    return _$$FavoriteStopImplToJson(
       this,
     );
   }
@@ -730,11 +732,11 @@ abstract class _FavoriteStop extends FavoriteStop {
       {required final String stop,
       required final String name,
       final String? api,
-      final String? id}) = _$_FavoriteStop;
+      final String? id}) = _$FavoriteStopImpl;
   const _FavoriteStop._() : super._();
 
   factory _FavoriteStop.fromJson(Map<String, dynamic> json) =
-      _$_FavoriteStop.fromJson;
+      _$FavoriteStopImpl.fromJson;
 
   @override
   String get stop;
@@ -746,7 +748,7 @@ abstract class _FavoriteStop extends FavoriteStop {
   String? get id;
   @override
   @JsonKey(ignore: true)
-  _$$_FavoriteStopCopyWith<_$_FavoriteStop> get copyWith =>
+  _$$FavoriteStopImplCopyWith<_$FavoriteStopImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -866,11 +868,11 @@ class _$QuickActionsItemCopyWithImpl<$Res, $Val extends QuickActionsItem>
 }
 
 /// @nodoc
-abstract class _$$FavoriteUnionStopCopyWith<$Res>
+abstract class _$$FavoriteUnionStopImplCopyWith<$Res>
     implements $QuickActionsItemCopyWith<$Res> {
-  factory _$$FavoriteUnionStopCopyWith(
-          _$FavoriteUnionStop value, $Res Function(_$FavoriteUnionStop) then) =
-      __$$FavoriteUnionStopCopyWithImpl<$Res>;
+  factory _$$FavoriteUnionStopImplCopyWith(_$FavoriteUnionStopImpl value,
+          $Res Function(_$FavoriteUnionStopImpl) then) =
+      __$$FavoriteUnionStopImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({FavoriteStop stop, int id, int? quickActionsIndex});
@@ -879,11 +881,11 @@ abstract class _$$FavoriteUnionStopCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$FavoriteUnionStopCopyWithImpl<$Res>
-    extends _$QuickActionsItemCopyWithImpl<$Res, _$FavoriteUnionStop>
-    implements _$$FavoriteUnionStopCopyWith<$Res> {
-  __$$FavoriteUnionStopCopyWithImpl(
-      _$FavoriteUnionStop _value, $Res Function(_$FavoriteUnionStop) _then)
+class __$$FavoriteUnionStopImplCopyWithImpl<$Res>
+    extends _$QuickActionsItemCopyWithImpl<$Res, _$FavoriteUnionStopImpl>
+    implements _$$FavoriteUnionStopImplCopyWith<$Res> {
+  __$$FavoriteUnionStopImplCopyWithImpl(_$FavoriteUnionStopImpl _value,
+      $Res Function(_$FavoriteUnionStopImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -893,7 +895,7 @@ class __$$FavoriteUnionStopCopyWithImpl<$Res>
     Object? id = null,
     Object? quickActionsIndex = freezed,
   }) {
-    return _then(_$FavoriteUnionStop(
+    return _then(_$FavoriteUnionStopImpl(
       null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
@@ -920,14 +922,14 @@ class __$$FavoriteUnionStopCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FavoriteUnionStop extends FavoriteUnionStop {
-  const _$FavoriteUnionStop(this.stop,
+class _$FavoriteUnionStopImpl extends FavoriteUnionStop {
+  const _$FavoriteUnionStopImpl(this.stop,
       {required this.id, this.quickActionsIndex, final String? $type})
       : $type = $type ?? 'stop',
         super._();
 
-  factory _$FavoriteUnionStop.fromJson(Map<String, dynamic> json) =>
-      _$$FavoriteUnionStopFromJson(json);
+  factory _$FavoriteUnionStopImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FavoriteUnionStopImplFromJson(json);
 
   @override
   final FavoriteStop stop;
@@ -948,7 +950,7 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FavoriteUnionStop &&
+            other is _$FavoriteUnionStopImpl &&
             (identical(other.stop, stop) || other.stop == stop) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.quickActionsIndex, quickActionsIndex) ||
@@ -962,8 +964,9 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FavoriteUnionStopCopyWith<_$FavoriteUnionStop> get copyWith =>
-      __$$FavoriteUnionStopCopyWithImpl<_$FavoriteUnionStop>(this, _$identity);
+  _$$FavoriteUnionStopImplCopyWith<_$FavoriteUnionStopImpl> get copyWith =>
+      __$$FavoriteUnionStopImplCopyWithImpl<_$FavoriteUnionStopImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1043,7 +1046,7 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FavoriteUnionStopToJson(
+    return _$$FavoriteUnionStopImplToJson(
       this,
     );
   }
@@ -1052,11 +1055,11 @@ class _$FavoriteUnionStop extends FavoriteUnionStop {
 abstract class FavoriteUnionStop extends QuickActionsItem {
   const factory FavoriteUnionStop(final FavoriteStop stop,
       {required final int id,
-      final int? quickActionsIndex}) = _$FavoriteUnionStop;
+      final int? quickActionsIndex}) = _$FavoriteUnionStopImpl;
   const FavoriteUnionStop._() : super._();
 
   factory FavoriteUnionStop.fromJson(Map<String, dynamic> json) =
-      _$FavoriteUnionStop.fromJson;
+      _$FavoriteUnionStopImpl.fromJson;
 
   FavoriteStop get stop;
   @override
@@ -1065,16 +1068,16 @@ abstract class FavoriteUnionStop extends QuickActionsItem {
   int? get quickActionsIndex;
   @override
   @JsonKey(ignore: true)
-  _$$FavoriteUnionStopCopyWith<_$FavoriteUnionStop> get copyWith =>
+  _$$FavoriteUnionStopImplCopyWith<_$FavoriteUnionStopImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FavoriteUnionRouteCopyWith<$Res>
+abstract class _$$FavoriteUnionRouteImplCopyWith<$Res>
     implements $QuickActionsItemCopyWith<$Res> {
-  factory _$$FavoriteUnionRouteCopyWith(_$FavoriteUnionRoute value,
-          $Res Function(_$FavoriteUnionRoute) then) =
-      __$$FavoriteUnionRouteCopyWithImpl<$Res>;
+  factory _$$FavoriteUnionRouteImplCopyWith(_$FavoriteUnionRouteImpl value,
+          $Res Function(_$FavoriteUnionRouteImpl) then) =
+      __$$FavoriteUnionRouteImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({LocalRoute route, int id, int? quickActionsIndex});
@@ -1083,11 +1086,11 @@ abstract class _$$FavoriteUnionRouteCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$FavoriteUnionRouteCopyWithImpl<$Res>
-    extends _$QuickActionsItemCopyWithImpl<$Res, _$FavoriteUnionRoute>
-    implements _$$FavoriteUnionRouteCopyWith<$Res> {
-  __$$FavoriteUnionRouteCopyWithImpl(
-      _$FavoriteUnionRoute _value, $Res Function(_$FavoriteUnionRoute) _then)
+class __$$FavoriteUnionRouteImplCopyWithImpl<$Res>
+    extends _$QuickActionsItemCopyWithImpl<$Res, _$FavoriteUnionRouteImpl>
+    implements _$$FavoriteUnionRouteImplCopyWith<$Res> {
+  __$$FavoriteUnionRouteImplCopyWithImpl(_$FavoriteUnionRouteImpl _value,
+      $Res Function(_$FavoriteUnionRouteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1097,7 +1100,7 @@ class __$$FavoriteUnionRouteCopyWithImpl<$Res>
     Object? id = null,
     Object? quickActionsIndex = freezed,
   }) {
-    return _then(_$FavoriteUnionRoute(
+    return _then(_$FavoriteUnionRouteImpl(
       null == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
@@ -1124,14 +1127,14 @@ class __$$FavoriteUnionRouteCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FavoriteUnionRoute extends FavoriteUnionRoute {
-  const _$FavoriteUnionRoute(this.route,
+class _$FavoriteUnionRouteImpl extends FavoriteUnionRoute {
+  const _$FavoriteUnionRouteImpl(this.route,
       {required this.id, this.quickActionsIndex, final String? $type})
       : $type = $type ?? 'route',
         super._();
 
-  factory _$FavoriteUnionRoute.fromJson(Map<String, dynamic> json) =>
-      _$$FavoriteUnionRouteFromJson(json);
+  factory _$FavoriteUnionRouteImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FavoriteUnionRouteImplFromJson(json);
 
   @override
   final LocalRoute route;
@@ -1152,7 +1155,7 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FavoriteUnionRoute &&
+            other is _$FavoriteUnionRouteImpl &&
             (identical(other.route, route) || other.route == route) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.quickActionsIndex, quickActionsIndex) ||
@@ -1166,8 +1169,8 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FavoriteUnionRouteCopyWith<_$FavoriteUnionRoute> get copyWith =>
-      __$$FavoriteUnionRouteCopyWithImpl<_$FavoriteUnionRoute>(
+  _$$FavoriteUnionRouteImplCopyWith<_$FavoriteUnionRouteImpl> get copyWith =>
+      __$$FavoriteUnionRouteImplCopyWithImpl<_$FavoriteUnionRouteImpl>(
           this, _$identity);
 
   @override
@@ -1248,7 +1251,7 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FavoriteUnionRouteToJson(
+    return _$$FavoriteUnionRouteImplToJson(
       this,
     );
   }
@@ -1257,11 +1260,11 @@ class _$FavoriteUnionRoute extends FavoriteUnionRoute {
 abstract class FavoriteUnionRoute extends QuickActionsItem {
   const factory FavoriteUnionRoute(final LocalRoute route,
       {required final int id,
-      final int? quickActionsIndex}) = _$FavoriteUnionRoute;
+      final int? quickActionsIndex}) = _$FavoriteUnionRouteImpl;
   const FavoriteUnionRoute._() : super._();
 
   factory FavoriteUnionRoute.fromJson(Map<String, dynamic> json) =
-      _$FavoriteUnionRoute.fromJson;
+      _$FavoriteUnionRouteImpl.fromJson;
 
   LocalRoute get route;
   @override
@@ -1270,30 +1273,30 @@ abstract class FavoriteUnionRoute extends QuickActionsItem {
   int? get quickActionsIndex;
   @override
   @JsonKey(ignore: true)
-  _$$FavoriteUnionRouteCopyWith<_$FavoriteUnionRoute> get copyWith =>
+  _$$FavoriteUnionRouteImplCopyWith<_$FavoriteUnionRouteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FavoriteUnionStationTabsCurrentLocationCopyWith<$Res>
+abstract class _$$FavoriteUnionStationTabsCurrentLocationImplCopyWith<$Res>
     implements $QuickActionsItemCopyWith<$Res> {
-  factory _$$FavoriteUnionStationTabsCurrentLocationCopyWith(
-          _$FavoriteUnionStationTabsCurrentLocation value,
-          $Res Function(_$FavoriteUnionStationTabsCurrentLocation) then) =
-      __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>;
+  factory _$$FavoriteUnionStationTabsCurrentLocationImplCopyWith(
+          _$FavoriteUnionStationTabsCurrentLocationImpl value,
+          $Res Function(_$FavoriteUnionStationTabsCurrentLocationImpl) then) =
+      __$$FavoriteUnionStationTabsCurrentLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, int? quickActionsIndex});
 }
 
 /// @nodoc
-class __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>
+class __$$FavoriteUnionStationTabsCurrentLocationImplCopyWithImpl<$Res>
     extends _$QuickActionsItemCopyWithImpl<$Res,
-        _$FavoriteUnionStationTabsCurrentLocation>
-    implements _$$FavoriteUnionStationTabsCurrentLocationCopyWith<$Res> {
-  __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl(
-      _$FavoriteUnionStationTabsCurrentLocation _value,
-      $Res Function(_$FavoriteUnionStationTabsCurrentLocation) _then)
+        _$FavoriteUnionStationTabsCurrentLocationImpl>
+    implements _$$FavoriteUnionStationTabsCurrentLocationImplCopyWith<$Res> {
+  __$$FavoriteUnionStationTabsCurrentLocationImplCopyWithImpl(
+      _$FavoriteUnionStationTabsCurrentLocationImpl _value,
+      $Res Function(_$FavoriteUnionStationTabsCurrentLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1302,7 +1305,7 @@ class __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>
     Object? id = null,
     Object? quickActionsIndex = freezed,
   }) {
-    return _then(_$FavoriteUnionStationTabsCurrentLocation(
+    return _then(_$FavoriteUnionStationTabsCurrentLocationImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1317,16 +1320,16 @@ class __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FavoriteUnionStationTabsCurrentLocation
+class _$FavoriteUnionStationTabsCurrentLocationImpl
     extends FavoriteUnionStationTabsCurrentLocation {
-  const _$FavoriteUnionStationTabsCurrentLocation(
+  const _$FavoriteUnionStationTabsCurrentLocationImpl(
       {required this.id, this.quickActionsIndex, final String? $type})
       : $type = $type ?? 'stationTabsCurrentLocation',
         super._();
 
-  factory _$FavoriteUnionStationTabsCurrentLocation.fromJson(
+  factory _$FavoriteUnionStationTabsCurrentLocationImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$FavoriteUnionStationTabsCurrentLocationFromJson(json);
+      _$$FavoriteUnionStationTabsCurrentLocationImplFromJson(json);
 
   @override
   final int id;
@@ -1345,7 +1348,7 @@ class _$FavoriteUnionStationTabsCurrentLocation
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FavoriteUnionStationTabsCurrentLocation &&
+            other is _$FavoriteUnionStationTabsCurrentLocationImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.quickActionsIndex, quickActionsIndex) ||
                 other.quickActionsIndex == quickActionsIndex));
@@ -1358,10 +1361,11 @@ class _$FavoriteUnionStationTabsCurrentLocation
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FavoriteUnionStationTabsCurrentLocationCopyWith<
-          _$FavoriteUnionStationTabsCurrentLocation>
-      get copyWith => __$$FavoriteUnionStationTabsCurrentLocationCopyWithImpl<
-          _$FavoriteUnionStationTabsCurrentLocation>(this, _$identity);
+  _$$FavoriteUnionStationTabsCurrentLocationImplCopyWith<
+          _$FavoriteUnionStationTabsCurrentLocationImpl>
+      get copyWith =>
+          __$$FavoriteUnionStationTabsCurrentLocationImplCopyWithImpl<
+              _$FavoriteUnionStationTabsCurrentLocationImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1441,7 +1445,7 @@ class _$FavoriteUnionStationTabsCurrentLocation
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FavoriteUnionStationTabsCurrentLocationToJson(
+    return _$$FavoriteUnionStationTabsCurrentLocationImplToJson(
       this,
     );
   }
@@ -1451,12 +1455,12 @@ abstract class FavoriteUnionStationTabsCurrentLocation
     extends QuickActionsItem {
   const factory FavoriteUnionStationTabsCurrentLocation(
           {required final int id, final int? quickActionsIndex}) =
-      _$FavoriteUnionStationTabsCurrentLocation;
+      _$FavoriteUnionStationTabsCurrentLocationImpl;
   const FavoriteUnionStationTabsCurrentLocation._() : super._();
 
   factory FavoriteUnionStationTabsCurrentLocation.fromJson(
           Map<String, dynamic> json) =
-      _$FavoriteUnionStationTabsCurrentLocation.fromJson;
+      _$FavoriteUnionStationTabsCurrentLocationImpl.fromJson;
 
   @override
   int get id;
@@ -1464,8 +1468,8 @@ abstract class FavoriteUnionStationTabsCurrentLocation
   int? get quickActionsIndex;
   @override
   @JsonKey(ignore: true)
-  _$$FavoriteUnionStationTabsCurrentLocationCopyWith<
-          _$FavoriteUnionStationTabsCurrentLocation>
+  _$$FavoriteUnionStationTabsCurrentLocationImplCopyWith<
+          _$FavoriteUnionStationTabsCurrentLocationImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1551,10 +1555,11 @@ class _$QuickActionsReorderableItemCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$QuickActionsFavoriteItemCopyWith<$Res> {
-  factory _$$QuickActionsFavoriteItemCopyWith(_$QuickActionsFavoriteItem value,
-          $Res Function(_$QuickActionsFavoriteItem) then) =
-      __$$QuickActionsFavoriteItemCopyWithImpl<$Res>;
+abstract class _$$QuickActionsFavoriteItemImplCopyWith<$Res> {
+  factory _$$QuickActionsFavoriteItemImplCopyWith(
+          _$QuickActionsFavoriteItemImpl value,
+          $Res Function(_$QuickActionsFavoriteItemImpl) then) =
+      __$$QuickActionsFavoriteItemImplCopyWithImpl<$Res>;
   @useResult
   $Res call({QuickActionsItem item});
 
@@ -1562,12 +1567,13 @@ abstract class _$$QuickActionsFavoriteItemCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$QuickActionsFavoriteItemCopyWithImpl<$Res>
+class __$$QuickActionsFavoriteItemImplCopyWithImpl<$Res>
     extends _$QuickActionsReorderableItemCopyWithImpl<$Res,
-        _$QuickActionsFavoriteItem>
-    implements _$$QuickActionsFavoriteItemCopyWith<$Res> {
-  __$$QuickActionsFavoriteItemCopyWithImpl(_$QuickActionsFavoriteItem _value,
-      $Res Function(_$QuickActionsFavoriteItem) _then)
+        _$QuickActionsFavoriteItemImpl>
+    implements _$$QuickActionsFavoriteItemImplCopyWith<$Res> {
+  __$$QuickActionsFavoriteItemImplCopyWithImpl(
+      _$QuickActionsFavoriteItemImpl _value,
+      $Res Function(_$QuickActionsFavoriteItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1575,7 +1581,7 @@ class __$$QuickActionsFavoriteItemCopyWithImpl<$Res>
   $Res call({
     Object? item = null,
   }) {
-    return _then(_$QuickActionsFavoriteItem(
+    return _then(_$QuickActionsFavoriteItemImpl(
       null == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
@@ -1594,12 +1600,12 @@ class __$$QuickActionsFavoriteItemCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$QuickActionsFavoriteItem implements QuickActionsFavoriteItem {
-  const _$QuickActionsFavoriteItem(this.item, {final String? $type})
+class _$QuickActionsFavoriteItemImpl implements QuickActionsFavoriteItem {
+  const _$QuickActionsFavoriteItemImpl(this.item, {final String? $type})
       : $type = $type ?? 'item';
 
-  factory _$QuickActionsFavoriteItem.fromJson(Map<String, dynamic> json) =>
-      _$$QuickActionsFavoriteItemFromJson(json);
+  factory _$QuickActionsFavoriteItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QuickActionsFavoriteItemImplFromJson(json);
 
   @override
   final QuickActionsItem item;
@@ -1616,7 +1622,7 @@ class _$QuickActionsFavoriteItem implements QuickActionsFavoriteItem {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$QuickActionsFavoriteItem &&
+            other is _$QuickActionsFavoriteItemImpl &&
             (identical(other.item, item) || other.item == item));
   }
 
@@ -1627,10 +1633,9 @@ class _$QuickActionsFavoriteItem implements QuickActionsFavoriteItem {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$QuickActionsFavoriteItemCopyWith<_$QuickActionsFavoriteItem>
-      get copyWith =>
-          __$$QuickActionsFavoriteItemCopyWithImpl<_$QuickActionsFavoriteItem>(
-              this, _$identity);
+  _$$QuickActionsFavoriteItemImplCopyWith<_$QuickActionsFavoriteItemImpl>
+      get copyWith => __$$QuickActionsFavoriteItemImplCopyWithImpl<
+          _$QuickActionsFavoriteItemImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1696,7 +1701,7 @@ class _$QuickActionsFavoriteItem implements QuickActionsFavoriteItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$QuickActionsFavoriteItemToJson(
+    return _$$QuickActionsFavoriteItemImplToJson(
       this,
     );
   }
@@ -1704,44 +1709,45 @@ class _$QuickActionsFavoriteItem implements QuickActionsFavoriteItem {
 
 abstract class QuickActionsFavoriteItem implements QuickActionsReorderableItem {
   const factory QuickActionsFavoriteItem(final QuickActionsItem item) =
-      _$QuickActionsFavoriteItem;
+      _$QuickActionsFavoriteItemImpl;
 
   factory QuickActionsFavoriteItem.fromJson(Map<String, dynamic> json) =
-      _$QuickActionsFavoriteItem.fromJson;
+      _$QuickActionsFavoriteItemImpl.fromJson;
 
   QuickActionsItem get item;
   @JsonKey(ignore: true)
-  _$$QuickActionsFavoriteItemCopyWith<_$QuickActionsFavoriteItem>
+  _$$QuickActionsFavoriteItemImplCopyWith<_$QuickActionsFavoriteItemImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$QuickActionsFavoriteDividerCopyWith<$Res> {
-  factory _$$QuickActionsFavoriteDividerCopyWith(
-          _$QuickActionsFavoriteDivider value,
-          $Res Function(_$QuickActionsFavoriteDivider) then) =
-      __$$QuickActionsFavoriteDividerCopyWithImpl<$Res>;
+abstract class _$$QuickActionsFavoriteDividerImplCopyWith<$Res> {
+  factory _$$QuickActionsFavoriteDividerImplCopyWith(
+          _$QuickActionsFavoriteDividerImpl value,
+          $Res Function(_$QuickActionsFavoriteDividerImpl) then) =
+      __$$QuickActionsFavoriteDividerImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$QuickActionsFavoriteDividerCopyWithImpl<$Res>
+class __$$QuickActionsFavoriteDividerImplCopyWithImpl<$Res>
     extends _$QuickActionsReorderableItemCopyWithImpl<$Res,
-        _$QuickActionsFavoriteDivider>
-    implements _$$QuickActionsFavoriteDividerCopyWith<$Res> {
-  __$$QuickActionsFavoriteDividerCopyWithImpl(
-      _$QuickActionsFavoriteDivider _value,
-      $Res Function(_$QuickActionsFavoriteDivider) _then)
+        _$QuickActionsFavoriteDividerImpl>
+    implements _$$QuickActionsFavoriteDividerImplCopyWith<$Res> {
+  __$$QuickActionsFavoriteDividerImplCopyWithImpl(
+      _$QuickActionsFavoriteDividerImpl _value,
+      $Res Function(_$QuickActionsFavoriteDividerImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$QuickActionsFavoriteDivider implements QuickActionsFavoriteDivider {
-  const _$QuickActionsFavoriteDivider({final String? $type})
+class _$QuickActionsFavoriteDividerImpl implements QuickActionsFavoriteDivider {
+  const _$QuickActionsFavoriteDividerImpl({final String? $type})
       : $type = $type ?? 'divider';
 
-  factory _$QuickActionsFavoriteDivider.fromJson(Map<String, dynamic> json) =>
-      _$$QuickActionsFavoriteDividerFromJson(json);
+  factory _$QuickActionsFavoriteDividerImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$QuickActionsFavoriteDividerImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1755,7 +1761,7 @@ class _$QuickActionsFavoriteDivider implements QuickActionsFavoriteDivider {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$QuickActionsFavoriteDivider);
+            other is _$QuickActionsFavoriteDividerImpl);
   }
 
   @JsonKey(ignore: true)
@@ -1826,7 +1832,7 @@ class _$QuickActionsFavoriteDivider implements QuickActionsFavoriteDivider {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$QuickActionsFavoriteDividerToJson(
+    return _$$QuickActionsFavoriteDividerImplToJson(
       this,
     );
   }
@@ -1834,8 +1840,9 @@ class _$QuickActionsFavoriteDivider implements QuickActionsFavoriteDivider {
 
 abstract class QuickActionsFavoriteDivider
     implements QuickActionsReorderableItem {
-  const factory QuickActionsFavoriteDivider() = _$QuickActionsFavoriteDivider;
+  const factory QuickActionsFavoriteDivider() =
+      _$QuickActionsFavoriteDividerImpl;
 
   factory QuickActionsFavoriteDivider.fromJson(Map<String, dynamic> json) =
-      _$QuickActionsFavoriteDivider.fromJson;
+      _$QuickActionsFavoriteDividerImpl.fromJson;
 }

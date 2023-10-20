@@ -95,11 +95,11 @@ class _$SchStationboardCopyWithImpl<$Res, $Val extends SchStationboard>
 }
 
 /// @nodoc
-abstract class _$$_SchStationboardCopyWith<$Res>
+abstract class _$$SchStationboardImplCopyWith<$Res>
     implements $SchStationboardCopyWith<$Res> {
-  factory _$$_SchStationboardCopyWith(
-          _$_SchStationboard value, $Res Function(_$_SchStationboard) then) =
-      __$$_SchStationboardCopyWithImpl<$Res>;
+  factory _$$SchStationboardImplCopyWith(_$SchStationboardImpl value,
+          $Res Function(_$SchStationboardImpl) then) =
+      __$$SchStationboardImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -113,11 +113,11 @@ abstract class _$$_SchStationboardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SchStationboardCopyWithImpl<$Res>
-    extends _$SchStationboardCopyWithImpl<$Res, _$_SchStationboard>
-    implements _$$_SchStationboardCopyWith<$Res> {
-  __$$_SchStationboardCopyWithImpl(
-      _$_SchStationboard _value, $Res Function(_$_SchStationboard) _then)
+class __$$SchStationboardImplCopyWithImpl<$Res>
+    extends _$SchStationboardCopyWithImpl<$Res, _$SchStationboardImpl>
+    implements _$$SchStationboardImplCopyWith<$Res> {
+  __$$SchStationboardImplCopyWithImpl(
+      _$SchStationboardImpl _value, $Res Function(_$SchStationboardImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_SchStationboardCopyWithImpl<$Res>
     Object? sbbConnections = null,
     Object? messages = null,
   }) {
-    return _then(_$_SchStationboard(
+    return _then(_$SchStationboardImpl(
       sbbStop: freezed == sbbStop
           ? _value.sbbStop
           : sbbStop // ignore: cast_nullable_to_non_nullable
@@ -147,8 +147,8 @@ class __$$_SchStationboardCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false, checked: true)
-class _$_SchStationboard extends _SchStationboard {
-  const _$_SchStationboard(
+class _$SchStationboardImpl extends _SchStationboard {
+  const _$SchStationboardImpl(
       {@JsonKey(name: 'stop') this.sbbStop = const SchStop(sbbName: ''),
       @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
       final List<SchStationboardConnection> sbbConnections =
@@ -158,8 +158,8 @@ class _$_SchStationboard extends _SchStationboard {
         _messages = messages,
         super._();
 
-  factory _$_SchStationboard.fromJson(Map<String, dynamic> json) =>
-      _$$_SchStationboardFromJson(json);
+  factory _$SchStationboardImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchStationboardImplFromJson(json);
 
   @override
   @JsonKey(name: 'stop')
@@ -191,7 +191,7 @@ class _$_SchStationboard extends _SchStationboard {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchStationboard &&
+            other is _$SchStationboardImpl &&
             (identical(other.sbbStop, sbbStop) || other.sbbStop == sbbStop) &&
             const DeepCollectionEquality()
                 .equals(other._sbbConnections, _sbbConnections) &&
@@ -209,12 +209,13 @@ class _$_SchStationboard extends _SchStationboard {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchStationboardCopyWith<_$_SchStationboard> get copyWith =>
-      __$$_SchStationboardCopyWithImpl<_$_SchStationboard>(this, _$identity);
+  _$$SchStationboardImplCopyWith<_$SchStationboardImpl> get copyWith =>
+      __$$SchStationboardImplCopyWithImpl<_$SchStationboardImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchStationboardToJson(
+    return _$$SchStationboardImplToJson(
       this,
     );
   }
@@ -225,11 +226,11 @@ abstract class _SchStationboard extends SchStationboard {
       {@JsonKey(name: 'stop') final SchStop? sbbStop,
       @JsonKey(name: 'connections', defaultValue: <SchStationboardConnection>[])
       final List<SchStationboardConnection> sbbConnections,
-      final List<Object> messages}) = _$_SchStationboard;
+      final List<Object> messages}) = _$SchStationboardImpl;
   const _SchStationboard._() : super._();
 
   factory _SchStationboard.fromJson(Map<String, dynamic> json) =
-      _$_SchStationboard.fromJson;
+      _$SchStationboardImpl.fromJson;
 
   @override
   @JsonKey(name: 'stop')
@@ -241,6 +242,6 @@ abstract class _SchStationboard extends SchStationboard {
   List<Object> get messages;
   @override
   @JsonKey(ignore: true)
-  _$$_SchStationboardCopyWith<_$_SchStationboard> get copyWith =>
+  _$$SchStationboardImplCopyWith<_$SchStationboardImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

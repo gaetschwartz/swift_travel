@@ -115,10 +115,10 @@ class _$SchStopCopyWithImpl<$Res, $Val extends SchStop>
 }
 
 /// @nodoc
-abstract class _$$_SchStopCopyWith<$Res> implements $SchStopCopyWith<$Res> {
-  factory _$$_SchStopCopyWith(
-          _$_SchStop value, $Res Function(_$_SchStop) then) =
-      __$$_SchStopCopyWithImpl<$Res>;
+abstract class _$$SchStopImplCopyWith<$Res> implements $SchStopCopyWith<$Res> {
+  factory _$$SchStopImplCopyWith(
+          _$SchStopImpl value, $Res Function(_$SchStopImpl) then) =
+      __$$SchStopImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -133,10 +133,11 @@ abstract class _$$_SchStopCopyWith<$Res> implements $SchStopCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SchStopCopyWithImpl<$Res>
-    extends _$SchStopCopyWithImpl<$Res, _$_SchStop>
-    implements _$$_SchStopCopyWith<$Res> {
-  __$$_SchStopCopyWithImpl(_$_SchStop _value, $Res Function(_$_SchStop) _then)
+class __$$SchStopImplCopyWithImpl<$Res>
+    extends _$SchStopCopyWithImpl<$Res, _$SchStopImpl>
+    implements _$$SchStopImplCopyWith<$Res> {
+  __$$SchStopImplCopyWithImpl(
+      _$SchStopImpl _value, $Res Function(_$SchStopImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -151,7 +152,7 @@ class __$$_SchStopCopyWithImpl<$Res>
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_$_SchStop(
+    return _then(_$SchStopImpl(
       sbbName: freezed == sbbName
           ? _value.sbbName
           : sbbName // ignore: cast_nullable_to_non_nullable
@@ -191,8 +192,8 @@ class __$$_SchStopCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false, checked: true, explicitToJson: true)
-class _$_SchStop extends _SchStop {
-  const _$_SchStop(
+class _$SchStopImpl extends _SchStop {
+  const _$SchStopImpl(
       {@JsonKey(name: 'name') required this.sbbName,
       this.id,
       @JsonKey(fromJson: _fromJson, toJson: _toJson) this.departure,
@@ -203,8 +204,8 @@ class _$_SchStop extends _SchStop {
       @IntConverter() this.y})
       : super._();
 
-  factory _$_SchStop.fromJson(Map<String, dynamic> json) =>
-      _$$_SchStopFromJson(json);
+  factory _$SchStopImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SchStopImplFromJson(json);
 
   @override
   @JsonKey(name: 'name')
@@ -237,7 +238,7 @@ class _$_SchStop extends _SchStop {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SchStop &&
+            other is _$SchStopImpl &&
             (identical(other.sbbName, sbbName) || other.sbbName == sbbName) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.departure, departure) ||
@@ -257,12 +258,12 @@ class _$_SchStop extends _SchStop {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SchStopCopyWith<_$_SchStop> get copyWith =>
-      __$$_SchStopCopyWithImpl<_$_SchStop>(this, _$identity);
+  _$$SchStopImplCopyWith<_$SchStopImpl> get copyWith =>
+      __$$SchStopImplCopyWithImpl<_$SchStopImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SchStopToJson(
+    return _$$SchStopImplToJson(
       this,
     );
   }
@@ -277,10 +278,10 @@ abstract class _SchStop extends SchStop {
       final double? lat,
       final double? lon,
       @IntConverter() final int? x,
-      @IntConverter() final int? y}) = _$_SchStop;
+      @IntConverter() final int? y}) = _$SchStopImpl;
   const _SchStop._() : super._();
 
-  factory _SchStop.fromJson(Map<String, dynamic> json) = _$_SchStop.fromJson;
+  factory _SchStop.fromJson(Map<String, dynamic> json) = _$SchStopImpl.fromJson;
 
   @override
   @JsonKey(name: 'name')
@@ -305,6 +306,6 @@ abstract class _SchStop extends SchStop {
   int? get y;
   @override
   @JsonKey(ignore: true)
-  _$$_SchStopCopyWith<_$_SchStop> get copyWith =>
+  _$$SchStopImplCopyWith<_$SchStopImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

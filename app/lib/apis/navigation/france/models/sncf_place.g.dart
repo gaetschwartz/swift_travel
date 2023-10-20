@@ -6,13 +6,14 @@ part of 'sncf_place.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SncfPlace _$$_SncfPlaceFromJson(Map<String, dynamic> json) => _$_SncfPlace(
+_$SncfPlaceImpl _$$SncfPlaceImplFromJson(Map<String, dynamic> json) =>
+    _$SncfPlaceImpl(
       name: json['name'] as String,
       id: json['id'] as String?,
       favoriteName: json['favoriteName'] as String?,
     );
 
-Map<String, dynamic> _$$_SncfPlaceToJson(_$_SncfPlace instance) =>
+Map<String, dynamic> _$$SncfPlaceImplToJson(_$SncfPlaceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'id': instance.id,

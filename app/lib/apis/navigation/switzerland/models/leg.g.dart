@@ -6,11 +6,11 @@ part of 'leg.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SchLeg _$$_SchLegFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_SchLeg',
+_$SchLegImpl _$$SchLegImplFromJson(Map<String, dynamic> json) => $checkedCreate(
+      r'_$SchLegImpl',
       json,
       ($checkedConvert) {
-        final val = _$_SchLeg(
+        final val = _$SchLegImpl(
           name: $checkedConvert('name', (v) => v as String),
           sbbExit: $checkedConvert(
               'exit',
@@ -73,7 +73,7 @@ _$_SchLeg _$$_SchLegFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$$_SchLegToJson(_$_SchLeg instance) {
+Map<String, dynamic> _$$SchLegImplToJson(_$SchLegImpl instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };

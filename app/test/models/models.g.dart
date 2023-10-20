@@ -6,34 +6,37 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$Person _$$PersonFromJson(Map<String, dynamic> json) => _$Person(
+_$PersonImpl _$$PersonImplFromJson(Map<String, dynamic> json) => _$PersonImpl(
       json['name'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$PersonToJson(_$Person instance) => <String, dynamic>{
+Map<String, dynamic> _$$PersonImplToJson(_$PersonImpl instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'runtimeType': instance.$type,
     };
 
-_$Animal _$$AnimalFromJson(Map<String, dynamic> json) => _$Animal(
+_$AnimalImpl _$$AnimalImplFromJson(Map<String, dynamic> json) => _$AnimalImpl(
       json['name'] as String,
       json['legs'] as int,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$AnimalToJson(_$Animal instance) => <String, dynamic>{
+Map<String, dynamic> _$$AnimalImplToJson(_$AnimalImpl instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'legs': instance.legs,
       'runtimeType': instance.$type,
     };
 
-_$Number _$$NumberFromJson(Map<String, dynamic> json) => _$Number(
+_$NumberImpl _$$NumberImplFromJson(Map<String, dynamic> json) => _$NumberImpl(
       json['number'] as int,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$NumberToJson(_$Number instance) => <String, dynamic>{
+Map<String, dynamic> _$$NumberImplToJson(_$NumberImpl instance) =>
+    <String, dynamic>{
       'number': instance.number,
       'runtimeType': instance.$type,
     };

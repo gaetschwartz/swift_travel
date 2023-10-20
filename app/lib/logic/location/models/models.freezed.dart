@@ -112,11 +112,11 @@ class _$GeoLocationCopyWithImpl<$Res, $Val extends GeoLocation>
 }
 
 /// @nodoc
-abstract class _$$_GeoLocationCopyWith<$Res>
+abstract class _$$GeoLocationImplCopyWith<$Res>
     implements $GeoLocationCopyWith<$Res> {
-  factory _$$_GeoLocationCopyWith(
-          _$_GeoLocation value, $Res Function(_$_GeoLocation) then) =
-      __$$_GeoLocationCopyWithImpl<$Res>;
+  factory _$$GeoLocationImplCopyWith(
+          _$GeoLocationImpl value, $Res Function(_$GeoLocationImpl) then) =
+      __$$GeoLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -131,11 +131,11 @@ abstract class _$$_GeoLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GeoLocationCopyWithImpl<$Res>
-    extends _$GeoLocationCopyWithImpl<$Res, _$_GeoLocation>
-    implements _$$_GeoLocationCopyWith<$Res> {
-  __$$_GeoLocationCopyWithImpl(
-      _$_GeoLocation _value, $Res Function(_$_GeoLocation) _then)
+class __$$GeoLocationImplCopyWithImpl<$Res>
+    extends _$GeoLocationCopyWithImpl<$Res, _$GeoLocationImpl>
+    implements _$$GeoLocationImplCopyWith<$Res> {
+  __$$GeoLocationImplCopyWithImpl(
+      _$GeoLocationImpl _value, $Res Function(_$GeoLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -150,7 +150,7 @@ class __$$_GeoLocationCopyWithImpl<$Res>
     Object? speedAccuracy = freezed,
     Object? timestamp = freezed,
   }) {
-    return _then(_$_GeoLocation(
+    return _then(_$GeoLocationImpl(
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -189,8 +189,8 @@ class __$$_GeoLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_GeoLocation implements _GeoLocation {
-  const _$_GeoLocation(
+class _$GeoLocationImpl implements _GeoLocation {
+  const _$GeoLocationImpl(
       {required this.latitude,
       required this.longitude,
       this.accuracy,
@@ -200,8 +200,8 @@ class _$_GeoLocation implements _GeoLocation {
       this.speedAccuracy,
       this.timestamp});
 
-  factory _$_GeoLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_GeoLocationFromJson(json);
+  factory _$GeoLocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GeoLocationImplFromJson(json);
 
   @override
   final double latitude;
@@ -229,7 +229,7 @@ class _$_GeoLocation implements _GeoLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GeoLocation &&
+            other is _$GeoLocationImpl &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -254,12 +254,12 @@ class _$_GeoLocation implements _GeoLocation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GeoLocationCopyWith<_$_GeoLocation> get copyWith =>
-      __$$_GeoLocationCopyWithImpl<_$_GeoLocation>(this, _$identity);
+  _$$GeoLocationImplCopyWith<_$GeoLocationImpl> get copyWith =>
+      __$$GeoLocationImplCopyWithImpl<_$GeoLocationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GeoLocationToJson(
+    return _$$GeoLocationImplToJson(
       this,
     );
   }
@@ -274,10 +274,10 @@ abstract class _GeoLocation implements GeoLocation {
       final double? heading,
       final double? speed,
       final double? speedAccuracy,
-      final DateTime? timestamp}) = _$_GeoLocation;
+      final DateTime? timestamp}) = _$GeoLocationImpl;
 
   factory _GeoLocation.fromJson(Map<String, dynamic> json) =
-      _$_GeoLocation.fromJson;
+      _$GeoLocationImpl.fromJson;
 
   @override
   double get latitude;
@@ -297,6 +297,6 @@ abstract class _GeoLocation implements GeoLocation {
   DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
-  _$$_GeoLocationCopyWith<_$_GeoLocation> get copyWith =>
+  _$$GeoLocationImplCopyWith<_$GeoLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

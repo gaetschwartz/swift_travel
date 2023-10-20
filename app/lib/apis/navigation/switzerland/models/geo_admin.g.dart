@@ -6,12 +6,13 @@ part of 'geo_admin.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SearchCompletion _$$_SearchCompletionFromJson(Map<String, dynamic> json) =>
+_$SearchCompletionImpl _$$SearchCompletionImplFromJson(
+        Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_SearchCompletion',
+      r'_$SearchCompletionImpl',
       json,
       ($checkedConvert) {
-        final val = _$_SearchCompletion(
+        final val = _$SearchCompletionImpl(
           label: $checkedConvert('label', (v) => v as String?),
           html: $checkedConvert('html', (v) => v as String?),
           iconclass: $checkedConvert('iconclass', (v) => v as String?),
@@ -21,7 +22,8 @@ _$_SearchCompletion _$$_SearchCompletionFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$$_SearchCompletionToJson(_$_SearchCompletion instance) =>
+Map<String, dynamic> _$$SearchCompletionImplToJson(
+        _$SearchCompletionImpl instance) =>
     <String, dynamic>{
       'label': instance.label,
       'html': instance.html,
@@ -29,23 +31,24 @@ Map<String, dynamic> _$$_SearchCompletionToJson(_$_SearchCompletion instance) =>
       'corrected': instance.corrected,
     };
 
-_$_GeoAdminResult _$$_GeoAdminResultFromJson(Map<String, dynamic> json) =>
-    _$_GeoAdminResult(
+_$GeoAdminResultImpl _$$GeoAdminResultImplFromJson(Map<String, dynamic> json) =>
+    _$GeoAdminResultImpl(
       intId: json['id'] as int,
       weight: json['weight'] as int? ?? 0,
       attrs: GeoAdminAttributes.fromJson(json['attrs'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_GeoAdminResultToJson(_$_GeoAdminResult instance) =>
+Map<String, dynamic> _$$GeoAdminResultImplToJson(
+        _$GeoAdminResultImpl instance) =>
     <String, dynamic>{
       'id': instance.intId,
       'weight': instance.weight,
       'attrs': instance.attrs.toJson(),
     };
 
-_$_GeoAdminAttributes _$$_GeoAdminAttributesFromJson(
+_$GeoAdminAttributesImpl _$$GeoAdminAttributesImplFromJson(
         Map<String, dynamic> json) =>
-    _$_GeoAdminAttributes(
+    _$GeoAdminAttributesImpl(
       origin: json['origin'] as String,
       featureId: json['featureId'] as String?,
       detail: json['detail'] as String,
@@ -57,8 +60,8 @@ _$_GeoAdminAttributes _$$_GeoAdminAttributesFromJson(
       htmlLabel: json['label'] as String,
     );
 
-Map<String, dynamic> _$$_GeoAdminAttributesToJson(
-        _$_GeoAdminAttributes instance) =>
+Map<String, dynamic> _$$GeoAdminAttributesImplToJson(
+        _$GeoAdminAttributesImpl instance) =>
     <String, dynamic>{
       'origin': instance.origin,
       'featureId': instance.featureId,

@@ -92,17 +92,17 @@ class SchCompletion with _$SchCompletion implements NavigationCompletion {
 }
 
 @freezed
-class _PlaceTypeIconclass with _$_PlaceTypeIconclass {
+sealed class _PlaceTypeIconclass with _$PlaceTypeIconclass {
   const factory _PlaceTypeIconclass(LocationType v) = __PlaceTypeIconclass;
 
   factory _PlaceTypeIconclass.fromJson(Map<String, dynamic> json) =>
-      _$_PlaceTypeIconclassFromJson(json);
+      _$PlaceTypeIconclassFromJson(json);
 }
 
 @freezed
-class _VehicleTypeIconclass with _$_VehicleTypeIconclass {
+sealed class _VehicleTypeIconclass with _$VehicleTypeIconclass {
   const factory _VehicleTypeIconclass(VehicleType v) = __VehicleTypeIconclass;
 
   factory _VehicleTypeIconclass.fromJson(Map<String, dynamic> json) =>
-      _$_VehicleTypeIconclassFromJson(json);
+      _$VehicleTypeIconclassFromJson(json);
 }

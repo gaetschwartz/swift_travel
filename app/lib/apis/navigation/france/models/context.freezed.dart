@@ -68,22 +68,22 @@ class _$SncfContextCopyWithImpl<$Res, $Val extends SncfContext>
 }
 
 /// @nodoc
-abstract class _$$_SncfContextCopyWith<$Res>
+abstract class _$$SncfContextImplCopyWith<$Res>
     implements $SncfContextCopyWith<$Res> {
-  factory _$$_SncfContextCopyWith(
-          _$_SncfContext value, $Res Function(_$_SncfContext) then) =
-      __$$_SncfContextCopyWithImpl<$Res>;
+  factory _$$SncfContextImplCopyWith(
+          _$SncfContextImpl value, $Res Function(_$SncfContextImpl) then) =
+      __$$SncfContextImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime? dateTime, String? timezone});
 }
 
 /// @nodoc
-class __$$_SncfContextCopyWithImpl<$Res>
-    extends _$SncfContextCopyWithImpl<$Res, _$_SncfContext>
-    implements _$$_SncfContextCopyWith<$Res> {
-  __$$_SncfContextCopyWithImpl(
-      _$_SncfContext _value, $Res Function(_$_SncfContext) _then)
+class __$$SncfContextImplCopyWithImpl<$Res>
+    extends _$SncfContextCopyWithImpl<$Res, _$SncfContextImpl>
+    implements _$$SncfContextImplCopyWith<$Res> {
+  __$$SncfContextImplCopyWithImpl(
+      _$SncfContextImpl _value, $Res Function(_$SncfContextImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_SncfContextCopyWithImpl<$Res>
     Object? dateTime = freezed,
     Object? timezone = freezed,
   }) {
-    return _then(_$_SncfContext(
+    return _then(_$SncfContextImpl(
       dateTime: freezed == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -107,11 +107,11 @@ class __$$_SncfContextCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SncfContext implements _SncfContext {
-  const _$_SncfContext({this.dateTime, this.timezone});
+class _$SncfContextImpl implements _SncfContext {
+  const _$SncfContextImpl({this.dateTime, this.timezone});
 
-  factory _$_SncfContext.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfContextFromJson(json);
+  factory _$SncfContextImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfContextImplFromJson(json);
 
   @override
   final DateTime? dateTime;
@@ -127,7 +127,7 @@ class _$_SncfContext implements _SncfContext {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfContext &&
+            other is _$SncfContextImpl &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
             (identical(other.timezone, timezone) ||
@@ -141,12 +141,12 @@ class _$_SncfContext implements _SncfContext {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfContextCopyWith<_$_SncfContext> get copyWith =>
-      __$$_SncfContextCopyWithImpl<_$_SncfContext>(this, _$identity);
+  _$$SncfContextImplCopyWith<_$SncfContextImpl> get copyWith =>
+      __$$SncfContextImplCopyWithImpl<_$SncfContextImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfContextToJson(
+    return _$$SncfContextImplToJson(
       this,
     );
   }
@@ -154,10 +154,10 @@ class _$_SncfContext implements _SncfContext {
 
 abstract class _SncfContext implements SncfContext {
   const factory _SncfContext(
-      {final DateTime? dateTime, final String? timezone}) = _$_SncfContext;
+      {final DateTime? dateTime, final String? timezone}) = _$SncfContextImpl;
 
   factory _SncfContext.fromJson(Map<String, dynamic> json) =
-      _$_SncfContext.fromJson;
+      _$SncfContextImpl.fromJson;
 
   @override
   DateTime? get dateTime;
@@ -165,6 +165,6 @@ abstract class _SncfContext implements SncfContext {
   String? get timezone;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfContextCopyWith<_$_SncfContext> get copyWith =>
+  _$$SncfContextImplCopyWith<_$SncfContextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

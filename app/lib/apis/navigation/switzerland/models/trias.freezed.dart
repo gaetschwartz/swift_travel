@@ -110,11 +110,11 @@ class _$TriasLocationCopyWithImpl<$Res, $Val extends TriasLocation>
 }
 
 /// @nodoc
-abstract class _$$_TriasLocationCopyWith<$Res>
+abstract class _$$TriasLocationImplCopyWith<$Res>
     implements $TriasLocationCopyWith<$Res> {
-  factory _$$_TriasLocationCopyWith(
-          _$_TriasLocation value, $Res Function(_$_TriasLocation) then) =
-      __$$_TriasLocationCopyWithImpl<$Res>;
+  factory _$$TriasLocationImplCopyWith(
+          _$TriasLocationImpl value, $Res Function(_$TriasLocationImpl) then) =
+      __$$TriasLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -131,11 +131,11 @@ abstract class _$$_TriasLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TriasLocationCopyWithImpl<$Res>
-    extends _$TriasLocationCopyWithImpl<$Res, _$_TriasLocation>
-    implements _$$_TriasLocationCopyWith<$Res> {
-  __$$_TriasLocationCopyWithImpl(
-      _$_TriasLocation _value, $Res Function(_$_TriasLocation) _then)
+class __$$TriasLocationImplCopyWithImpl<$Res>
+    extends _$TriasLocationCopyWithImpl<$Res, _$TriasLocationImpl>
+    implements _$$TriasLocationImplCopyWith<$Res> {
+  __$$TriasLocationImplCopyWithImpl(
+      _$TriasLocationImpl _value, $Res Function(_$TriasLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -149,7 +149,7 @@ class __$$_TriasLocationCopyWithImpl<$Res>
     Object? modes = null,
     Object? dist = freezed,
   }) {
-    return _then(_$_TriasLocation(
+    return _then(_$TriasLocationImpl(
       stopPointName: freezed == stopPointName
           ? _value.stopPointName
           : stopPointName // ignore: cast_nullable_to_non_nullable
@@ -184,8 +184,8 @@ class __$$_TriasLocationCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasLocation extends _TriasLocation {
-  const _$_TriasLocation(
+class _$TriasLocationImpl extends _TriasLocation {
+  const _$TriasLocationImpl(
       {required this.stopPointName,
       required this.stopPointRef,
       required this.geoPosition,
@@ -227,7 +227,7 @@ class _$_TriasLocation extends _TriasLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasLocation &&
+            other is _$TriasLocationImpl &&
             (identical(other.stopPointName, stopPointName) ||
                 other.stopPointName == stopPointName) &&
             (identical(other.stopPointRef, stopPointRef) ||
@@ -256,8 +256,8 @@ class _$_TriasLocation extends _TriasLocation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasLocationCopyWith<_$_TriasLocation> get copyWith =>
-      __$$_TriasLocationCopyWithImpl<_$_TriasLocation>(this, _$identity);
+  _$$TriasLocationImplCopyWith<_$TriasLocationImpl> get copyWith =>
+      __$$TriasLocationImplCopyWithImpl<_$TriasLocationImpl>(this, _$identity);
 }
 
 abstract class _TriasLocation extends TriasLocation {
@@ -268,7 +268,7 @@ abstract class _TriasLocation extends TriasLocation {
       required final bool complete,
       final double? probability,
       final List<TriasPtMode> modes,
-      final double? dist}) = _$_TriasLocation;
+      final double? dist}) = _$TriasLocationImpl;
   const _TriasLocation._() : super._();
 
   @override
@@ -287,7 +287,7 @@ abstract class _TriasLocation extends TriasLocation {
   double? get dist;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasLocationCopyWith<_$_TriasLocation> get copyWith =>
+  _$$TriasLocationImplCopyWith<_$TriasLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -340,22 +340,22 @@ class _$TriasPtModeCopyWithImpl<$Res, $Val extends TriasPtMode>
 }
 
 /// @nodoc
-abstract class _$$_TriasPtModeCopyWith<$Res>
+abstract class _$$TriasPtModeImplCopyWith<$Res>
     implements $TriasPtModeCopyWith<$Res> {
-  factory _$$_TriasPtModeCopyWith(
-          _$_TriasPtMode value, $Res Function(_$_TriasPtMode) then) =
-      __$$_TriasPtModeCopyWithImpl<$Res>;
+  factory _$$TriasPtModeImplCopyWith(
+          _$TriasPtModeImpl value, $Res Function(_$TriasPtModeImpl) then) =
+      __$$TriasPtModeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String mode, String? submode});
 }
 
 /// @nodoc
-class __$$_TriasPtModeCopyWithImpl<$Res>
-    extends _$TriasPtModeCopyWithImpl<$Res, _$_TriasPtMode>
-    implements _$$_TriasPtModeCopyWith<$Res> {
-  __$$_TriasPtModeCopyWithImpl(
-      _$_TriasPtMode _value, $Res Function(_$_TriasPtMode) _then)
+class __$$TriasPtModeImplCopyWithImpl<$Res>
+    extends _$TriasPtModeCopyWithImpl<$Res, _$TriasPtModeImpl>
+    implements _$$TriasPtModeImplCopyWith<$Res> {
+  __$$TriasPtModeImplCopyWithImpl(
+      _$TriasPtModeImpl _value, $Res Function(_$TriasPtModeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -364,7 +364,7 @@ class __$$_TriasPtModeCopyWithImpl<$Res>
     Object? mode = null,
     Object? submode = freezed,
   }) {
-    return _then(_$_TriasPtMode(
+    return _then(_$TriasPtModeImpl(
       null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
@@ -379,8 +379,8 @@ class __$$_TriasPtModeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasPtMode implements _TriasPtMode {
-  const _$_TriasPtMode(this.mode, this.submode);
+class _$TriasPtModeImpl implements _TriasPtMode {
+  const _$TriasPtModeImpl(this.mode, this.submode);
 
   @override
   final String mode;
@@ -396,7 +396,7 @@ class _$_TriasPtMode implements _TriasPtMode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasPtMode &&
+            other is _$TriasPtModeImpl &&
             (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.submode, submode) || other.submode == submode));
   }
@@ -407,13 +407,13 @@ class _$_TriasPtMode implements _TriasPtMode {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasPtModeCopyWith<_$_TriasPtMode> get copyWith =>
-      __$$_TriasPtModeCopyWithImpl<_$_TriasPtMode>(this, _$identity);
+  _$$TriasPtModeImplCopyWith<_$TriasPtModeImpl> get copyWith =>
+      __$$TriasPtModeImplCopyWithImpl<_$TriasPtModeImpl>(this, _$identity);
 }
 
 abstract class _TriasPtMode implements TriasPtMode {
   const factory _TriasPtMode(final String mode, final String? submode) =
-      _$_TriasPtMode;
+      _$TriasPtModeImpl;
 
   @override
   String get mode;
@@ -421,7 +421,7 @@ abstract class _TriasPtMode implements TriasPtMode {
   String? get submode;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasPtModeCopyWith<_$_TriasPtMode> get copyWith =>
+  _$$TriasPtModeImplCopyWith<_$TriasPtModeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -517,11 +517,11 @@ class _$TriasStationBoardCopyWithImpl<$Res, $Val extends TriasStationBoard>
 }
 
 /// @nodoc
-abstract class _$$_TriasStationBoardCopyWith<$Res>
+abstract class _$$TriasStationBoardImplCopyWith<$Res>
     implements $TriasStationBoardCopyWith<$Res> {
-  factory _$$_TriasStationBoardCopyWith(_$_TriasStationBoard value,
-          $Res Function(_$_TriasStationBoard) then) =
-      __$$_TriasStationBoardCopyWithImpl<$Res>;
+  factory _$$TriasStationBoardImplCopyWith(_$TriasStationBoardImpl value,
+          $Res Function(_$TriasStationBoardImpl) then) =
+      __$$TriasStationBoardImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -538,11 +538,11 @@ abstract class _$$_TriasStationBoardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TriasStationBoardCopyWithImpl<$Res>
-    extends _$TriasStationBoardCopyWithImpl<$Res, _$_TriasStationBoard>
-    implements _$$_TriasStationBoardCopyWith<$Res> {
-  __$$_TriasStationBoardCopyWithImpl(
-      _$_TriasStationBoard _value, $Res Function(_$_TriasStationBoard) _then)
+class __$$TriasStationBoardImplCopyWithImpl<$Res>
+    extends _$TriasStationBoardCopyWithImpl<$Res, _$TriasStationBoardImpl>
+    implements _$$TriasStationBoardImplCopyWith<$Res> {
+  __$$TriasStationBoardImplCopyWithImpl(_$TriasStationBoardImpl _value,
+      $Res Function(_$TriasStationBoardImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -554,7 +554,7 @@ class __$$_TriasStationBoardCopyWithImpl<$Res>
     Object? thisCall = null,
     Object? onwardCalls = null,
   }) {
-    return _then(_$_TriasStationBoard(
+    return _then(_$TriasStationBoardImpl(
       stop: null == stop
           ? _value.stop
           : stop // ignore: cast_nullable_to_non_nullable
@@ -581,8 +581,8 @@ class __$$_TriasStationBoardCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasStationBoard extends _TriasStationBoard {
-  const _$_TriasStationBoard(
+class _$TriasStationBoardImpl extends _TriasStationBoard {
+  const _$TriasStationBoardImpl(
       {required this.stop,
       required this.service,
       required final List<TriasPreviousCall> previousCalls,
@@ -623,7 +623,7 @@ class _$_TriasStationBoard extends _TriasStationBoard {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasStationBoard &&
+            other is _$TriasStationBoardImpl &&
             (identical(other.stop, stop) || other.stop == stop) &&
             (identical(other.service, service) || other.service == service) &&
             const DeepCollectionEquality()
@@ -646,18 +646,19 @@ class _$_TriasStationBoard extends _TriasStationBoard {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasStationBoardCopyWith<_$_TriasStationBoard> get copyWith =>
-      __$$_TriasStationBoardCopyWithImpl<_$_TriasStationBoard>(
+  _$$TriasStationBoardImplCopyWith<_$TriasStationBoardImpl> get copyWith =>
+      __$$TriasStationBoardImplCopyWithImpl<_$TriasStationBoardImpl>(
           this, _$identity);
 }
 
 abstract class _TriasStationBoard extends TriasStationBoard {
   const factory _TriasStationBoard(
-      {required final Stop stop,
-      required final TriasService service,
-      required final List<TriasPreviousCall> previousCalls,
-      required final TriasThisCall thisCall,
-      required final List<TriasOnwardCall> onwardCalls}) = _$_TriasStationBoard;
+          {required final Stop stop,
+          required final TriasService service,
+          required final List<TriasPreviousCall> previousCalls,
+          required final TriasThisCall thisCall,
+          required final List<TriasOnwardCall> onwardCalls}) =
+      _$TriasStationBoardImpl;
   const _TriasStationBoard._() : super._();
 
   @override
@@ -672,7 +673,7 @@ abstract class _TriasStationBoard extends TriasStationBoard {
   List<TriasOnwardCall> get onwardCalls;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasStationBoardCopyWith<_$_TriasStationBoard> get copyWith =>
+  _$$TriasStationBoardImplCopyWith<_$TriasStationBoardImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -797,11 +798,11 @@ class _$TriasServiceCopyWithImpl<$Res, $Val extends TriasService>
 }
 
 /// @nodoc
-abstract class _$$_TriasServiceCopyWith<$Res>
+abstract class _$$TriasServiceImplCopyWith<$Res>
     implements $TriasServiceCopyWith<$Res> {
-  factory _$$_TriasServiceCopyWith(
-          _$_TriasService value, $Res Function(_$_TriasService) then) =
-      __$$_TriasServiceCopyWithImpl<$Res>;
+  factory _$$TriasServiceImplCopyWith(
+          _$TriasServiceImpl value, $Res Function(_$TriasServiceImpl) then) =
+      __$$TriasServiceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -820,11 +821,11 @@ abstract class _$$_TriasServiceCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TriasServiceCopyWithImpl<$Res>
-    extends _$TriasServiceCopyWithImpl<$Res, _$_TriasService>
-    implements _$$_TriasServiceCopyWith<$Res> {
-  __$$_TriasServiceCopyWithImpl(
-      _$_TriasService _value, $Res Function(_$_TriasService) _then)
+class __$$TriasServiceImplCopyWithImpl<$Res>
+    extends _$TriasServiceCopyWithImpl<$Res, _$TriasServiceImpl>
+    implements _$$TriasServiceImplCopyWith<$Res> {
+  __$$TriasServiceImplCopyWithImpl(
+      _$TriasServiceImpl _value, $Res Function(_$TriasServiceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -843,7 +844,7 @@ class __$$_TriasServiceCopyWithImpl<$Res>
     Object? destinationStopPointRef = null,
     Object? destinationText = null,
   }) {
-    return _then(_$_TriasService(
+    return _then(_$TriasServiceImpl(
       operatingDayRef: null == operatingDayRef
           ? _value.operatingDayRef
           : operatingDayRef // ignore: cast_nullable_to_non_nullable
@@ -898,8 +899,8 @@ class __$$_TriasServiceCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasService implements _TriasService {
-  const _$_TriasService(
+class _$TriasServiceImpl implements _TriasService {
+  const _$TriasServiceImpl(
       {required this.operatingDayRef,
       required this.journeyRef,
       required this.lineRef,
@@ -961,7 +962,7 @@ class _$_TriasService implements _TriasService {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasService &&
+            other is _$TriasServiceImpl &&
             (identical(other.operatingDayRef, operatingDayRef) ||
                 other.operatingDayRef == operatingDayRef) &&
             (identical(other.journeyRef, journeyRef) ||
@@ -1006,8 +1007,8 @@ class _$_TriasService implements _TriasService {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasServiceCopyWith<_$_TriasService> get copyWith =>
-      __$$_TriasServiceCopyWithImpl<_$_TriasService>(this, _$identity);
+  _$$TriasServiceImplCopyWith<_$TriasServiceImpl> get copyWith =>
+      __$$TriasServiceImplCopyWithImpl<_$TriasServiceImpl>(this, _$identity);
 }
 
 abstract class _TriasService implements TriasService {
@@ -1023,7 +1024,7 @@ abstract class _TriasService implements TriasService {
       required final String originStopPointRef,
       required final String originText,
       required final String destinationStopPointRef,
-      required final String destinationText}) = _$_TriasService;
+      required final String destinationText}) = _$TriasServiceImpl;
 
   @override
   String get operatingDayRef;
@@ -1051,7 +1052,7 @@ abstract class _TriasService implements TriasService {
   String get destinationText;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasServiceCopyWith<_$_TriasService> get copyWith =>
+  _$$TriasServiceImplCopyWith<_$TriasServiceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1115,21 +1116,22 @@ class _$TriasModeCopyWithImpl<$Res, $Val extends TriasMode>
 }
 
 /// @nodoc
-abstract class _$$_TriasModeCopyWith<$Res> implements $TriasModeCopyWith<$Res> {
-  factory _$$_TriasModeCopyWith(
-          _$_TriasMode value, $Res Function(_$_TriasMode) then) =
-      __$$_TriasModeCopyWithImpl<$Res>;
+abstract class _$$TriasModeImplCopyWith<$Res>
+    implements $TriasModeCopyWith<$Res> {
+  factory _$$TriasModeImplCopyWith(
+          _$TriasModeImpl value, $Res Function(_$TriasModeImpl) then) =
+      __$$TriasModeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String mode, String? submode, String? name, String? language});
 }
 
 /// @nodoc
-class __$$_TriasModeCopyWithImpl<$Res>
-    extends _$TriasModeCopyWithImpl<$Res, _$_TriasMode>
-    implements _$$_TriasModeCopyWith<$Res> {
-  __$$_TriasModeCopyWithImpl(
-      _$_TriasMode _value, $Res Function(_$_TriasMode) _then)
+class __$$TriasModeImplCopyWithImpl<$Res>
+    extends _$TriasModeCopyWithImpl<$Res, _$TriasModeImpl>
+    implements _$$TriasModeImplCopyWith<$Res> {
+  __$$TriasModeImplCopyWithImpl(
+      _$TriasModeImpl _value, $Res Function(_$TriasModeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1140,7 +1142,7 @@ class __$$_TriasModeCopyWithImpl<$Res>
     Object? name = freezed,
     Object? language = freezed,
   }) {
-    return _then(_$_TriasMode(
+    return _then(_$TriasModeImpl(
       null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
@@ -1163,8 +1165,8 @@ class __$$_TriasModeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasMode implements _TriasMode {
-  const _$_TriasMode(this.mode, {this.submode, this.name, this.language});
+class _$TriasModeImpl implements _TriasMode {
+  const _$TriasModeImpl(this.mode, {this.submode, this.name, this.language});
 
   @override
   final String mode;
@@ -1184,7 +1186,7 @@ class _$_TriasMode implements _TriasMode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasMode &&
+            other is _$TriasModeImpl &&
             (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.submode, submode) || other.submode == submode) &&
             (identical(other.name, name) || other.name == name) &&
@@ -1198,15 +1200,15 @@ class _$_TriasMode implements _TriasMode {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasModeCopyWith<_$_TriasMode> get copyWith =>
-      __$$_TriasModeCopyWithImpl<_$_TriasMode>(this, _$identity);
+  _$$TriasModeImplCopyWith<_$TriasModeImpl> get copyWith =>
+      __$$TriasModeImplCopyWithImpl<_$TriasModeImpl>(this, _$identity);
 }
 
 abstract class _TriasMode implements TriasMode {
   const factory _TriasMode(final String mode,
       {final String? submode,
       final String? name,
-      final String? language}) = _$_TriasMode;
+      final String? language}) = _$TriasModeImpl;
 
   @override
   String get mode;
@@ -1218,7 +1220,7 @@ abstract class _TriasMode implements TriasMode {
   String? get language;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasModeCopyWith<_$_TriasMode> get copyWith =>
+  _$$TriasModeImplCopyWith<_$TriasModeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1271,22 +1273,22 @@ class _$TriasAttributeCopyWithImpl<$Res, $Val extends TriasAttribute>
 }
 
 /// @nodoc
-abstract class _$$_TriasAttributeCopyWith<$Res>
+abstract class _$$TriasAttributeImplCopyWith<$Res>
     implements $TriasAttributeCopyWith<$Res> {
-  factory _$$_TriasAttributeCopyWith(
-          _$_TriasAttribute value, $Res Function(_$_TriasAttribute) then) =
-      __$$_TriasAttributeCopyWithImpl<$Res>;
+  factory _$$TriasAttributeImplCopyWith(_$TriasAttributeImpl value,
+          $Res Function(_$TriasAttributeImpl) then) =
+      __$$TriasAttributeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String code, String text});
 }
 
 /// @nodoc
-class __$$_TriasAttributeCopyWithImpl<$Res>
-    extends _$TriasAttributeCopyWithImpl<$Res, _$_TriasAttribute>
-    implements _$$_TriasAttributeCopyWith<$Res> {
-  __$$_TriasAttributeCopyWithImpl(
-      _$_TriasAttribute _value, $Res Function(_$_TriasAttribute) _then)
+class __$$TriasAttributeImplCopyWithImpl<$Res>
+    extends _$TriasAttributeCopyWithImpl<$Res, _$TriasAttributeImpl>
+    implements _$$TriasAttributeImplCopyWith<$Res> {
+  __$$TriasAttributeImplCopyWithImpl(
+      _$TriasAttributeImpl _value, $Res Function(_$TriasAttributeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1295,7 +1297,7 @@ class __$$_TriasAttributeCopyWithImpl<$Res>
     Object? code = null,
     Object? text = null,
   }) {
-    return _then(_$_TriasAttribute(
+    return _then(_$TriasAttributeImpl(
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -1310,8 +1312,8 @@ class __$$_TriasAttributeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasAttribute implements _TriasAttribute {
-  const _$_TriasAttribute({required this.code, required this.text});
+class _$TriasAttributeImpl implements _TriasAttribute {
+  const _$TriasAttributeImpl({required this.code, required this.text});
 
   @override
   final String code;
@@ -1327,7 +1329,7 @@ class _$_TriasAttribute implements _TriasAttribute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasAttribute &&
+            other is _$TriasAttributeImpl &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.text, text) || other.text == text));
   }
@@ -1338,14 +1340,15 @@ class _$_TriasAttribute implements _TriasAttribute {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasAttributeCopyWith<_$_TriasAttribute> get copyWith =>
-      __$$_TriasAttributeCopyWithImpl<_$_TriasAttribute>(this, _$identity);
+  _$$TriasAttributeImplCopyWith<_$TriasAttributeImpl> get copyWith =>
+      __$$TriasAttributeImplCopyWithImpl<_$TriasAttributeImpl>(
+          this, _$identity);
 }
 
 abstract class _TriasAttribute implements TriasAttribute {
   const factory _TriasAttribute(
       {required final String code,
-      required final String text}) = _$_TriasAttribute;
+      required final String text}) = _$TriasAttributeImpl;
 
   @override
   String get code;
@@ -1353,7 +1356,7 @@ abstract class _TriasAttribute implements TriasAttribute {
   String get text;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasAttributeCopyWith<_$_TriasAttribute> get copyWith =>
+  _$$TriasAttributeImplCopyWith<_$TriasAttributeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1439,11 +1442,11 @@ class _$TriasOnwardCallCopyWithImpl<$Res, $Val extends TriasOnwardCall>
 }
 
 /// @nodoc
-abstract class _$$_TriasOnwardCallCopyWith<$Res>
+abstract class _$$TriasOnwardCallImplCopyWith<$Res>
     implements $TriasOnwardCallCopyWith<$Res> {
-  factory _$$_TriasOnwardCallCopyWith(
-          _$_TriasOnwardCall value, $Res Function(_$_TriasOnwardCall) then) =
-      __$$_TriasOnwardCallCopyWithImpl<$Res>;
+  factory _$$TriasOnwardCallImplCopyWith(_$TriasOnwardCallImpl value,
+          $Res Function(_$TriasOnwardCallImpl) then) =
+      __$$TriasOnwardCallImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1458,11 +1461,11 @@ abstract class _$$_TriasOnwardCallCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TriasOnwardCallCopyWithImpl<$Res>
-    extends _$TriasOnwardCallCopyWithImpl<$Res, _$_TriasOnwardCall>
-    implements _$$_TriasOnwardCallCopyWith<$Res> {
-  __$$_TriasOnwardCallCopyWithImpl(
-      _$_TriasOnwardCall _value, $Res Function(_$_TriasOnwardCall) _then)
+class __$$TriasOnwardCallImplCopyWithImpl<$Res>
+    extends _$TriasOnwardCallCopyWithImpl<$Res, _$TriasOnwardCallImpl>
+    implements _$$TriasOnwardCallImplCopyWith<$Res> {
+  __$$TriasOnwardCallImplCopyWithImpl(
+      _$TriasOnwardCallImpl _value, $Res Function(_$TriasOnwardCallImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1474,7 +1477,7 @@ class __$$_TriasOnwardCallCopyWithImpl<$Res>
     Object? serviceArrival = null,
     Object? stopSeqNumber = null,
   }) {
-    return _then(_$_TriasOnwardCall(
+    return _then(_$TriasOnwardCallImpl(
       stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
@@ -1501,8 +1504,8 @@ class __$$_TriasOnwardCallCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasOnwardCall extends _TriasOnwardCall {
-  const _$_TriasOnwardCall(
+class _$TriasOnwardCallImpl extends _TriasOnwardCall {
+  const _$TriasOnwardCallImpl(
       {required this.stopPointRef,
       required this.stopPointName,
       required this.plannedBay,
@@ -1530,7 +1533,7 @@ class _$_TriasOnwardCall extends _TriasOnwardCall {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasOnwardCall &&
+            other is _$TriasOnwardCallImpl &&
             (identical(other.stopPointRef, stopPointRef) ||
                 other.stopPointRef == stopPointRef) &&
             (identical(other.stopPointName, stopPointName) ||
@@ -1550,8 +1553,9 @@ class _$_TriasOnwardCall extends _TriasOnwardCall {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasOnwardCallCopyWith<_$_TriasOnwardCall> get copyWith =>
-      __$$_TriasOnwardCallCopyWithImpl<_$_TriasOnwardCall>(this, _$identity);
+  _$$TriasOnwardCallImplCopyWith<_$TriasOnwardCallImpl> get copyWith =>
+      __$$TriasOnwardCallImplCopyWithImpl<_$TriasOnwardCallImpl>(
+          this, _$identity);
 }
 
 abstract class _TriasOnwardCall extends TriasOnwardCall {
@@ -1560,7 +1564,7 @@ abstract class _TriasOnwardCall extends TriasOnwardCall {
       required final String stopPointName,
       required final String plannedBay,
       required final TriasServiceTime serviceArrival,
-      required final String stopSeqNumber}) = _$_TriasOnwardCall;
+      required final String stopSeqNumber}) = _$TriasOnwardCallImpl;
   const _TriasOnwardCall._() : super._();
 
   @override
@@ -1575,7 +1579,7 @@ abstract class _TriasOnwardCall extends TriasOnwardCall {
   String get stopSeqNumber;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasOnwardCallCopyWith<_$_TriasOnwardCall> get copyWith =>
+  _$$TriasOnwardCallImplCopyWith<_$TriasOnwardCallImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1628,22 +1632,22 @@ class _$TriasServiceTimeCopyWithImpl<$Res, $Val extends TriasServiceTime>
 }
 
 /// @nodoc
-abstract class _$$_TriasServiceTimeCopyWith<$Res>
+abstract class _$$TriasServiceTimeImplCopyWith<$Res>
     implements $TriasServiceTimeCopyWith<$Res> {
-  factory _$$_TriasServiceTimeCopyWith(
-          _$_TriasServiceTime value, $Res Function(_$_TriasServiceTime) then) =
-      __$$_TriasServiceTimeCopyWithImpl<$Res>;
+  factory _$$TriasServiceTimeImplCopyWith(_$TriasServiceTimeImpl value,
+          $Res Function(_$TriasServiceTimeImpl) then) =
+      __$$TriasServiceTimeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime timetabledTime, DateTime estimatedTime});
 }
 
 /// @nodoc
-class __$$_TriasServiceTimeCopyWithImpl<$Res>
-    extends _$TriasServiceTimeCopyWithImpl<$Res, _$_TriasServiceTime>
-    implements _$$_TriasServiceTimeCopyWith<$Res> {
-  __$$_TriasServiceTimeCopyWithImpl(
-      _$_TriasServiceTime _value, $Res Function(_$_TriasServiceTime) _then)
+class __$$TriasServiceTimeImplCopyWithImpl<$Res>
+    extends _$TriasServiceTimeCopyWithImpl<$Res, _$TriasServiceTimeImpl>
+    implements _$$TriasServiceTimeImplCopyWith<$Res> {
+  __$$TriasServiceTimeImplCopyWithImpl(_$TriasServiceTimeImpl _value,
+      $Res Function(_$TriasServiceTimeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1652,7 +1656,7 @@ class __$$_TriasServiceTimeCopyWithImpl<$Res>
     Object? timetabledTime = null,
     Object? estimatedTime = null,
   }) {
-    return _then(_$_TriasServiceTime(
+    return _then(_$TriasServiceTimeImpl(
       timetabledTime: null == timetabledTime
           ? _value.timetabledTime
           : timetabledTime // ignore: cast_nullable_to_non_nullable
@@ -1667,8 +1671,8 @@ class __$$_TriasServiceTimeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasServiceTime extends _TriasServiceTime {
-  const _$_TriasServiceTime(
+class _$TriasServiceTimeImpl extends _TriasServiceTime {
+  const _$TriasServiceTimeImpl(
       {required this.timetabledTime, required this.estimatedTime})
       : super._();
 
@@ -1686,7 +1690,7 @@ class _$_TriasServiceTime extends _TriasServiceTime {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasServiceTime &&
+            other is _$TriasServiceTimeImpl &&
             (identical(other.timetabledTime, timetabledTime) ||
                 other.timetabledTime == timetabledTime) &&
             (identical(other.estimatedTime, estimatedTime) ||
@@ -1699,14 +1703,15 @@ class _$_TriasServiceTime extends _TriasServiceTime {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasServiceTimeCopyWith<_$_TriasServiceTime> get copyWith =>
-      __$$_TriasServiceTimeCopyWithImpl<_$_TriasServiceTime>(this, _$identity);
+  _$$TriasServiceTimeImplCopyWith<_$TriasServiceTimeImpl> get copyWith =>
+      __$$TriasServiceTimeImplCopyWithImpl<_$TriasServiceTimeImpl>(
+          this, _$identity);
 }
 
 abstract class _TriasServiceTime extends TriasServiceTime {
   const factory _TriasServiceTime(
       {required final DateTime timetabledTime,
-      required final DateTime estimatedTime}) = _$_TriasServiceTime;
+      required final DateTime estimatedTime}) = _$TriasServiceTimeImpl;
   const _TriasServiceTime._() : super._();
 
   @override
@@ -1715,7 +1720,7 @@ abstract class _TriasServiceTime extends TriasServiceTime {
   DateTime get estimatedTime;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasServiceTimeCopyWith<_$_TriasServiceTime> get copyWith =>
+  _$$TriasServiceTimeImplCopyWith<_$TriasServiceTimeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1817,11 +1822,11 @@ class _$TriasPreviousCallCopyWithImpl<$Res, $Val extends TriasPreviousCall>
 }
 
 /// @nodoc
-abstract class _$$_TriasPreviousCallCopyWith<$Res>
+abstract class _$$TriasPreviousCallImplCopyWith<$Res>
     implements $TriasPreviousCallCopyWith<$Res> {
-  factory _$$_TriasPreviousCallCopyWith(_$_TriasPreviousCall value,
-          $Res Function(_$_TriasPreviousCall) then) =
-      __$$_TriasPreviousCallCopyWithImpl<$Res>;
+  factory _$$TriasPreviousCallImplCopyWith(_$TriasPreviousCallImpl value,
+          $Res Function(_$TriasPreviousCallImpl) then) =
+      __$$TriasPreviousCallImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1839,11 +1844,11 @@ abstract class _$$_TriasPreviousCallCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TriasPreviousCallCopyWithImpl<$Res>
-    extends _$TriasPreviousCallCopyWithImpl<$Res, _$_TriasPreviousCall>
-    implements _$$_TriasPreviousCallCopyWith<$Res> {
-  __$$_TriasPreviousCallCopyWithImpl(
-      _$_TriasPreviousCall _value, $Res Function(_$_TriasPreviousCall) _then)
+class __$$TriasPreviousCallImplCopyWithImpl<$Res>
+    extends _$TriasPreviousCallCopyWithImpl<$Res, _$TriasPreviousCallImpl>
+    implements _$$TriasPreviousCallImplCopyWith<$Res> {
+  __$$TriasPreviousCallImplCopyWithImpl(_$TriasPreviousCallImpl _value,
+      $Res Function(_$TriasPreviousCallImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1856,7 +1861,7 @@ class __$$_TriasPreviousCallCopyWithImpl<$Res>
     Object? serviceDeparture = null,
     Object? stopSeqNumber = null,
   }) {
-    return _then(_$_TriasPreviousCall(
+    return _then(_$TriasPreviousCallImpl(
       stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
@@ -1887,8 +1892,8 @@ class __$$_TriasPreviousCallCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasPreviousCall extends _TriasPreviousCall {
-  const _$_TriasPreviousCall(
+class _$TriasPreviousCallImpl extends _TriasPreviousCall {
+  const _$TriasPreviousCallImpl(
       {required this.stopPointRef,
       required this.stopPointName,
       required this.plannedBay,
@@ -1919,7 +1924,7 @@ class _$_TriasPreviousCall extends _TriasPreviousCall {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasPreviousCall &&
+            other is _$TriasPreviousCallImpl &&
             (identical(other.stopPointRef, stopPointRef) ||
                 other.stopPointRef == stopPointRef) &&
             (identical(other.stopPointName, stopPointName) ||
@@ -1941,8 +1946,8 @@ class _$_TriasPreviousCall extends _TriasPreviousCall {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasPreviousCallCopyWith<_$_TriasPreviousCall> get copyWith =>
-      __$$_TriasPreviousCallCopyWithImpl<_$_TriasPreviousCall>(
+  _$$TriasPreviousCallImplCopyWith<_$TriasPreviousCallImpl> get copyWith =>
+      __$$TriasPreviousCallImplCopyWithImpl<_$TriasPreviousCallImpl>(
           this, _$identity);
 }
 
@@ -1953,7 +1958,7 @@ abstract class _TriasPreviousCall extends TriasPreviousCall {
       required final String plannedBay,
       required final TriasServiceTime serviceArrival,
       required final TriasServiceTime serviceDeparture,
-      required final String stopSeqNumber}) = _$_TriasPreviousCall;
+      required final String stopSeqNumber}) = _$TriasPreviousCallImpl;
   const _TriasPreviousCall._() : super._();
 
   @override
@@ -1970,7 +1975,7 @@ abstract class _TriasPreviousCall extends TriasPreviousCall {
   String get stopSeqNumber;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasPreviousCallCopyWith<_$_TriasPreviousCall> get copyWith =>
+  _$$TriasPreviousCallImplCopyWith<_$TriasPreviousCallImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2063,11 +2068,11 @@ class _$TriasThisCallCopyWithImpl<$Res, $Val extends TriasThisCall>
 }
 
 /// @nodoc
-abstract class _$$_TriasThisCallCopyWith<$Res>
+abstract class _$$TriasThisCallImplCopyWith<$Res>
     implements $TriasThisCallCopyWith<$Res> {
-  factory _$$_TriasThisCallCopyWith(
-          _$_TriasThisCall value, $Res Function(_$_TriasThisCall) then) =
-      __$$_TriasThisCallCopyWithImpl<$Res>;
+  factory _$$TriasThisCallImplCopyWith(
+          _$TriasThisCallImpl value, $Res Function(_$TriasThisCallImpl) then) =
+      __$$TriasThisCallImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2083,11 +2088,11 @@ abstract class _$$_TriasThisCallCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TriasThisCallCopyWithImpl<$Res>
-    extends _$TriasThisCallCopyWithImpl<$Res, _$_TriasThisCall>
-    implements _$$_TriasThisCallCopyWith<$Res> {
-  __$$_TriasThisCallCopyWithImpl(
-      _$_TriasThisCall _value, $Res Function(_$_TriasThisCall) _then)
+class __$$TriasThisCallImplCopyWithImpl<$Res>
+    extends _$TriasThisCallCopyWithImpl<$Res, _$TriasThisCallImpl>
+    implements _$$TriasThisCallImplCopyWith<$Res> {
+  __$$TriasThisCallImplCopyWithImpl(
+      _$TriasThisCallImpl _value, $Res Function(_$TriasThisCallImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2100,7 +2105,7 @@ class __$$_TriasThisCallCopyWithImpl<$Res>
     Object? serviceDeparture = null,
     Object? stopSeqNumber = null,
   }) {
-    return _then(_$_TriasThisCall(
+    return _then(_$TriasThisCallImpl(
       stopPointRef: null == stopPointRef
           ? _value.stopPointRef
           : stopPointRef // ignore: cast_nullable_to_non_nullable
@@ -2131,8 +2136,8 @@ class __$$_TriasThisCallCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasThisCall extends _TriasThisCall {
-  const _$_TriasThisCall(
+class _$TriasThisCallImpl extends _TriasThisCall {
+  const _$TriasThisCallImpl(
       {required this.stopPointRef,
       required this.stopPointName,
       required this.plannedBay,
@@ -2163,7 +2168,7 @@ class _$_TriasThisCall extends _TriasThisCall {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasThisCall &&
+            other is _$TriasThisCallImpl &&
             (identical(other.stopPointRef, stopPointRef) ||
                 other.stopPointRef == stopPointRef) &&
             (identical(other.stopPointName, stopPointName) ||
@@ -2185,8 +2190,8 @@ class _$_TriasThisCall extends _TriasThisCall {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasThisCallCopyWith<_$_TriasThisCall> get copyWith =>
-      __$$_TriasThisCallCopyWithImpl<_$_TriasThisCall>(this, _$identity);
+  _$$TriasThisCallImplCopyWith<_$TriasThisCallImpl> get copyWith =>
+      __$$TriasThisCallImplCopyWithImpl<_$TriasThisCallImpl>(this, _$identity);
 }
 
 abstract class _TriasThisCall extends TriasThisCall {
@@ -2196,7 +2201,7 @@ abstract class _TriasThisCall extends TriasThisCall {
       required final String plannedBay,
       required final String estimatedBay,
       required final TriasServiceTime serviceDeparture,
-      required final String stopSeqNumber}) = _$_TriasThisCall;
+      required final String stopSeqNumber}) = _$TriasThisCallImpl;
   const _TriasThisCall._() : super._();
 
   @override
@@ -2213,7 +2218,7 @@ abstract class _TriasThisCall extends TriasThisCall {
   String get stopSeqNumber;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasThisCallCopyWith<_$_TriasThisCall> get copyWith =>
+  _$$TriasThisCallImplCopyWith<_$TriasThisCallImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2266,22 +2271,22 @@ class _$TriasGeoPositionCopyWithImpl<$Res, $Val extends TriasGeoPosition>
 }
 
 /// @nodoc
-abstract class _$$_TriasGeoPositionCopyWith<$Res>
+abstract class _$$TriasGeoPositionImplCopyWith<$Res>
     implements $TriasGeoPositionCopyWith<$Res> {
-  factory _$$_TriasGeoPositionCopyWith(
-          _$_TriasGeoPosition value, $Res Function(_$_TriasGeoPosition) then) =
-      __$$_TriasGeoPositionCopyWithImpl<$Res>;
+  factory _$$TriasGeoPositionImplCopyWith(_$TriasGeoPositionImpl value,
+          $Res Function(_$TriasGeoPositionImpl) then) =
+      __$$TriasGeoPositionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
-class __$$_TriasGeoPositionCopyWithImpl<$Res>
-    extends _$TriasGeoPositionCopyWithImpl<$Res, _$_TriasGeoPosition>
-    implements _$$_TriasGeoPositionCopyWith<$Res> {
-  __$$_TriasGeoPositionCopyWithImpl(
-      _$_TriasGeoPosition _value, $Res Function(_$_TriasGeoPosition) _then)
+class __$$TriasGeoPositionImplCopyWithImpl<$Res>
+    extends _$TriasGeoPositionCopyWithImpl<$Res, _$TriasGeoPositionImpl>
+    implements _$$TriasGeoPositionImplCopyWith<$Res> {
+  __$$TriasGeoPositionImplCopyWithImpl(_$TriasGeoPositionImpl _value,
+      $Res Function(_$TriasGeoPositionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2290,7 +2295,7 @@ class __$$_TriasGeoPositionCopyWithImpl<$Res>
     Object? latitude = null,
     Object? longitude = null,
   }) {
-    return _then(_$_TriasGeoPosition(
+    return _then(_$TriasGeoPositionImpl(
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -2305,8 +2310,9 @@ class __$$_TriasGeoPositionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TriasGeoPosition implements _TriasGeoPosition {
-  const _$_TriasGeoPosition({required this.latitude, required this.longitude});
+class _$TriasGeoPositionImpl implements _TriasGeoPosition {
+  const _$TriasGeoPositionImpl(
+      {required this.latitude, required this.longitude});
 
   @override
   final double latitude;
@@ -2322,7 +2328,7 @@ class _$_TriasGeoPosition implements _TriasGeoPosition {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TriasGeoPosition &&
+            other is _$TriasGeoPositionImpl &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -2335,14 +2341,15 @@ class _$_TriasGeoPosition implements _TriasGeoPosition {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TriasGeoPositionCopyWith<_$_TriasGeoPosition> get copyWith =>
-      __$$_TriasGeoPositionCopyWithImpl<_$_TriasGeoPosition>(this, _$identity);
+  _$$TriasGeoPositionImplCopyWith<_$TriasGeoPositionImpl> get copyWith =>
+      __$$TriasGeoPositionImplCopyWithImpl<_$TriasGeoPositionImpl>(
+          this, _$identity);
 }
 
 abstract class _TriasGeoPosition implements TriasGeoPosition {
   const factory _TriasGeoPosition(
       {required final double latitude,
-      required final double longitude}) = _$_TriasGeoPosition;
+      required final double longitude}) = _$TriasGeoPositionImpl;
 
   @override
   double get latitude;
@@ -2350,6 +2357,6 @@ abstract class _TriasGeoPosition implements TriasGeoPosition {
   double get longitude;
   @override
   @JsonKey(ignore: true)
-  _$$_TriasGeoPositionCopyWith<_$_TriasGeoPosition> get copyWith =>
+  _$$TriasGeoPositionImplCopyWith<_$TriasGeoPositionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -203,11 +203,11 @@ class _$ContributorCopyWithImpl<$Res, $Val extends Contributor>
 }
 
 /// @nodoc
-abstract class _$$_ContributorCopyWith<$Res>
+abstract class _$$ContributorImplCopyWith<$Res>
     implements $ContributorCopyWith<$Res> {
-  factory _$$_ContributorCopyWith(
-          _$_Contributor value, $Res Function(_$_Contributor) then) =
-      __$$_ContributorCopyWithImpl<$Res>;
+  factory _$$ContributorImplCopyWith(
+          _$ContributorImpl value, $Res Function(_$ContributorImpl) then) =
+      __$$ContributorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -233,11 +233,11 @@ abstract class _$$_ContributorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ContributorCopyWithImpl<$Res>
-    extends _$ContributorCopyWithImpl<$Res, _$_Contributor>
-    implements _$$_ContributorCopyWith<$Res> {
-  __$$_ContributorCopyWithImpl(
-      _$_Contributor _value, $Res Function(_$_Contributor) _then)
+class __$$ContributorImplCopyWithImpl<$Res>
+    extends _$ContributorCopyWithImpl<$Res, _$ContributorImpl>
+    implements _$$ContributorImplCopyWith<$Res> {
+  __$$ContributorImplCopyWithImpl(
+      _$ContributorImpl _value, $Res Function(_$ContributorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -263,7 +263,7 @@ class __$$_ContributorCopyWithImpl<$Res>
     Object? siteAdmin = null,
     Object? contributions = null,
   }) {
-    return _then(_$_Contributor(
+    return _then(_$ContributorImpl(
       login: null == login
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
@@ -346,8 +346,8 @@ class __$$_ContributorCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Contributor implements _Contributor {
-  const _$_Contributor(
+class _$ContributorImpl implements _Contributor {
+  const _$ContributorImpl(
       {required this.login,
       required this.id,
       @JsonKey(name: 'node_id') required this.nodeId,
@@ -368,8 +368,8 @@ class _$_Contributor implements _Contributor {
       @JsonKey(name: 'site_admin') required this.siteAdmin,
       required this.contributions});
 
-  factory _$_Contributor.fromJson(Map<String, dynamic> json) =>
-      _$$_ContributorFromJson(json);
+  factory _$ContributorImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ContributorImplFromJson(json);
 
   @override
   final String login;
@@ -433,7 +433,7 @@ class _$_Contributor implements _Contributor {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Contributor &&
+            other is _$ContributorImpl &&
             (identical(other.login, login) || other.login == login) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.nodeId, nodeId) || other.nodeId == nodeId) &&
@@ -496,12 +496,12 @@ class _$_Contributor implements _Contributor {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ContributorCopyWith<_$_Contributor> get copyWith =>
-      __$$_ContributorCopyWithImpl<_$_Contributor>(this, _$identity);
+  _$$ContributorImplCopyWith<_$ContributorImpl> get copyWith =>
+      __$$ContributorImplCopyWithImpl<_$ContributorImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ContributorToJson(
+    return _$$ContributorImplToJson(
       this,
     );
   }
@@ -530,10 +530,10 @@ abstract class _Contributor implements Contributor {
       required final String receivedEventsUrl,
       required final String type,
       @JsonKey(name: 'site_admin') required final bool siteAdmin,
-      required final int contributions}) = _$_Contributor;
+      required final int contributions}) = _$ContributorImpl;
 
   factory _Contributor.fromJson(Map<String, dynamic> json) =
-      _$_Contributor.fromJson;
+      _$ContributorImpl.fromJson;
 
   @override
   String get login;
@@ -589,6 +589,6 @@ abstract class _Contributor implements Contributor {
   int get contributions;
   @override
   @JsonKey(ignore: true)
-  _$$_ContributorCopyWith<_$_Contributor> get copyWith =>
+  _$$ContributorImplCopyWith<_$ContributorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,8 +6,8 @@ part of 'completion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SchCompletion _$$_SchCompletionFromJson(Map<String, dynamic> json) =>
-    _$_SchCompletion(
+_$SchCompletionImpl _$$SchCompletionImplFromJson(Map<String, dynamic> json) =>
+    _$SchCompletionImpl(
       label: json['label'] as String,
       dist: (json['dist'] as num?)?.toDouble(),
       iconClass: json['iconclass'] as String?,
@@ -15,7 +15,7 @@ _$_SchCompletion _$$_SchCompletionFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
     );
 
-Map<String, dynamic> _$$_SchCompletionToJson(_$_SchCompletion instance) {
+Map<String, dynamic> _$$SchCompletionImplToJson(_$SchCompletionImpl instance) {
   final val = <String, dynamic>{
     'label': instance.label,
   };
@@ -33,14 +33,14 @@ Map<String, dynamic> _$$_SchCompletionToJson(_$_SchCompletion instance) {
   return val;
 }
 
-_$__PlaceTypeIconclass _$$__PlaceTypeIconclassFromJson(
+_$_PlaceTypeIconclassImpl _$$_PlaceTypeIconclassImplFromJson(
         Map<String, dynamic> json) =>
-    _$__PlaceTypeIconclass(
+    _$_PlaceTypeIconclassImpl(
       $enumDecode(_$LocationTypeEnumMap, json['v']),
     );
 
-Map<String, dynamic> _$$__PlaceTypeIconclassToJson(
-        _$__PlaceTypeIconclass instance) =>
+Map<String, dynamic> _$$_PlaceTypeIconclassImplToJson(
+        _$_PlaceTypeIconclassImpl instance) =>
     <String, dynamic>{
       'v': _$LocationTypeEnumMap[instance.v]!,
     };
@@ -52,14 +52,14 @@ const _$LocationTypeEnumMap = {
   LocationType.unknown: 'unknown',
 };
 
-_$__VehicleTypeIconclass _$$__VehicleTypeIconclassFromJson(
+_$_VehicleTypeIconclassImpl _$$_VehicleTypeIconclassImplFromJson(
         Map<String, dynamic> json) =>
-    _$__VehicleTypeIconclass(
+    _$_VehicleTypeIconclassImpl(
       $enumDecode(_$VehicleTypeEnumMap, json['v']),
     );
 
-Map<String, dynamic> _$$__VehicleTypeIconclassToJson(
-        _$__VehicleTypeIconclass instance) =>
+Map<String, dynamic> _$$_VehicleTypeIconclassImplToJson(
+        _$_VehicleTypeIconclassImpl instance) =>
     <String, dynamic>{
       'v': _$VehicleTypeEnumMap[instance.v]!,
     };

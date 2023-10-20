@@ -73,21 +73,22 @@ class _$SncfPlaceCopyWithImpl<$Res, $Val extends SncfPlace>
 }
 
 /// @nodoc
-abstract class _$$_SncfPlaceCopyWith<$Res> implements $SncfPlaceCopyWith<$Res> {
-  factory _$$_SncfPlaceCopyWith(
-          _$_SncfPlace value, $Res Function(_$_SncfPlace) then) =
-      __$$_SncfPlaceCopyWithImpl<$Res>;
+abstract class _$$SncfPlaceImplCopyWith<$Res>
+    implements $SncfPlaceCopyWith<$Res> {
+  factory _$$SncfPlaceImplCopyWith(
+          _$SncfPlaceImpl value, $Res Function(_$SncfPlaceImpl) then) =
+      __$$SncfPlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String? id, String? favoriteName});
 }
 
 /// @nodoc
-class __$$_SncfPlaceCopyWithImpl<$Res>
-    extends _$SncfPlaceCopyWithImpl<$Res, _$_SncfPlace>
-    implements _$$_SncfPlaceCopyWith<$Res> {
-  __$$_SncfPlaceCopyWithImpl(
-      _$_SncfPlace _value, $Res Function(_$_SncfPlace) _then)
+class __$$SncfPlaceImplCopyWithImpl<$Res>
+    extends _$SncfPlaceCopyWithImpl<$Res, _$SncfPlaceImpl>
+    implements _$$SncfPlaceImplCopyWith<$Res> {
+  __$$SncfPlaceImplCopyWithImpl(
+      _$SncfPlaceImpl _value, $Res Function(_$SncfPlaceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +98,7 @@ class __$$_SncfPlaceCopyWithImpl<$Res>
     Object? id = freezed,
     Object? favoriteName = freezed,
   }) {
-    return _then(_$_SncfPlace(
+    return _then(_$SncfPlaceImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -117,12 +118,12 @@ class __$$_SncfPlaceCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SncfPlace extends _SncfPlace {
-  const _$_SncfPlace({required this.name, this.id, this.favoriteName})
+class _$SncfPlaceImpl extends _SncfPlace {
+  const _$SncfPlaceImpl({required this.name, this.id, this.favoriteName})
       : super._();
 
-  factory _$_SncfPlace.fromJson(Map<String, dynamic> json) =>
-      _$$_SncfPlaceFromJson(json);
+  factory _$SncfPlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SncfPlaceImplFromJson(json);
 
   @override
   final String name;
@@ -140,7 +141,7 @@ class _$_SncfPlace extends _SncfPlace {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SncfPlace &&
+            other is _$SncfPlaceImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.favoriteName, favoriteName) ||
@@ -154,12 +155,12 @@ class _$_SncfPlace extends _SncfPlace {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SncfPlaceCopyWith<_$_SncfPlace> get copyWith =>
-      __$$_SncfPlaceCopyWithImpl<_$_SncfPlace>(this, _$identity);
+  _$$SncfPlaceImplCopyWith<_$SncfPlaceImpl> get copyWith =>
+      __$$SncfPlaceImplCopyWithImpl<_$SncfPlaceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SncfPlaceToJson(
+    return _$$SncfPlaceImplToJson(
       this,
     );
   }
@@ -169,11 +170,11 @@ abstract class _SncfPlace extends SncfPlace {
   const factory _SncfPlace(
       {required final String name,
       final String? id,
-      final String? favoriteName}) = _$_SncfPlace;
+      final String? favoriteName}) = _$SncfPlaceImpl;
   const _SncfPlace._() : super._();
 
   factory _SncfPlace.fromJson(Map<String, dynamic> json) =
-      _$_SncfPlace.fromJson;
+      _$SncfPlaceImpl.fromJson;
 
   @override
   String get name;
@@ -183,6 +184,6 @@ abstract class _SncfPlace extends SncfPlace {
   String? get favoriteName;
   @override
   @JsonKey(ignore: true)
-  _$$_SncfPlaceCopyWith<_$_SncfPlace> get copyWith =>
+  _$$SncfPlaceImplCopyWith<_$SncfPlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

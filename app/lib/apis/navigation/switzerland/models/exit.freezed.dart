@@ -142,9 +142,10 @@ class _$SchExitCopyWithImpl<$Res, $Val extends SchExit>
 }
 
 /// @nodoc
-abstract class _$$_ExitCopyWith<$Res> implements $SchExitCopyWith<$Res> {
-  factory _$$_ExitCopyWith(_$_Exit value, $Res Function(_$_Exit) then) =
-      __$$_ExitCopyWithImpl<$Res>;
+abstract class _$$ExitImplCopyWith<$Res> implements $SchExitCopyWith<$Res> {
+  factory _$$ExitImplCopyWith(
+          _$ExitImpl value, $Res Function(_$ExitImpl) then) =
+      __$$ExitImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -163,9 +164,10 @@ abstract class _$$_ExitCopyWith<$Res> implements $SchExitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ExitCopyWithImpl<$Res> extends _$SchExitCopyWithImpl<$Res, _$_Exit>
-    implements _$$_ExitCopyWith<$Res> {
-  __$$_ExitCopyWithImpl(_$_Exit _value, $Res Function(_$_Exit) _then)
+class __$$ExitImplCopyWithImpl<$Res>
+    extends _$SchExitCopyWithImpl<$Res, _$ExitImpl>
+    implements _$$ExitImplCopyWith<$Res> {
+  __$$ExitImplCopyWithImpl(_$ExitImpl _value, $Res Function(_$ExitImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -184,7 +186,7 @@ class __$$_ExitCopyWithImpl<$Res> extends _$SchExitCopyWithImpl<$Res, _$_Exit>
     Object? x = freezed,
     Object? y = freezed,
   }) {
-    return _then(_$_Exit(
+    return _then(_$ExitImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -240,8 +242,8 @@ class __$$_ExitCopyWithImpl<$Res> extends _$SchExitCopyWithImpl<$Res, _$_Exit>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false, checked: true)
-class _$_Exit extends _Exit {
-  _$_Exit(
+class _$ExitImpl extends _Exit {
+  _$ExitImpl(
       {required this.name,
       @DelayConverter() @JsonKey(name: 'arr_delay') this.arrDelay,
       this.arrival,
@@ -256,7 +258,8 @@ class _$_Exit extends _Exit {
       @IntConverter() this.y})
       : super._();
 
-  factory _$_Exit.fromJson(Map<String, dynamic> json) => _$$_ExitFromJson(json);
+  factory _$ExitImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExitImplFromJson(json);
 
   @override
   final String name;
@@ -298,7 +301,7 @@ class _$_Exit extends _Exit {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Exit &&
+            other is _$ExitImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.arrDelay, arrDelay) ||
                 other.arrDelay == arrDelay) &&
@@ -324,12 +327,12 @@ class _$_Exit extends _Exit {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ExitCopyWith<_$_Exit> get copyWith =>
-      __$$_ExitCopyWithImpl<_$_Exit>(this, _$identity);
+  _$$ExitImplCopyWith<_$ExitImpl> get copyWith =>
+      __$$ExitImplCopyWithImpl<_$ExitImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ExitToJson(
+    return _$$ExitImplToJson(
       this,
     );
   }
@@ -348,10 +351,10 @@ abstract class _Exit extends SchExit {
       final int waittime,
       final bool isaddress,
       @IntConverter() final int? x,
-      @IntConverter() final int? y}) = _$_Exit;
+      @IntConverter() final int? y}) = _$ExitImpl;
   _Exit._() : super._();
 
-  factory _Exit.fromJson(Map<String, dynamic> json) = _$_Exit.fromJson;
+  factory _Exit.fromJson(Map<String, dynamic> json) = _$ExitImpl.fromJson;
 
   @override
   String get name;
@@ -383,5 +386,6 @@ abstract class _Exit extends SchExit {
   int? get y;
   @override
   @JsonKey(ignore: true)
-  _$$_ExitCopyWith<_$_Exit> get copyWith => throw _privateConstructorUsedError;
+  _$$ExitImplCopyWith<_$ExitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

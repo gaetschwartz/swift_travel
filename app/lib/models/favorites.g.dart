@@ -6,8 +6,8 @@ part of 'favorites.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$LocalRouteV1 _$$LocalRouteV1FromJson(Map<String, dynamic> json) =>
-    _$LocalRouteV1(
+_$LocalRouteV1Impl _$$LocalRouteV1ImplFromJson(Map<String, dynamic> json) =>
+    _$LocalRouteV1Impl(
       json['from'] as String,
       json['to'] as String,
       displayName: json['displayName'] as String?,
@@ -17,7 +17,7 @@ _$LocalRouteV1 _$$LocalRouteV1FromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
+Map<String, dynamic> _$$LocalRouteV1ImplToJson(_$LocalRouteV1Impl instance) {
   final val = <String, dynamic>{
     'from': instance.from,
     'to': instance.to,
@@ -35,8 +35,8 @@ Map<String, dynamic> _$$LocalRouteV1ToJson(_$LocalRouteV1 instance) {
   return val;
 }
 
-_$LocalRouteV2 _$$LocalRouteV2FromJson(Map<String, dynamic> json) =>
-    _$LocalRouteV2(
+_$LocalRouteV2Impl _$$LocalRouteV2ImplFromJson(Map<String, dynamic> json) =>
+    _$LocalRouteV2Impl(
       SchStop.fromJson(json['from'] as Map<String, dynamic>),
       SchStop.fromJson(json['to'] as Map<String, dynamic>),
       displayName: json['displayName'] as String?,
@@ -46,7 +46,7 @@ _$LocalRouteV2 _$$LocalRouteV2FromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
+Map<String, dynamic> _$$LocalRouteV2ImplToJson(_$LocalRouteV2Impl instance) {
   final val = <String, dynamic>{
     'from': instance.from.toJson(),
     'to': instance.to.toJson(),
@@ -64,15 +64,15 @@ Map<String, dynamic> _$$LocalRouteV2ToJson(_$LocalRouteV2 instance) {
   return val;
 }
 
-_$_FavoriteStop _$$_FavoriteStopFromJson(Map<String, dynamic> json) =>
-    _$_FavoriteStop(
+_$FavoriteStopImpl _$$FavoriteStopImplFromJson(Map<String, dynamic> json) =>
+    _$FavoriteStopImpl(
       stop: json['stop'] as String,
       name: json['name'] as String,
       api: json['api'] as String?,
       id: json['id'] as String?,
     );
 
-Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
+Map<String, dynamic> _$$FavoriteStopImplToJson(_$FavoriteStopImpl instance) {
   final val = <String, dynamic>{
     'stop': instance.stop,
     'name': instance.name,
@@ -89,15 +89,17 @@ Map<String, dynamic> _$$_FavoriteStopToJson(_$_FavoriteStop instance) {
   return val;
 }
 
-_$FavoriteUnionStop _$$FavoriteUnionStopFromJson(Map<String, dynamic> json) =>
-    _$FavoriteUnionStop(
+_$FavoriteUnionStopImpl _$$FavoriteUnionStopImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FavoriteUnionStopImpl(
       FavoriteStop.fromJson(json['stop'] as Map<String, dynamic>),
       id: json['id'] as int,
       quickActionsIndex: json['quickActionsIndex'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$FavoriteUnionStopToJson(_$FavoriteUnionStop instance) =>
+Map<String, dynamic> _$$FavoriteUnionStopImplToJson(
+        _$FavoriteUnionStopImpl instance) =>
     <String, dynamic>{
       'stop': instance.stop.toJson(),
       'id': instance.id,
@@ -105,16 +107,17 @@ Map<String, dynamic> _$$FavoriteUnionStopToJson(_$FavoriteUnionStop instance) =>
       'runtimeType': instance.$type,
     };
 
-_$FavoriteUnionRoute _$$FavoriteUnionRouteFromJson(Map<String, dynamic> json) =>
-    _$FavoriteUnionRoute(
+_$FavoriteUnionRouteImpl _$$FavoriteUnionRouteImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FavoriteUnionRouteImpl(
       LocalRoute.fromJson(json['route'] as Map<String, dynamic>),
       id: json['id'] as int,
       quickActionsIndex: json['quickActionsIndex'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$FavoriteUnionRouteToJson(
-        _$FavoriteUnionRoute instance) =>
+Map<String, dynamic> _$$FavoriteUnionRouteImplToJson(
+        _$FavoriteUnionRouteImpl instance) =>
     <String, dynamic>{
       'route': instance.route.toJson(),
       'id': instance.id,
@@ -122,45 +125,45 @@ Map<String, dynamic> _$$FavoriteUnionRouteToJson(
       'runtimeType': instance.$type,
     };
 
-_$FavoriteUnionStationTabsCurrentLocation
-    _$$FavoriteUnionStationTabsCurrentLocationFromJson(
+_$FavoriteUnionStationTabsCurrentLocationImpl
+    _$$FavoriteUnionStationTabsCurrentLocationImplFromJson(
             Map<String, dynamic> json) =>
-        _$FavoriteUnionStationTabsCurrentLocation(
+        _$FavoriteUnionStationTabsCurrentLocationImpl(
           id: json['id'] as int,
           quickActionsIndex: json['quickActionsIndex'] as int?,
           $type: json['runtimeType'] as String?,
         );
 
-Map<String, dynamic> _$$FavoriteUnionStationTabsCurrentLocationToJson(
-        _$FavoriteUnionStationTabsCurrentLocation instance) =>
+Map<String, dynamic> _$$FavoriteUnionStationTabsCurrentLocationImplToJson(
+        _$FavoriteUnionStationTabsCurrentLocationImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'quickActionsIndex': instance.quickActionsIndex,
       'runtimeType': instance.$type,
     };
 
-_$QuickActionsFavoriteItem _$$QuickActionsFavoriteItemFromJson(
+_$QuickActionsFavoriteItemImpl _$$QuickActionsFavoriteItemImplFromJson(
         Map<String, dynamic> json) =>
-    _$QuickActionsFavoriteItem(
+    _$QuickActionsFavoriteItemImpl(
       QuickActionsItem.fromJson(json['item'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$QuickActionsFavoriteItemToJson(
-        _$QuickActionsFavoriteItem instance) =>
+Map<String, dynamic> _$$QuickActionsFavoriteItemImplToJson(
+        _$QuickActionsFavoriteItemImpl instance) =>
     <String, dynamic>{
       'item': instance.item.toJson(),
       'runtimeType': instance.$type,
     };
 
-_$QuickActionsFavoriteDivider _$$QuickActionsFavoriteDividerFromJson(
+_$QuickActionsFavoriteDividerImpl _$$QuickActionsFavoriteDividerImplFromJson(
         Map<String, dynamic> json) =>
-    _$QuickActionsFavoriteDivider(
+    _$QuickActionsFavoriteDividerImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$QuickActionsFavoriteDividerToJson(
-        _$QuickActionsFavoriteDivider instance) =>
+Map<String, dynamic> _$$QuickActionsFavoriteDividerImplToJson(
+        _$QuickActionsFavoriteDividerImpl instance) =>
     <String, dynamic>{
       'runtimeType': instance.$type,
     };

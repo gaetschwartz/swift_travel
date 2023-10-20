@@ -96,17 +96,20 @@ class _$UnionCopyWithImpl<$Res, $Val extends Union>
 }
 
 /// @nodoc
-abstract class _$$PersonCopyWith<$Res> {
-  factory _$$PersonCopyWith(_$Person value, $Res Function(_$Person) then) =
-      __$$PersonCopyWithImpl<$Res>;
+abstract class _$$PersonImplCopyWith<$Res> {
+  factory _$$PersonImplCopyWith(
+          _$PersonImpl value, $Res Function(_$PersonImpl) then) =
+      __$$PersonImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Person>
-    implements _$$PersonCopyWith<$Res> {
-  __$$PersonCopyWithImpl(_$Person _value, $Res Function(_$Person) _then)
+class __$$PersonImplCopyWithImpl<$Res>
+    extends _$UnionCopyWithImpl<$Res, _$PersonImpl>
+    implements _$$PersonImplCopyWith<$Res> {
+  __$$PersonImplCopyWithImpl(
+      _$PersonImpl _value, $Res Function(_$PersonImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -114,7 +117,7 @@ class __$$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Person>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$Person(
+    return _then(_$PersonImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -125,11 +128,12 @@ class __$$PersonCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Person>
 
 /// @nodoc
 @JsonSerializable()
-class _$Person implements Person {
-  const _$Person(this.name, {final String? $type}) : $type = $type ?? 'default';
+class _$PersonImpl implements Person {
+  const _$PersonImpl(this.name, {final String? $type})
+      : $type = $type ?? 'default';
 
-  factory _$Person.fromJson(Map<String, dynamic> json) =>
-      _$$PersonFromJson(json);
+  factory _$PersonImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PersonImplFromJson(json);
 
   @override
   final String name;
@@ -146,7 +150,7 @@ class _$Person implements Person {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Person &&
+            other is _$PersonImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -157,8 +161,8 @@ class _$Person implements Person {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PersonCopyWith<_$Person> get copyWith =>
-      __$$PersonCopyWithImpl<_$Person>(this, _$identity);
+  _$$PersonImplCopyWith<_$PersonImpl> get copyWith =>
+      __$$PersonImplCopyWithImpl<_$PersonImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -230,35 +234,38 @@ class _$Person implements Person {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PersonToJson(
+    return _$$PersonImplToJson(
       this,
     );
   }
 }
 
 abstract class Person implements Union {
-  const factory Person(final String name) = _$Person;
+  const factory Person(final String name) = _$PersonImpl;
 
-  factory Person.fromJson(Map<String, dynamic> json) = _$Person.fromJson;
+  factory Person.fromJson(Map<String, dynamic> json) = _$PersonImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$PersonCopyWith<_$Person> get copyWith =>
+  _$$PersonImplCopyWith<_$PersonImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AnimalCopyWith<$Res> {
-  factory _$$AnimalCopyWith(_$Animal value, $Res Function(_$Animal) then) =
-      __$$AnimalCopyWithImpl<$Res>;
+abstract class _$$AnimalImplCopyWith<$Res> {
+  factory _$$AnimalImplCopyWith(
+          _$AnimalImpl value, $Res Function(_$AnimalImpl) then) =
+      __$$AnimalImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name, int legs});
 }
 
 /// @nodoc
-class __$$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Animal>
-    implements _$$AnimalCopyWith<$Res> {
-  __$$AnimalCopyWithImpl(_$Animal _value, $Res Function(_$Animal) _then)
+class __$$AnimalImplCopyWithImpl<$Res>
+    extends _$UnionCopyWithImpl<$Res, _$AnimalImpl>
+    implements _$$AnimalImplCopyWith<$Res> {
+  __$$AnimalImplCopyWithImpl(
+      _$AnimalImpl _value, $Res Function(_$AnimalImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -267,7 +274,7 @@ class __$$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Animal>
     Object? name = null,
     Object? legs = null,
   }) {
-    return _then(_$Animal(
+    return _then(_$AnimalImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -282,12 +289,12 @@ class __$$AnimalCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Animal>
 
 /// @nodoc
 @JsonSerializable()
-class _$Animal implements Animal {
-  const _$Animal(this.name, this.legs, {final String? $type})
+class _$AnimalImpl implements Animal {
+  const _$AnimalImpl(this.name, this.legs, {final String? $type})
       : $type = $type ?? 'animal';
 
-  factory _$Animal.fromJson(Map<String, dynamic> json) =>
-      _$$AnimalFromJson(json);
+  factory _$AnimalImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnimalImplFromJson(json);
 
   @override
   final String name;
@@ -306,7 +313,7 @@ class _$Animal implements Animal {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Animal &&
+            other is _$AnimalImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.legs, legs) || other.legs == legs));
   }
@@ -318,8 +325,8 @@ class _$Animal implements Animal {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AnimalCopyWith<_$Animal> get copyWith =>
-      __$$AnimalCopyWithImpl<_$Animal>(this, _$identity);
+  _$$AnimalImplCopyWith<_$AnimalImpl> get copyWith =>
+      __$$AnimalImplCopyWithImpl<_$AnimalImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -391,36 +398,39 @@ class _$Animal implements Animal {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnimalToJson(
+    return _$$AnimalImplToJson(
       this,
     );
   }
 }
 
 abstract class Animal implements Union {
-  const factory Animal(final String name, final int legs) = _$Animal;
+  const factory Animal(final String name, final int legs) = _$AnimalImpl;
 
-  factory Animal.fromJson(Map<String, dynamic> json) = _$Animal.fromJson;
+  factory Animal.fromJson(Map<String, dynamic> json) = _$AnimalImpl.fromJson;
 
   String get name;
   int get legs;
   @JsonKey(ignore: true)
-  _$$AnimalCopyWith<_$Animal> get copyWith =>
+  _$$AnimalImplCopyWith<_$AnimalImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$NumberCopyWith<$Res> {
-  factory _$$NumberCopyWith(_$Number value, $Res Function(_$Number) then) =
-      __$$NumberCopyWithImpl<$Res>;
+abstract class _$$NumberImplCopyWith<$Res> {
+  factory _$$NumberImplCopyWith(
+          _$NumberImpl value, $Res Function(_$NumberImpl) then) =
+      __$$NumberImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int number});
 }
 
 /// @nodoc
-class __$$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Number>
-    implements _$$NumberCopyWith<$Res> {
-  __$$NumberCopyWithImpl(_$Number _value, $Res Function(_$Number) _then)
+class __$$NumberImplCopyWithImpl<$Res>
+    extends _$UnionCopyWithImpl<$Res, _$NumberImpl>
+    implements _$$NumberImplCopyWith<$Res> {
+  __$$NumberImplCopyWithImpl(
+      _$NumberImpl _value, $Res Function(_$NumberImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -428,7 +438,7 @@ class __$$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Number>
   $Res call({
     Object? number = null,
   }) {
-    return _then(_$Number(
+    return _then(_$NumberImpl(
       null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
@@ -439,12 +449,12 @@ class __$$NumberCopyWithImpl<$Res> extends _$UnionCopyWithImpl<$Res, _$Number>
 
 /// @nodoc
 @JsonSerializable()
-class _$Number implements Number {
-  const _$Number(this.number, {final String? $type})
+class _$NumberImpl implements Number {
+  const _$NumberImpl(this.number, {final String? $type})
       : $type = $type ?? 'number';
 
-  factory _$Number.fromJson(Map<String, dynamic> json) =>
-      _$$NumberFromJson(json);
+  factory _$NumberImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NumberImplFromJson(json);
 
   @override
   final int number;
@@ -461,7 +471,7 @@ class _$Number implements Number {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Number &&
+            other is _$NumberImpl &&
             (identical(other.number, number) || other.number == number));
   }
 
@@ -472,8 +482,8 @@ class _$Number implements Number {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$NumberCopyWith<_$Number> get copyWith =>
-      __$$NumberCopyWithImpl<_$Number>(this, _$identity);
+  _$$NumberImplCopyWith<_$NumberImpl> get copyWith =>
+      __$$NumberImplCopyWithImpl<_$NumberImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -545,19 +555,19 @@ class _$Number implements Number {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NumberToJson(
+    return _$$NumberImplToJson(
       this,
     );
   }
 }
 
 abstract class Number implements Union {
-  const factory Number(final int number) = _$Number;
+  const factory Number(final int number) = _$NumberImpl;
 
-  factory Number.fromJson(Map<String, dynamic> json) = _$Number.fromJson;
+  factory Number.fromJson(Map<String, dynamic> json) = _$NumberImpl.fromJson;
 
   int get number;
   @JsonKey(ignore: true)
-  _$$NumberCopyWith<_$Number> get copyWith =>
+  _$$NumberImplCopyWith<_$NumberImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

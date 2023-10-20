@@ -6,11 +6,12 @@ part of 'stop.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SchStop _$$_SchStopFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_SchStop',
+_$SchStopImpl _$$SchStopImplFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      r'_$SchStopImpl',
       json,
       ($checkedConvert) {
-        final val = _$_SchStop(
+        final val = _$SchStopImpl(
           sbbName: $checkedConvert('name', (v) => v as String?),
           id: $checkedConvert('id', (v) => v as String?),
           departure:
@@ -26,7 +27,7 @@ _$_SchStop _$$_SchStopFromJson(Map<String, dynamic> json) => $checkedCreate(
       fieldKeyMap: const {'sbbName': 'name'},
     );
 
-Map<String, dynamic> _$$_SchStopToJson(_$_SchStop instance) {
+Map<String, dynamic> _$$SchStopImplToJson(_$SchStopImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

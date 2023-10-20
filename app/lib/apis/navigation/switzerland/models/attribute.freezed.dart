@@ -62,21 +62,22 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
 }
 
 /// @nodoc
-abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
-  factory _$$_AttributeCopyWith(
-          _$_Attribute value, $Res Function(_$_Attribute) then) =
-      __$$_AttributeCopyWithImpl<$Res>;
+abstract class _$$AttributeImplCopyWith<$Res>
+    implements $AttributeCopyWith<$Res> {
+  factory _$$AttributeImplCopyWith(
+          _$AttributeImpl value, $Res Function(_$AttributeImpl) then) =
+      __$$AttributeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String code, String? message});
 }
 
 /// @nodoc
-class __$$_AttributeCopyWithImpl<$Res>
-    extends _$AttributeCopyWithImpl<$Res, _$_Attribute>
-    implements _$$_AttributeCopyWith<$Res> {
-  __$$_AttributeCopyWithImpl(
-      _$_Attribute _value, $Res Function(_$_Attribute) _then)
+class __$$AttributeImplCopyWithImpl<$Res>
+    extends _$AttributeCopyWithImpl<$Res, _$AttributeImpl>
+    implements _$$AttributeImplCopyWith<$Res> {
+  __$$AttributeImplCopyWithImpl(
+      _$AttributeImpl _value, $Res Function(_$AttributeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -85,7 +86,7 @@ class __$$_AttributeCopyWithImpl<$Res>
     Object? code = null,
     Object? message = freezed,
   }) {
-    return _then(_$_Attribute(
+    return _then(_$AttributeImpl(
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -100,8 +101,8 @@ class __$$_AttributeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Attribute extends _Attribute {
-  _$_Attribute({required this.code, this.message}) : super._();
+class _$AttributeImpl extends _Attribute {
+  _$AttributeImpl({required this.code, this.message}) : super._();
 
   @override
   final String code;
@@ -117,7 +118,7 @@ class _$_Attribute extends _Attribute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Attribute &&
+            other is _$AttributeImpl &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.message, message) || other.message == message));
   }
@@ -128,13 +129,13 @@ class _$_Attribute extends _Attribute {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
-      __$$_AttributeCopyWithImpl<_$_Attribute>(this, _$identity);
+  _$$AttributeImplCopyWith<_$AttributeImpl> get copyWith =>
+      __$$AttributeImplCopyWithImpl<_$AttributeImpl>(this, _$identity);
 }
 
 abstract class _Attribute extends Attribute {
   factory _Attribute({required final String code, final String? message}) =
-      _$_Attribute;
+      _$AttributeImpl;
   _Attribute._() : super._();
 
   @override
@@ -143,7 +144,7 @@ abstract class _Attribute extends Attribute {
   String? get message;
   @override
   @JsonKey(ignore: true)
-  _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
+  _$$AttributeImplCopyWith<_$AttributeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -196,22 +197,22 @@ class _$AttributeDataCopyWithImpl<$Res, $Val extends AttributeData>
 }
 
 /// @nodoc
-abstract class _$$_AttributeDataCopyWith<$Res>
+abstract class _$$AttributeDataImplCopyWith<$Res>
     implements $AttributeDataCopyWith<$Res> {
-  factory _$$_AttributeDataCopyWith(
-          _$_AttributeData value, $Res Function(_$_AttributeData) then) =
-      __$$_AttributeDataCopyWithImpl<$Res>;
+  factory _$$AttributeDataImplCopyWith(
+          _$AttributeDataImpl value, $Res Function(_$AttributeDataImpl) then) =
+      __$$AttributeDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Widget? icon, bool ignore});
 }
 
 /// @nodoc
-class __$$_AttributeDataCopyWithImpl<$Res>
-    extends _$AttributeDataCopyWithImpl<$Res, _$_AttributeData>
-    implements _$$_AttributeDataCopyWith<$Res> {
-  __$$_AttributeDataCopyWithImpl(
-      _$_AttributeData _value, $Res Function(_$_AttributeData) _then)
+class __$$AttributeDataImplCopyWithImpl<$Res>
+    extends _$AttributeDataCopyWithImpl<$Res, _$AttributeDataImpl>
+    implements _$$AttributeDataImplCopyWith<$Res> {
+  __$$AttributeDataImplCopyWithImpl(
+      _$AttributeDataImpl _value, $Res Function(_$AttributeDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -220,7 +221,7 @@ class __$$_AttributeDataCopyWithImpl<$Res>
     Object? icon = freezed,
     Object? ignore = null,
   }) {
-    return _then(_$_AttributeData(
+    return _then(_$AttributeDataImpl(
       icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
@@ -235,8 +236,8 @@ class __$$_AttributeDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AttributeData implements _AttributeData {
-  const _$_AttributeData({this.icon, this.ignore = false});
+class _$AttributeDataImpl implements _AttributeData {
+  const _$AttributeDataImpl({this.icon, this.ignore = false});
 
   @override
   final Widget? icon;
@@ -253,7 +254,7 @@ class _$_AttributeData implements _AttributeData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AttributeData &&
+            other is _$AttributeDataImpl &&
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.ignore, ignore) || other.ignore == ignore));
   }
@@ -264,13 +265,13 @@ class _$_AttributeData implements _AttributeData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AttributeDataCopyWith<_$_AttributeData> get copyWith =>
-      __$$_AttributeDataCopyWithImpl<_$_AttributeData>(this, _$identity);
+  _$$AttributeDataImplCopyWith<_$AttributeDataImpl> get copyWith =>
+      __$$AttributeDataImplCopyWithImpl<_$AttributeDataImpl>(this, _$identity);
 }
 
 abstract class _AttributeData implements AttributeData {
   const factory _AttributeData({final Widget? icon, final bool ignore}) =
-      _$_AttributeData;
+      _$AttributeDataImpl;
 
   @override
   Widget? get icon;
@@ -278,6 +279,6 @@ abstract class _AttributeData implements AttributeData {
   bool get ignore;
   @override
   @JsonKey(ignore: true)
-  _$$_AttributeDataCopyWith<_$_AttributeData> get copyWith =>
+  _$$AttributeDataImplCopyWith<_$AttributeDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

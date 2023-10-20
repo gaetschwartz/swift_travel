@@ -106,11 +106,11 @@ class _$DisruptionCopyWithImpl<$Res, $Val extends Disruption>
 }
 
 /// @nodoc
-abstract class _$$_DisruptionCopyWith<$Res>
+abstract class _$$DisruptionImplCopyWith<$Res>
     implements $DisruptionCopyWith<$Res> {
-  factory _$$_DisruptionCopyWith(
-          _$_Disruption value, $Res Function(_$_Disruption) then) =
-      __$$_DisruptionCopyWithImpl<$Res>;
+  factory _$$DisruptionImplCopyWith(
+          _$DisruptionImpl value, $Res Function(_$DisruptionImpl) then) =
+      __$$DisruptionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -124,11 +124,11 @@ abstract class _$$_DisruptionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DisruptionCopyWithImpl<$Res>
-    extends _$DisruptionCopyWithImpl<$Res, _$_Disruption>
-    implements _$$_DisruptionCopyWith<$Res> {
-  __$$_DisruptionCopyWithImpl(
-      _$_Disruption _value, $Res Function(_$_Disruption) _then)
+class __$$DisruptionImplCopyWithImpl<$Res>
+    extends _$DisruptionCopyWithImpl<$Res, _$DisruptionImpl>
+    implements _$$DisruptionImplCopyWith<$Res> {
+  __$$DisruptionImplCopyWithImpl(
+      _$DisruptionImpl _value, $Res Function(_$DisruptionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -142,7 +142,7 @@ class __$$_DisruptionCopyWithImpl<$Res>
     Object? exact = freezed,
     Object? priority = freezed,
   }) {
-    return _then(_$_Disruption(
+    return _then(_$DisruptionImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -177,8 +177,8 @@ class __$$_DisruptionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Disruption implements _Disruption {
-  const _$_Disruption(
+class _$DisruptionImpl implements _Disruption {
+  const _$DisruptionImpl(
       {this.id,
       this.header,
       this.lead,
@@ -187,8 +187,8 @@ class _$_Disruption implements _Disruption {
       this.exact,
       this.priority});
 
-  factory _$_Disruption.fromJson(Map<String, dynamic> json) =>
-      _$$_DisruptionFromJson(json);
+  factory _$DisruptionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DisruptionImplFromJson(json);
 
   @override
   final String? id;
@@ -215,7 +215,7 @@ class _$_Disruption implements _Disruption {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Disruption &&
+            other is _$DisruptionImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.header, header) || other.header == header) &&
             (identical(other.lead, lead) || other.lead == lead) &&
@@ -235,12 +235,12 @@ class _$_Disruption implements _Disruption {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DisruptionCopyWith<_$_Disruption> get copyWith =>
-      __$$_DisruptionCopyWithImpl<_$_Disruption>(this, _$identity);
+  _$$DisruptionImplCopyWith<_$DisruptionImpl> get copyWith =>
+      __$$DisruptionImplCopyWithImpl<_$DisruptionImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DisruptionToJson(
+    return _$$DisruptionImplToJson(
       this,
     );
   }
@@ -254,10 +254,10 @@ abstract class _Disruption implements Disruption {
       final String? text,
       @JsonKey(name: 'timerange') final String? timeRange,
       final bool? exact,
-      final int? priority}) = _$_Disruption;
+      final int? priority}) = _$DisruptionImpl;
 
   factory _Disruption.fromJson(Map<String, dynamic> json) =
-      _$_Disruption.fromJson;
+      _$DisruptionImpl.fromJson;
 
   @override
   String? get id;
@@ -276,6 +276,6 @@ abstract class _Disruption implements Disruption {
   int? get priority;
   @override
   @JsonKey(ignore: true)
-  _$$_DisruptionCopyWith<_$_Disruption> get copyWith =>
+  _$$DisruptionImplCopyWith<_$DisruptionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
