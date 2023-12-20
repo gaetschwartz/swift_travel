@@ -1,4 +1,6 @@
 PODS:
+  - blurhash (0.0.1):
+    - Flutter
   - contacts_service (0.2.2):
     - Flutter
   - Flutter (1.0.0)
@@ -31,6 +33,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - blurhash (from `.symlinks/plugins/blurhash/ios`)
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - Flutter (from `Flutter`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
@@ -47,6 +50,8 @@ DEPENDENCIES:
   - vibration (from `.symlinks/plugins/vibration/ios`)
 
 EXTERNAL SOURCES:
+  blurhash:
+    :path: ".symlinks/plugins/blurhash/ios"
   contacts_service:
     :path: ".symlinks/plugins/contacts_service/ios"
   Flutter:
@@ -77,6 +82,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/vibration/ios"
 
 SPEC CHECKSUMS:
+  blurhash: 7f29ee116e0c2674e0a765b5df1f9767239bc279
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
@@ -89,9 +95,9 @@ SPEC CHECKSUMS:
   quick_actions_ios: 9e80dcfadfbc5d47d9cf8f47bcf428b11cf383d4
   share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
-  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+  url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
   vibration: 08bf1a7e0b797d662a5027a161404fdcbe3ba168
 
 PODFILE CHECKSUM: c2f5eab10adc40802bef95ae8af627252e1ac283
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.14.3

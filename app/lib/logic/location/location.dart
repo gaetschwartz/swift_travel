@@ -56,17 +56,15 @@ class GeoLocationEngine {
 
     if (lastKnown != null) {
       final timestamp = lastKnown.timestamp;
-      if (timestamp != null) {
-        final now = DateTime.now();
-        final seconds = now.difference(timestamp).inSeconds;
-        final condition = seconds < 60;
-        log.log(
-          "Obtained last known position which was ${seconds}s ago which is ${condition ? 'valid' : 'too old'}.",
-        );
+      final now = DateTime.now();
+      final seconds = now.difference(timestamp).inSeconds;
+      final condition = seconds < 60;
+      log.log(
+        "Obtained last known position which was ${seconds}s ago which is ${condition ? 'valid' : 'too old'}.",
+      );
 
-        if (condition) {
-          return GeoLocation.fromPosition(lastKnown);
-        }
+      if (condition) {
+        return GeoLocation.fromPosition(lastKnown);
       }
     }
 
