@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 APP_DIR=$(dirname "$SCRIPT_DIR")
 # first arg is the version
